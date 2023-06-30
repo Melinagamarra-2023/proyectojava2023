@@ -1,0 +1,140 @@
+package org.example.view;
+
+import org.example.controller.ClienteController;
+import org.example.model.Cliente;
+import org.example.repository.ClienteRepository;
+import org.example.service.ClienteService;
+
+import java.util.Scanner;
+
+public class MenuCliente {
+    ClienteRepository clienteRepository = new ClienteRepository();
+
+    ClienteService clienteService = new ClienteService(clienteRepository);
+
+    ClienteController clienteController = new ClienteController(clienteService, clienteRepository);
+
+    Scanner input = new Scanner(System.in);
+    int option = 99;
+
+    public int seleccionarOpcion() {
+        System.out.println("""
+                
+                Seleccione la opción:
+                1. Crear cuenta de cliente.
+                2. Modificar cuenta de cliente.
+                3. Eliminar cuenta de cliente.
+                4. Buscar por CUIT a un cliente.
+                5. Obtener lista de todos los clientes.
+                0. Salir.
+                """);
+        option = input.nextInt();
+        return option;
+    }
+
+    public void crearNuevoCliente() {
+        System.out.println("\nProporcione los datos para la nueva cuenta: ");
+        System.out.print("Nombre: ");
+        String nombre = input.next();
+        System.out.print("Apellido: ");
+        String apellido = input.next();
+        System.out.print("Cuit: ");
+        String cuit = input.next();
+        System.out.print("Dirección: ");
+        String direccion = input.next();
+        input.nextLine();
+        System.out.print("Correo: ");
+        String correo = input.next();
+        System.out.print("Teléfono: ");
+        String telefono = input.next();
+        Cliente nuevoCliente = new Cliente(nombre, apellido, cuit, direccion, correo, telefono, true);
+
+        Cliente clienteExistente = clienteController.buscarPorID(cuit);
+        if (clienteExistente != null) {
+            System.out.println("Ya existe un cliente con el mismo CUIT.");
+
+        } else {
+            clienteController.crear(nuevoCliente);
+            System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
+        }
+
+    }
+
+    public void modificarCliente() {
+        System.out.println("\nIngrese el CUIT del cliente a modificar:");
+        String cuitModificar = input.next();
+        Cliente clienteModificar = clienteController.buscarPorID(cuitModificar);
+        if (clienteModificar != null) {
+            System.out.println("Ingrese los nuevos datos del cliente:");
+            System.out.print("Nombre: ");
+            String nombreModificar = input.next();
+            System.out.print("Apellido: ");
+            String apellidoModificar = input.next();
+            System.out.print("Dirección: ");
+            String direccionModificar = input.next();
+            System.out.print("Correo: ");
+            String correoModificar = input.next();
+            System.out.print("Teléfono: ");
+            String telefonoModificar = input.next();
+            clienteModificar.setNombre(nombreModificar);
+            clienteModificar.setApellido(apellidoModificar);
+            clienteModificar.setDireccion(direccionModificar);
+            clienteModificar.setCorreo(correoModificar);
+            clienteModificar.setTelefono(telefonoModificar);
+            clienteController.modificar(clienteModificar);
+            System.out.println("Cuenta: " + clienteModificar.getCuit() + " Modificada con éxito.");
+        } else {
+            System.out.println("No se encontró ningún cliente con el CUIT proporcionado.");
+        }
+    }
+
+    public void eliminarCliente() {
+        System.out.println("\nIngrese el CUIT del cliente a eliminar:");
+        String cuitEliminar = input.next();
+        Cliente clienteEliminar = clienteController.buscarPorID(cuitEliminar);
+        if (clienteEliminar != null) {
+            clienteController.eliminar(cuitEliminar);
+            System.out.println("La cuenta del cliente " + clienteEliminar.getApellido() + " ha sido eliminada con éxito.");
+        } else {
+            System.out.println("No se encontró ningún cliente con el CUIT proporcionado.");
+        }
+    }
+
+    public void buscarClientePorCuit() {
+        System.out.println("\nIngrese el CUIT de la cuenta a buscar:");
+        String cuitBuscado = input.next();
+        Cliente clienteBuscado = clienteController.buscarPorID(cuitBuscado);
+        if (clienteBuscado != null) {
+            System.out.print("El cuit proporcionado corresponde al Cliente: " +
+                    clienteBuscado.getApellido() + " " + clienteBuscado.getNombre() +
+                    ", CUIT: " + clienteBuscado.getCuit() +
+                    ", Correo: " + clienteBuscado.getCorreo() +
+                    ", Dirección: " + clienteBuscado.getDireccion() +
+                    ", Teléfono: " + clienteBuscado.getTelefono() +
+                    ", Estado: ");
+            if (clienteBuscado.getHabilitado()) {
+                System.out.print("Habilitado\n");
+            } else {
+                System.out.print("Inhabilitado\n");
+            }
+        } else {
+            System.out.println("El cuit proporcionado no corresponde a ningún cliente.");
+        }
+    }
+
+    public void buscarTodosLosClientes() {
+        System.out.println("\n");
+        for (Cliente cl : clienteController.buscarTodos()) {
+            System.out.println("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
+                    ", CUIT: " + cl.getCuit() +
+                    ", Correo: " + cl.getCorreo() +
+                    ", Dirección: " + cl.getDireccion() +
+                    ", Teléfono: " + cl.getTelefono() + ";");
+        }
+        System.out.println("\n");
+    }
+
+    public int atras(){
+        return option;
+    }
+}
