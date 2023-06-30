@@ -12,7 +12,7 @@ public class MenuCliente {
 
     ClienteService clienteService = new ClienteService(clienteRepository);
 
-    ClienteController clienteController = new ClienteController(clienteService, clienteRepository);
+    ClienteController clienteController = new ClienteController(clienteService);
 
     Scanner input = new Scanner(System.in);
     int option = 99;
@@ -34,12 +34,20 @@ public class MenuCliente {
 
     public void crearNuevoCliente() {
         System.out.println("\nProporcione los datos para la nueva cuenta: ");
+        System.out.print("Cuit: ");
+        String cuit = input.next();
+        Cliente clienteExistente = clienteController.findOne(cuit);
+        while (clienteExistente != null) {
+            System.out.println("Ya existe un cliente con el mismo CUIT." +
+                    " Ingrese un CUIT diferente");
+            System.out.print("Cuit: ");
+            cuit = input.next();
+            clienteExistente = clienteController.findOne(cuit);
+        }
         System.out.print("Nombre: ");
         String nombre = input.next();
         System.out.print("Apellido: ");
         String apellido = input.next();
-        System.out.print("Cuit: ");
-        String cuit = input.next();
         System.out.print("Dirección: ");
         String direccion = input.next();
         input.nextLine();
@@ -48,22 +56,15 @@ public class MenuCliente {
         System.out.print("Teléfono: ");
         String telefono = input.next();
         Cliente nuevoCliente = new Cliente(nombre, apellido, cuit, direccion, correo, telefono, true);
-
-        Cliente clienteExistente = clienteController.buscarPorID(cuit);
-        if (clienteExistente != null) {
-            System.out.println("Ya existe un cliente con el mismo CUIT.");
-
-        } else {
-            clienteController.crear(nuevoCliente);
-            System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
-        }
+        clienteController.create(nuevoCliente);
+        System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
 
     }
 
     public void modificarCliente() {
         System.out.println("\nIngrese el CUIT del cliente a modificar:");
         String cuitModificar = input.next();
-        Cliente clienteModificar = clienteController.buscarPorID(cuitModificar);
+        Cliente clienteModificar = clienteController.findOne(cuitModificar);
         if (clienteModificar != null) {
             System.out.println("Ingrese los nuevos datos del cliente:");
             System.out.print("Nombre: ");
@@ -81,7 +82,7 @@ public class MenuCliente {
             clienteModificar.setDireccion(direccionModificar);
             clienteModificar.setCorreo(correoModificar);
             clienteModificar.setTelefono(telefonoModificar);
-            clienteController.modificar(clienteModificar);
+            clienteController.update(clienteModificar);
             System.out.println("Cuenta: " + clienteModificar.getCuit() + " Modificada con éxito.");
         } else {
             System.out.println("No se encontró ningún cliente con el CUIT proporcionado.");
@@ -91,9 +92,9 @@ public class MenuCliente {
     public void eliminarCliente() {
         System.out.println("\nIngrese el CUIT del cliente a eliminar:");
         String cuitEliminar = input.next();
-        Cliente clienteEliminar = clienteController.buscarPorID(cuitEliminar);
+        Cliente clienteEliminar = clienteController.findOne(cuitEliminar);
         if (clienteEliminar != null) {
-            clienteController.eliminar(cuitEliminar);
+            clienteController.delete(cuitEliminar);
             System.out.println("La cuenta del cliente " + clienteEliminar.getApellido() + " ha sido eliminada con éxito.");
         } else {
             System.out.println("No se encontró ningún cliente con el CUIT proporcionado.");
@@ -103,7 +104,7 @@ public class MenuCliente {
     public void buscarClientePorCuit() {
         System.out.println("\nIngrese el CUIT de la cuenta a buscar:");
         String cuitBuscado = input.next();
-        Cliente clienteBuscado = clienteController.buscarPorID(cuitBuscado);
+        Cliente clienteBuscado = clienteController.findOne(cuitBuscado);
         if (clienteBuscado != null) {
             System.out.print("El cuit proporcionado corresponde al Cliente: " +
                     clienteBuscado.getApellido() + " " + clienteBuscado.getNombre() +
@@ -124,12 +125,13 @@ public class MenuCliente {
 
     public void buscarTodosLosClientes() {
         System.out.println("\n");
-        for (Cliente cl : clienteController.buscarTodos()) {
+        for (Cliente cl : clienteController.findAll()) {
             System.out.println("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
                     ", CUIT: " + cl.getCuit() +
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +
-                    ", Teléfono: " + cl.getTelefono() + ";");
+                    ", Teléfono: " + cl.getTelefono() +
+                    ", Estado: " + cl.getHabilitado() +";");
         }
         System.out.println("\n");
     }

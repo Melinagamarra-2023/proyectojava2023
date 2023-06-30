@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         MenuCliente menuCliente = new MenuCliente();
-        MenuTransportista menuTransportista = new MenuTransportista();
+        //MenuTransportista menuTransportista = new MenuTransportista();
         MenuProveedor menuProveedor = new MenuProveedor();
         while (menuPrincipal.atras() != 0)
             switch (menuPrincipal.seleccionarModulo()) {
@@ -27,21 +27,8 @@ public class Main {
                         }
                     }
                 }
+
                 case 2 -> {
-                    while (menuTransportista.atras() != 0) {
-                        switch (menuTransportista.seleccionarOpcion()) {
-                            case 1 -> menuTransportista.crearNuevoTransportista();
-                            case 2 -> menuTransportista.modificarTransportista();
-                            case 3 -> menuTransportista.eliminarTransportista();
-                            case 4 -> menuTransportista.buscarPorCuit();
-                            case 5 -> menuTransportista.buscarTransportistas();
-                            case 6 -> menuTransportista.buscarTransportistasPorTipo();
-                            case 0 -> menuPrincipal.regresar();
-                            default -> menuPrincipal.invalido();
-                        }
-                    }
-                }
-                case 3 -> {
                     while (menuProveedor.atras() != 0) {
                         switch (menuProveedor.seleccionarOpcion()) {
                             case 1 -> menuProveedor.crearProveedor();

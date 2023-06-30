@@ -8,39 +8,39 @@ import java.util.List;
 
 public class TransportistaController implements CRUD<Transportista, Transportista> {
     private final TransportistaService transportistaService;
-    private final TransportistaRepository transportistaRepository;
 
-    public TransportistaController(TransportistaService transportistaService, TransportistaRepository transportistaRepository) {
+
+    public TransportistaController(TransportistaService transportistaService) {
         this.transportistaService = transportistaService;
-        this.transportistaRepository = transportistaRepository;
+
     }
 
     @Override
-    public void crear(Transportista transportista) {
+    public void create(Transportista transportista) {
         transportistaService.crearTransportista(transportista);
 
     }
 
     @Override
-    public Transportista modificar(Transportista transportista) {
+    public Transportista update(Transportista transportista) {
         return transportistaService.modificarTransportista(transportista);
     }
 
     @Override
-    public Transportista eliminar(String cuit) {
+    public Transportista delete(String cuit) {
         return transportistaService.eliminarTransportista(cuit);
     }
 
     @Override
-    public List<Transportista> buscarTodos() {
+    public List<Transportista> findAll() {
         return transportistaService.buscarTransportistas();
     }
 
     @Override
-    public Transportista buscarPorID(String cuit) {
+    public Transportista findOne(String cuit) {
         return transportistaService.buscarPorCuit(cuit);
     }
-
+/*
     public List<Transportista> buscarTransportistasPorTipo(int opc) {
         return transportistaService.buscarTransportistasPorTipo(opc);
     }
@@ -48,5 +48,7 @@ public class TransportistaController implements CRUD<Transportista, Transportist
     public void setTransporte(Transportista tr, int tipoDeTransporte) {
         transportistaService.setTransporte(tr, tipoDeTransporte);
     }
+
+ */
 
 }

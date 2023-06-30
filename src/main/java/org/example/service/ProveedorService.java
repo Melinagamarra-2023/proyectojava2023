@@ -11,14 +11,14 @@ public class ProveedorService {
     public ProveedorService(ProveedorRepository proveedorRepository) {
         this.proveedorRepository = proveedorRepository;
     }
-    public void crearProveedor(Proveedor nuevoCliente) {
+    public void create(Proveedor nuevoCliente) {
         Proveedor proveedorExiste = proveedorRepository.findOne(nuevoCliente.getCuit()); //tiene que ser findOne
         if(proveedorExiste == null){
             proveedorRepository.save(nuevoCliente);
         }
     }
 
-    public void modificarProveedor(Proveedor pr) {
+    public void update(Proveedor pr) {
         Proveedor proveedorAnterior = proveedorRepository.findOne(pr.getCuit()); //tiene que ser findOne
         if (proveedorAnterior != null) {
             proveedorRepository.update(pr.getCuit(), pr);
@@ -26,13 +26,13 @@ public class ProveedorService {
         }
     }
 
-    public void eliminarProveedor(String cuit){
+    public void delete(String cuit){
         if(proveedorRepository.findOne(cuit) != null){
             proveedorRepository.delete(cuit);
         }
     }
 
-    public Proveedor buscarPorCuit(String cuit) {
+    public Proveedor findOne(String cuit) {
         for (Proveedor pr : proveedorRepository.findAll()) {
             if (pr.getCuit().equals(cuit)) {
                 return pr; //función cambiada
@@ -41,7 +41,7 @@ public class ProveedorService {
         return null;
     }
 
-    public List<Proveedor> buscarProveedores() {
+    public List<Proveedor> findAll() {
         List<Proveedor> resultado = new ArrayList<>();
         for (Proveedor pr : this.proveedorRepository.findAll()) {
             if (pr.getHabilitado()) {

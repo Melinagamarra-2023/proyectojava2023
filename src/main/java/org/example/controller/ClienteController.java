@@ -9,36 +9,36 @@ import java.util.List;
 
 public class ClienteController implements CRUD<Cliente, Cliente> {
     private final ClienteService clienteService;
-    private final ClienteRepository clienteRepository;
 
-    public ClienteController(ClienteService clienteService, ClienteRepository clienteRepository) {
+
+    public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
-        this.clienteRepository = clienteRepository;
+
     }
 
     @Override
-    public void crear(Cliente cliente) {
+    public void create(Cliente cliente) {
         clienteService.crearCuentaCliente(cliente);
     }
 
     @Override
-    public List<Cliente> buscarTodos() {
+    public List<Cliente>findAll() {
         return clienteService.buscarTodosLosClientes();
 
     }
 
     @Override
-    public Cliente buscarPorID(String id) {
+    public Cliente findOne(String id) {
         return clienteService.buscarPorCuit(id);
     }
 
     @Override
-    public Cliente modificar(Cliente cliente) {
+    public Cliente update(Cliente cliente) {
         return clienteService.modificarCliente(cliente);
     }
 
     @Override
-    public Cliente eliminar(String id) {
+    public Cliente delete(String id) {
         return clienteService.eliminarCliente(id);
     }
 }

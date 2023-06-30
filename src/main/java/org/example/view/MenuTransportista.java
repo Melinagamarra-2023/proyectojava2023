@@ -8,7 +8,8 @@ import org.example.service.TransportistaService;
 import java.util.Scanner;
 
 public class MenuTransportista {
-    TransportistaRepository transportistaRepository = new TransportistaRepository();
+
+   /* TransportistaRepository transportistaRepository = new TransportistaRepository();
     TransportistaService transportistaService = new TransportistaService(transportistaRepository);
     TransportistaController transportistaController = new TransportistaController(transportistaService, transportistaRepository);
     Scanner input = new Scanner(System.in);
@@ -158,5 +159,5 @@ public class MenuTransportista {
 
     public int atras(){
         return option;
-    }
+    }*/
 }

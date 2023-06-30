@@ -9,9 +9,8 @@ public class MenuPrincipal {
         System.out.println("""
                 Seleccione el módulo que desea:
                 1. Gestión de clientes.
-                2. Gestión de transportistas.
-                3. Gestión de proveedores.
-                0. Salir""");
+                2. Gestión de proveedores.
+                0. Atras""");
         option = input.nextInt();
         return option;
     }

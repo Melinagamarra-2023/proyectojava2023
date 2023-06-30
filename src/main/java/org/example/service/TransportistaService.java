@@ -49,7 +49,7 @@ public class TransportistaService {
         }
         return resultado;
     }
-
+/*
     public List<Transportista> buscarTransportistasPorTipo(int opc) {
         Transportista auxiliar = new Transportista("dou","a","a","a","a","a",null,true);
         setTransporte(auxiliar, opc);

@@ -6,14 +6,14 @@ import java.util.List;
 public interface CRUD<R, P> {
 
 
-    public void crear(P p);
+    public void create(P p);
 
-    public List<R> buscarTodos();
+    public List<R> findAll();
 
-    public R buscarPorID(String id);
+    public R findOne(String id);
 
-    public R modificar(P p);
+    public R update(P p);
 
-    public R eliminar(String id);
+    public R delete(String id);
 
 }

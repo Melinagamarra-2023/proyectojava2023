@@ -8,24 +8,24 @@ import java.util.List;
 
 public class ProveedorController {
     private final ProveedorService proveedorService;
-    private final ProveedorRepository proveedorRepository;
+
     public ProveedorController(ProveedorService proveedorService, ProveedorRepository proveedorRepository) {
         this.proveedorService = proveedorService;
-        this.proveedorRepository = proveedorRepository;
+
     }
-    public void crearProveedor(Proveedor nuevoProveedor) {
-        proveedorService.crearProveedor(nuevoProveedor);
+    public void create(Proveedor nuevoProveedor) {
+        proveedorService.create(nuevoProveedor);
     }
-    public List<Proveedor> buscarProveedores() {
-        return proveedorService.buscarProveedores();
+    public List<Proveedor> findAll() {
+        return proveedorService.findAll();
     }
-    public Proveedor buscarPorCuit(String cuit) {
-        return proveedorService.buscarPorCuit(cuit);
+    public Proveedor findOne(String cuit) {
+        return proveedorService.findOne(cuit);
     }
-    public void modificarProveedor(Proveedor pr) {
-        proveedorService.modificarProveedor(pr);
+    public void update(Proveedor pr) {
+        proveedorService.update(pr);
     }
-    public void eliminarProveedor(String cuit) {
-        proveedorService.eliminarProveedor(cuit);
+    public void delete(String cuit) {
+        proveedorService.delete(cuit);
     }
 }

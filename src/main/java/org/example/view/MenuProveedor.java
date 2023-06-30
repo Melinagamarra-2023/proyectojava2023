@@ -30,60 +30,69 @@ public class MenuProveedor {
 
     public void crearProveedor() {
         System.out.println("\nProporcione los datos del nuevo Proveedor: ");
+        System.out.print("Cuit: ");
+        String cuit = input.next();
+        Proveedor proveedorExiste = proveedorController.findOne(cuit);
+        while (proveedorExiste != null) {
+            System.out.println("Ya existe un Proveedor con el mismo CUIT." +
+                    " Ingrese un CUIT diferente");
+            System.out.print("Cuit: ");
+            cuit = input.next();
+            proveedorExiste = proveedorController.findOne(cuit);
+        }
+
         System.out.print("Nombre: ");
         String nombre = input.next();
         System.out.print("Dirección: ");
         String direccion = input.next();
         input.nextLine();
-        System.out.print("Cuit: ");
-        String cuit = input.next();
         System.out.print("Correo: ");
         String correo = input.next();
         System.out.print("Teléfono: ");
         String telefono = input.next();
         Proveedor nuevoProveedor = new Proveedor(nombre, direccion, cuit, correo, telefono, true);
-        Proveedor proveedorExiste = proveedorController.buscarPorCuit(cuit);
-        if (proveedorExiste != null) {
-            System.out.println("Ya existe un Proveedor con el mismo CUIT.");
-
-        } else {
-            proveedorController.crearProveedor(nuevoProveedor);
-            System.out.println("Proveedor " + nuevoProveedor.getNombre() + " Creada con éxito");
-        }
-
+        proveedorController.create(nuevoProveedor);
+        System.out.println("Proveedor " + nuevoProveedor.getNombre() + " Creada con éxito");
     }
 
     public void modificarProveedor() {
         System.out.println("\nIngrese el CUIT del proveedor a modificar:");
         String cuitModificar = input.next();
-        Proveedor proveedorModificar = proveedorController.buscarPorCuit(cuitModificar);
-        if (proveedorModificar != null) {
-            System.out.println("Ingrese los nuevos datos del proveedor:");
-            System.out.print("Nombre: ");
-            String nombreModificar = input.next();
-            System.out.print("Dirección: ");
-            String direccionModificar = input.next();
-            System.out.print("Correo: ");
-            String correoModificar = input.next();
-            System.out.print("Teléfono: ");
-            String telefonoModificar = input.next();
-            proveedorModificar.setNombre(nombreModificar);
-            proveedorModificar.setDireccion(direccionModificar);
-            proveedorModificar.setCorreo(correoModificar);
-            proveedorModificar.setTelefono(telefonoModificar);
-            proveedorController.modificarProveedor(proveedorModificar);
-            System.out.println("Proveedor " + proveedorModificar.getCuit() + " Modificada con éxito.");
-        } else {
-            System.out.println("No se encontró ningún proveedor con el CUIT proporcionado.");
+        Proveedor proveedorModificar = proveedorController.findOne(cuitModificar);
+        while (proveedorModificar != null && proveedorModificar.getHabilitado() == false) {
+            System.out.println("Ya existe un Proveedor con el mismo CUIT." +
+                    " Ingrese un CUIT diferente");
+            System.out.print("Cuit: ");
+            cuitModificar = input.next();
+            /*if (proveedorModificar == null) {
+                System.out.println("No se encontró ningún proveedor con el CUIT proporcionado.");
+            }
+
+             */
         }
+        System.out.println("Ingrese los nuevos datos del proveedor:");
+        System.out.print("Nombre: ");
+        String nombreModificar = input.next();
+        System.out.print("Dirección: ");
+        String direccionModificar = input.next();
+        System.out.print("Correo: ");
+        String correoModificar = input.next();
+        System.out.print("Teléfono: ");
+        String telefonoModificar = input.next();
+        proveedorModificar.setNombre(nombreModificar);
+        proveedorModificar.setDireccion(direccionModificar);
+        proveedorModificar.setCorreo(correoModificar);
+        proveedorModificar.setTelefono(telefonoModificar);
+        proveedorController.update(proveedorModificar);
+        System.out.println("Proveedor " + proveedorModificar.getCuit() + " Modificada con éxito.");
     }
 
     public void eliminarProveedor() {
         System.out.println("\nIngrese el CUIT del proveedor a eliminar:");
         String cuitEliminar = input.next();
-        Proveedor proveedorEliminar = proveedorController.buscarPorCuit(cuitEliminar);
+        Proveedor proveedorEliminar = proveedorController.findOne(cuitEliminar);
         if (proveedorEliminar != null) {
-            proveedorController.eliminarProveedor(cuitEliminar);
+            proveedorController.delete(cuitEliminar);
             System.out.println("El proveedor " + proveedorEliminar.getCuit() + " ha sido eliminado con éxito.");
         } else {
             System.out.println("No se encontró ningún proveedor con el CUIT proporcionado.");
@@ -93,7 +102,7 @@ public class MenuProveedor {
     public void buscarProveedorPorCuit() {
         System.out.println("\nIngrese el CUIT del proveedor a buscar:");
         String cuitBuscado = input.next();
-        Proveedor proveedorBuscado = proveedorController.buscarPorCuit(cuitBuscado);
+        Proveedor proveedorBuscado = proveedorController.findOne(cuitBuscado);
         if (proveedorBuscado != null) {
             System.out.print("El cuit proporcionado corresponde al proveedor: " +
                     proveedorBuscado.getNombre() +
@@ -114,17 +123,18 @@ public class MenuProveedor {
 
     public void buscarProveedores() {
         System.out.println("\n");
-        for (Proveedor pr : proveedorController.buscarProveedores()) {
+        for (Proveedor pr : proveedorController.findAll()) {
             System.out.println("Proveedor: " + pr.getNombre() +
                     ", CUIT: " + pr.getCuit() +
                     ", Correo: " + pr.getCorreo() +
                     ", Dirección: " + pr.getDireccion() +
-                    ", Teléfono: " + pr.getTelefono() + ";");
+                    ", Teléfono: " + pr.getTelefono() +
+                    ", Estado: " + pr.getHabilitado() + ";");
         }
         System.out.println("\n");
     }
 
-    public int atras(){
+    public int atras() {
         return option;
     }
 }
