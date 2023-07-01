@@ -13,7 +13,4 @@ public class Transportista {
     private Transporte tipoDeTransporte;
     private Boolean habilitado;
     private Ubicacion ubicacion;
-
-
-
 }

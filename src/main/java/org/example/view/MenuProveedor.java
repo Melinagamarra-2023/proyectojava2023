@@ -128,8 +128,7 @@ public class MenuProveedor {
                     ", CUIT: " + pr.getCuit() +
                     ", Correo: " + pr.getCorreo() +
                     ", Dirección: " + pr.getDireccion() +
-                    ", Teléfono: " + pr.getTelefono() +
-                    ", Estado: " + pr.getHabilitado() + ";");
+                    ", Teléfono: " + pr.getTelefono() + ";");
         }
         System.out.println("\n");
     }
