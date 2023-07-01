@@ -27,7 +27,6 @@ public class Main {
                         }
                     }
                 }
-
                 case 2 -> {
                     while (menuProveedor.atras() != 0) {
                         switch (menuProveedor.seleccionarOpcion()) {
