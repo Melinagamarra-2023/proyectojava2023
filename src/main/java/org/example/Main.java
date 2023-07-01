@@ -12,7 +12,7 @@ public class Main {
         MenuCliente menuCliente = new MenuCliente();
         //MenuTransportista menuTransportista = new MenuTransportista();
         MenuProveedor menuProveedor = new MenuProveedor();
-        while (menuPrincipal.atras() != 0)
+        while (menuPrincipal.atras() != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
                 case 1 -> {
                     while (menuCliente.atras() != 0) {
@@ -44,3 +44,4 @@ public class Main {
             }
         }
     }
+}
