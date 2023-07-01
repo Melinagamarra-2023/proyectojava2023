@@ -1,17 +1,18 @@
 package org.example;
 
-import org.example.view.MenuPrincipal;
-import org.example.view.MenuCliente;
-import org.example.view.MenuTransportista;
-import org.example.view.MenuProveedor;
+import org.example.controller.ProductoController;
+import org.example.controller.ProveedorController;
+import org.example.view.*;
+
+import java.awt.*;
 
 
 public class Main {
     public static void main(String[] args) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         MenuCliente menuCliente = new MenuCliente();
-        //MenuTransportista menuTransportista = new MenuTransportista();
         MenuProveedor menuProveedor = new MenuProveedor();
+        MenuProducto menuProducto = new MenuProducto();
         while (menuPrincipal.atras() != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
                 case 1 -> {
@@ -35,6 +36,19 @@ public class Main {
                             case 3 -> menuProveedor.eliminarProveedor();
                             case 4 -> menuProveedor.buscarProveedorPorCuit();
                             case 5 -> menuProveedor.buscarProveedores();
+                            case 0 -> menuPrincipal.regresar();
+                            default -> menuPrincipal.invalido();
+                        }
+                    }
+                }
+                case 5 -> {
+                    while (menuProveedor.atras() != 0) {
+                        switch (menuProducto.seleccionarOpcion()) {
+                            case 1 -> menuProducto.crearProducto();
+                            case 2 -> menuProducto.modificarProducto();
+                            case 3 -> menuProducto.eliminarProducto();
+                            case 4 -> menuProducto.buscarProductoPorId();
+                            case 5 -> menuProducto.buscarTodosLosProductos();
                             case 0 -> menuPrincipal.regresar();
                             default -> menuPrincipal.invalido();
                         }
