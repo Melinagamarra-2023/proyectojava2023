@@ -28,7 +28,7 @@ public class ProductoRepository implements CRUD<Producto> {
     }
 
     @Override
-    public void save(Producto producto) {
+    public void create(Producto producto) {
 
     }
 

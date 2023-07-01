@@ -1,16 +1,13 @@
 package org.example;
 
-import org.example.view.MenuPrincipal;
-import org.example.view.MenuCliente;
-import org.example.view.MenuTransportista;
-import org.example.view.MenuProveedor;
+import org.example.view.*;
 
 
 public class Main {
     public static void main(String[] args) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         MenuCliente menuCliente = new MenuCliente();
-        //MenuTransportista menuTransportista = new MenuTransportista();
+        MenuSucursal menuSucursal = new MenuSucursal();
         MenuProveedor menuProveedor = new MenuProveedor();
         while (menuPrincipal.atras() != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
@@ -39,6 +36,20 @@ public class Main {
                             case 0 -> menuPrincipal.regresar();
                             default -> menuPrincipal.invalido();
                         }
+                    }
+                }
+                case 3 -> {
+                    while (menuSucursal.atras() != 0) {
+                        switch (menuSucursal.seleccionarOpcion()) {
+                            case 1 -> menuSucursal.agregarUnaSucursal();
+                            case 2 -> menuSucursal.modificarSucursal();
+                            case 3 -> menuSucursal.deshablitarSucursal();
+                            case 4 -> menuSucursal.buscarSucursalPorCodigo();
+                            case 5 -> menuSucursal.buscarTodasLasSucursales();
+                            case 0 -> menuPrincipal.regresar();
+                            default -> menuPrincipal.invalido();
+                        }
+
                     }
                 }
             }
