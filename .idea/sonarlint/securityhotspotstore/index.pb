@@ -1,16 +1,10 @@
 
-e
-5src/main/java/org/example/service/ClienteService.java,3\0\30fcfdf74eaf8873243f995c00851142f7944367
 ^
 .src/main/java/org/example/repository/CRUD.java,0\0\0089317c9cc070ae4102ce5726dd7916c97d5fab
-k
-;src/main/java/org/example/repository/ClienteRepository.java,2\7\2784b57604b6a9f10b29ca5bb0c0b82baed779b8
 [
 +src/main/java/org/example/model/Sector.java,b\8\b8f2674ccbfbaca3c70935d98de952b3b904dd37
 ]
 -src/main/java/org/example/model/Empleado.java,7\a\7adfff1c4623769ff68a84e7f559188e8fb7b91b
-\
-,src/main/java/org/example/model/Cliente.java,d\0\d099df54c6cc6f7f6b0348a9179d115f8d6a063e
 ^
 .src/main/java/org/example/model/Ubicacion.java,2\1\21cbd765473852c8e75755c1fafbf12346f2439c
 ]
@@ -21,11 +15,11 @@ f
 6src/main/java/org/example/service/SucursalService.java,9\6\960d49e786481a096361534a7a31d969b8550ec5
 m
 =src/main/java/org/example/controller/ProveedorController.java,2\2\22f1fc471c7f0e23868c6465eed8d5930bebb0c8
-_
-/src/main/java/org/example/view/MenuCliente.java,6\6\66df81076dccb733d6698b5ad2080a616f7da66e
 l
 <src/main/java/org/example/repository/SucursalRepository.java,f\e\fef11c8617ad83be11f191a4d0a1ffdcb103374b
 m
 =src/main/java/org/example/repository/ProveedorRepository.java,c\5\c57da2cee3c9c9edf75dc57d9bbfb9b88829b806
 g
 7src/main/java/org/example/service/ProveedorService.java,9\c\9c125d265f5aaf90f2ac3493b9e7ea93825a7291
+l
+<src/main/java/org/example/repository/ProductoRepository.java,b\f\bf0b373490d951af8cd1c668da4f92e4c9055da8

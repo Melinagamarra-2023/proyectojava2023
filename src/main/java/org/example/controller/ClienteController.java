@@ -1,9 +1,7 @@
 package org.example.controller;
 
 import org.example.model.Cliente;
-import org.example.repository.ClienteRepository;
 import org.example.service.ClienteService;
-
 import java.util.List;
 
 
