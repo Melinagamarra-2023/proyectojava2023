@@ -130,8 +130,12 @@ public class MenuCliente {
                     ", CUIT: " + cl.getCuit() +
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +
+
                     ", Teléfono: " + cl.getTelefono() +
                     ", Estado: " + cl.getHabilitado() + ";");
+
+                    ", Teléfono: " + cl.getTelefono() + ";");
+
         }
         System.out.println("\n");
     }

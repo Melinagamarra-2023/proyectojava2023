@@ -17,5 +17,6 @@ public class Producto {
     private Float peso;
     private Categoria categoria;
     private Proveedor proveedor;
+    private Boolean habilitado;
 
 }

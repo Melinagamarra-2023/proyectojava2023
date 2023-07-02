@@ -1,12 +1,11 @@
 package org.example.repository;
 
 import org.example.model.Cliente;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteRepository implements CRUD<Cliente> {
-    private List<Cliente> clientes;
+    private final List<Cliente> clientes;
 
     public ClienteRepository() {
         this.clientes = new ArrayList<>();

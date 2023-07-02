@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class MenuProveedor {
     ProveedorRepository proveedorRepository = new ProveedorRepository();
     ProveedorService proveedorService = new ProveedorService(proveedorRepository);
-    ProveedorController proveedorController = new ProveedorController(proveedorService, proveedorRepository);
+    ProveedorController proveedorController = new ProveedorController(proveedorService);
     Scanner input = new Scanner(System.in);
     int option = 99;
 
@@ -128,8 +128,7 @@ public class MenuProveedor {
                     ", CUIT: " + pr.getCuit() +
                     ", Correo: " + pr.getCorreo() +
                     ", Dirección: " + pr.getDireccion() +
-                    ", Teléfono: " + pr.getTelefono() +
-                    ", Estado: " + pr.getHabilitado() + ";");
+                    ", Teléfono: " + pr.getTelefono() + ";");
         }
         System.out.println("\n");
     }
