@@ -13,13 +13,9 @@
 .src/main/java/org/example/model/Proveedor.java,f\6\f619b97533b21ee0e8b38f25262fb31f217091c5
 f
 6src/main/java/org/example/service/SucursalService.java,9\6\960d49e786481a096361534a7a31d969b8550ec5
-m
-=src/main/java/org/example/controller/ProveedorController.java,2\2\22f1fc471c7f0e23868c6465eed8d5930bebb0c8
 l
 <src/main/java/org/example/repository/SucursalRepository.java,f\e\fef11c8617ad83be11f191a4d0a1ffdcb103374b
 m
 =src/main/java/org/example/repository/ProveedorRepository.java,c\5\c57da2cee3c9c9edf75dc57d9bbfb9b88829b806
-g
-7src/main/java/org/example/service/ProveedorService.java,9\c\9c125d265f5aaf90f2ac3493b9e7ea93825a7291
 l
 <src/main/java/org/example/repository/ProductoRepository.java,b\f\bf0b373490d951af8cd1c668da4f92e4c9055da8
