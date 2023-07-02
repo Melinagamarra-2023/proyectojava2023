@@ -1,4 +1,8 @@
 package org.example.service;
+
+
+public class TransportistaService {
+
 import org.example.model.Transportista;
 import org.example.repository.TransportistaRepository;
 import java.util.ArrayList;
@@ -73,4 +77,5 @@ public class TransportistaService implements CRUD<Transportista> {
         }
         return resultado;
     }
+
 }

@@ -7,7 +7,7 @@ public interface CRUD<T> {
 
     List<T> findAll();
 
-    void save(T t);
+    void create(T t);
 
     void delete(String id);
 

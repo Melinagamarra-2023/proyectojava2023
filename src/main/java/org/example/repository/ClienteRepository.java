@@ -29,7 +29,7 @@ public class ClienteRepository implements CRUD<Cliente> {
     }
 
     @Override
-    public void save(Cliente cl) {
+    public void create(Cliente cl) {
         clientes.add(cl);
     }
 

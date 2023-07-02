@@ -1,4 +1,6 @@
 package org.example.controller;
+
+public class TransportistaController {
 import org.example.model.Transportista;
 import org.example.repository.TransportistaRepository;
 import org.example.service.TransportistaService;
@@ -42,5 +44,6 @@ public class TransportistaController implements CRUD<Transportista, Transportist
     public List<Transportista> buscarTransportistasPorTipo(int opc) {
         return transportistaService.buscarTransportistasPorTipo(opc);
     }
+
 
 }

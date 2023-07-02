@@ -1,5 +1,6 @@
 package org.example.model;
 
+public class Transportista {
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,4 +17,5 @@ public class Transportista {
     private Boolean terrestre;
     private Boolean maritimo;
     private Boolean aereo;
+
 }

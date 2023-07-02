@@ -14,4 +14,5 @@ public class Sucursal {
     private Double longitud;
     private String direccion;
     private String continente;
+    private Boolean habilitado;
 }

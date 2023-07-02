@@ -19,7 +19,7 @@ public class MenuCliente {
 
     public int seleccionarOpcion() {
         System.out.println("""
-                
+                                
                 Seleccione la opción:
                 1. Crear cuenta de cliente.
                 2. Modificar cuenta de cliente.
@@ -130,12 +130,17 @@ public class MenuCliente {
                     ", CUIT: " + cl.getCuit() +
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +
+
+                    ", Teléfono: " + cl.getTelefono() +
+                    ", Estado: " + cl.getHabilitado() + ";");
+
                     ", Teléfono: " + cl.getTelefono() + ";");
+
         }
         System.out.println("\n");
     }
 
-    public int atras(){
+    public int atras() {
         return option;
     }
 }

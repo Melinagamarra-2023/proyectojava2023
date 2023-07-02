@@ -16,7 +16,7 @@ public class ClienteService {
     public void crearCuentaCliente(Cliente nuevoCliente) {
         Cliente clienteExiste = clienteRepository.findOne(nuevoCliente.getCuit());
         if(clienteExiste == null){
-            clienteRepository.save(nuevoCliente);
+            clienteRepository.create(nuevoCliente);
         }
     }
 
