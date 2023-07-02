@@ -1,4 +1,5 @@
 package org.example.view;
+
 import org.example.controller.ProductoController;
 import org.example.controller.ProveedorController;
 import org.example.model.Producto;
@@ -12,19 +13,16 @@ import org.example.service.ProveedorService;
 import java.util.Scanner;
 
 public class MenuProducto {
-    ProductoRepository productoRepository = new ProductoRepository();
+    ProductoRepository productoRepository = new ProductoRepository(new ProveedorRepository());
+    ProductoService productoService = new ProductoService(productoRepository);
+    ProductoController productoController = new ProductoController(productoService);
     ProveedorRepository proveedorRepository = new ProveedorRepository();
     ProveedorService proveedorService = new ProveedorService(proveedorRepository);
     ProveedorController proveedorController = new ProveedorController(proveedorService);
-    ProductoService productoService = new ProductoService(productoRepository);
-    ProductoController productoController = new ProductoController(productoService);
 
 
     Scanner input = new Scanner(System.in);
-    int option = 99;
-
-    public MenuProducto() {
-    }
+    static int option = 99;
 
     public int seleccionarOpcion() {
         System.out.println("""
@@ -77,11 +75,11 @@ public class MenuProducto {
     }
 
     public void modificarProducto() {
-        System.out.println("\nIngrese el CUIT del cliente a modificar:");
+        System.out.println("\nIngrese el ID del producto a modificar:");
         String idModificar = input.next();
         Producto productoModificar = productoController.findOne(idModificar);
         if (productoModificar != null) {
-            System.out.println("Ingrese los nuevos datos del cliente:");
+            System.out.println("Ingrese los nuevos datos del producto:");
             System.out.print("Nombre: ");
             String nombreModificar = input.next();
             System.out.print("Descripcion: ");
@@ -115,19 +113,19 @@ public class MenuProducto {
     }
 
     public void eliminarProducto() {
-        System.out.println("\nIngrese el CUIT del cliente a eliminar:");
+        System.out.println("\nIngrese el ID del producto a eliminar:");
         String idEliminar = input.next();
         Producto productoEliminar = productoController.findOne(idEliminar);
         if (productoEliminar != null) {
             productoController.delete(idEliminar);
-            System.out.println("El producto " + productoEliminar.getNombre() + " ha sido eliminada con éxito.");
+            System.out.println("El producto " + productoEliminar.getNombre() + " ha sido eliminado con éxito.");
         } else {
             System.out.println("No se encontró ningún producto con el ID proporcionado.");
         }
     }
 
     public void buscarProductoPorId() {
-        System.out.println("\nIngrese el CUIT de la cuenta a buscar:");
+        System.out.println("\nIngrese el ID del producto que desea buscar:");
         String idBuscado = input.next();
         Producto productoBuscado = productoController.findOne(idBuscado);
         if (productoBuscado != null) {
@@ -183,7 +181,7 @@ public class MenuProducto {
         productoController.setCategoria(prod, opc);
     }
 
-    public int atras() {
+    public static int atras() {
         return option;
     }
 }

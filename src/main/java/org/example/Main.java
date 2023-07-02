@@ -1,11 +1,5 @@
 package org.example;
-
-import org.example.controller.ProductoController;
-import org.example.controller.ProveedorController;
 import org.example.view.*;
-
-import java.awt.*;
-
 
 public class Main {
     public static void main(String[] args) {
@@ -42,7 +36,7 @@ public class Main {
                     }
                 }
                 case 5 -> {
-                    while (menuProveedor.atras() != 0) {
+                    while (MenuProducto.atras() != 0) {
                         switch (menuProducto.seleccionarOpcion()) {
                             case 1 -> menuProducto.crearProducto();
                             case 2 -> menuProducto.modificarProducto();
