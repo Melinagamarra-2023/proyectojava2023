@@ -10,17 +10,18 @@ public class MenuPrincipal {
                 Seleccione el módulo que desea:
                 1. Gestión de clientes.
                 2. Gestión de proveedores.
+                4. Gestion de transportistas.
                 0. Atras""");
         option = input.nextInt();
         return option;
     }
 
-    public String invalido(){
-        return "opcion invalida";
+    public void invalido(){
+        System.out.println("opcion invalida");
     }
 
-    public String regresar(){
-        return "Regresando al menu...";
+    public void regresar(){
+        System.out.println("Regresando al menu...");
     }
 
     public int atras(){
