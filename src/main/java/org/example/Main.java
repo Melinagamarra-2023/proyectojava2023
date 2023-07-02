@@ -36,7 +36,7 @@ public class Main {
                     }
                 }
                 case 5 -> {
-                    while (MenuProducto.atras() != 0) {
+                    while (menuProducto.atras() != 0) {
                         switch (menuProducto.seleccionarOpcion()) {
                             case 1 -> menuProducto.crearProducto();
                             case 2 -> menuProducto.modificarProducto();
@@ -48,6 +48,7 @@ public class Main {
                         }
                     }
                 }
+
             }
         }
     }

@@ -43,13 +43,13 @@ public class MenuProducto {
         System.out.println("\nProporcione los datos para el nuevo producto: ");
         System.out.print("Id: ");
         String id = input.next();
-        Producto ProductoExiste = productoController.findOne(id);
-        while (ProductoExiste != null) {
+        Producto productoExiste = productoController.findOne(id);
+        while (productoExiste != null) {
             System.out.println("Ya existe un producto con el mismo ID" +
                     " Ingrese un ID diferente");
             System.out.print("ID: ");
             id = input.next();
-            ProductoExiste = productoController.findOne(id);
+            productoExiste = productoController.findOne(id);
         }
         System.out.print("Nombre: ");
         String nombre = input.next();
@@ -181,7 +181,7 @@ public class MenuProducto {
         productoController.setCategoria(prod, opc);
     }
 
-    public static int atras() {
+    public int atras() {
         return option;
     }
 }

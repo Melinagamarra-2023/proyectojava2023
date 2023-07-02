@@ -10,6 +10,7 @@ public class MenuPrincipal {
                 Seleccione el módulo que desea:
                 1. Gestión de clientes.
                 2. Gestión de proveedores.
+                5. Gestión de productos.
                 0. Atras""");
         option = input.nextInt();
         return option;

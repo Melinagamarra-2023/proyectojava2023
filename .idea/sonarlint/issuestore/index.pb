@@ -5,8 +5,6 @@ e
 .src/main/java/org/example/repository/CRUD.java,0\0\0089317c9cc070ae4102ce5726dd7916c97d5fab
 k
 ;src/main/java/org/example/repository/ClienteRepository.java,2\7\2784b57604b6a9f10b29ca5bb0c0b82baed779b8
-a
-1src/main/java/org/example/view/MenuPrincipal.java,0\e\0ef55203ff4a7952fee2a4aa067999917686950b
 [
 +src/main/java/org/example/model/Sector.java,b\8\b8f2674ccbfbaca3c70935d98de952b3b904dd37
 ]
@@ -27,3 +25,7 @@ _
 /src/main/java/org/example/view/MenuCliente.java,6\6\66df81076dccb733d6698b5ad2080a616f7da66e
 l
 <src/main/java/org/example/repository/SucursalRepository.java,f\e\fef11c8617ad83be11f191a4d0a1ffdcb103374b
+m
+=src/main/java/org/example/repository/ProveedorRepository.java,c\5\c57da2cee3c9c9edf75dc57d9bbfb9b88829b806
+g
+7src/main/java/org/example/service/ProveedorService.java,9\c\9c125d265f5aaf90f2ac3493b9e7ea93825a7291
