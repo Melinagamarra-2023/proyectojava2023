@@ -1,5 +1,12 @@
 package org.example.view;
 
+import org.example.model.Transportista;
+import org.example.repository.TransportistaRepository;
+import org.example.service.TransportistaService;
+import org.example.controller.TransportistaController;
+
+import java.util.Scanner;
+
 public class MenuTransportista {
 
     TransportistaRepository transportistaRepository = new TransportistaRepository();
