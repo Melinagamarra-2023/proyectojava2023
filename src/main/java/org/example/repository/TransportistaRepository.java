@@ -1,7 +1,5 @@
 package org.example.repository;
-
 import org.example.model.Transportista;
-
 import java.util.ArrayList;
 import java.util.List;
 

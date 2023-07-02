@@ -1,5 +1,4 @@
 package org.example.controller;
-
 import org.example.model.Transportista;
 import org.example.repository.TransportistaRepository;
 import org.example.service.TransportistaService;

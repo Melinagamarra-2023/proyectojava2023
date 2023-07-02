@@ -1,10 +1,5 @@
 package org.example;
-
-import org.example.view.MenuPrincipal;
-import org.example.view.MenuCliente;
-import org.example.view.MenuTransportista;
-import org.example.view.MenuProveedor;
-
+import org.example.view.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,6 +7,7 @@ public class Main {
         MenuCliente menuCliente = new MenuCliente();
         MenuTransportista menuTransportista = new MenuTransportista();
         MenuProveedor menuProveedor = new MenuProveedor();
+        MenuProducto menuProducto = new MenuProducto();
         while (menuPrincipal.atras() != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
                 case 1 -> {
@@ -39,6 +35,17 @@ public class Main {
                             default -> menuPrincipal.invalido();
                         }
                     }
+                }
+                case 5 -> {
+                    while (menuProducto.atras() != 0) {
+                        switch (menuProducto.seleccionarOpcion()) {
+                            case 1 -> menuProducto.crearProducto();
+                            case 2 -> menuProducto.modificarProducto();
+                            case 3 -> menuProducto.eliminarProducto();
+                            case 4 -> menuProducto.buscarProductoPorId();
+                            case 5 -> menuProducto.buscarTodosLosProductos();
+                        }
+                   }
                 }
                 case 4 -> {
                     while (menuTransportista.atras() != 0) {

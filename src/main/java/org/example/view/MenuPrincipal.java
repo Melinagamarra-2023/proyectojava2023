@@ -11,6 +11,8 @@ public class MenuPrincipal {
                 1. Gestión de clientes.
                 2. Gestión de proveedores.
                 4. Gestion de transportistas.
+                5. Gestión de productos.
+
                 0. Atras""");
         option = input.nextInt();
         return option;
