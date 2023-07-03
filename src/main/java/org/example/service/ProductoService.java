@@ -17,7 +17,7 @@ public class ProductoService {
     public void create(Producto nuevoProducto) {
         Producto productoExiste = productoRepository.findOne(nuevoProducto.getId());
         if (productoExiste == null) {
-            productoRepository.save(nuevoProducto);
+            productoRepository.create(nuevoProducto);
         }
     }
 

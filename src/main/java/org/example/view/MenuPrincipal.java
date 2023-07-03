@@ -10,13 +10,9 @@ public class MenuPrincipal {
                 Seleccione el módulo que desea:
                 1. Gestión de clientes.
                 2. Gestión de proveedores.
-
                 3. Gestion de Sucursales.
-
                 4. Gestion de transportistas.
                 5. Gestión de productos.
-
-
                 0. Atras""");
         option = input.nextInt();
         return option;

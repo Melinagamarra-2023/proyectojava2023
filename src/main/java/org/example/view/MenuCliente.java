@@ -8,12 +8,10 @@ import org.example.service.ClienteService;
 import java.util.Scanner;
 
 public class MenuCliente {
+
     ClienteRepository clienteRepository = new ClienteRepository();
-
     ClienteService clienteService = new ClienteService(clienteRepository);
-
     ClienteController clienteController = new ClienteController(clienteService);
-
     Scanner input = new Scanner(System.in);
     int option = 99;
 
@@ -58,7 +56,6 @@ public class MenuCliente {
         Cliente nuevoCliente = new Cliente(nombre, apellido, cuit, direccion, correo, telefono, true);
         clienteController.create(nuevoCliente);
         System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
-
     }
 
     public void modificarCliente() {
@@ -130,12 +127,8 @@ public class MenuCliente {
                     ", CUIT: " + cl.getCuit() +
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +
-
                     ", Teléfono: " + cl.getTelefono() +
                     ", Estado: " + cl.getHabilitado() + ";");
-
-                    ", Teléfono: " + cl.getTelefono() + ";");
-
         }
         System.out.println("\n");
     }

@@ -14,7 +14,7 @@ public class ProveedorService {
     public void create(Proveedor nuevoCliente) {
         Proveedor proveedorExiste = proveedorRepository.findOne(nuevoCliente.getCuit());
         if(proveedorExiste == null){
-            proveedorRepository.save(nuevoCliente);
+            proveedorRepository.create(nuevoCliente);
         }
     }
 

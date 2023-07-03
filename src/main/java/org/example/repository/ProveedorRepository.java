@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ProveedorRepository implements CRUD<Proveedor>{
     private final List<Proveedor> proveedores;
-
     public ProveedorRepository() {
         this.proveedores = new ArrayList<>();
     }
@@ -28,7 +27,7 @@ public class ProveedorRepository implements CRUD<Proveedor>{
     }
 
     @Override
-    public void save(Proveedor pr) {
+    public void create(Proveedor pr) {
         proveedores.add(pr);
     }
 

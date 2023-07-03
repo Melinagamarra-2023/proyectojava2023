@@ -9,12 +9,7 @@ import java.util.Scanner;
 
 public class MenuTransportista {
 
-    TransportistaRepository transportistaRepository = new TransportistaRepository();
-
-    TransportistaService transportistaService = new TransportistaService(transportistaRepository);
-
-    TransportistaController transportistaController = new TransportistaController(transportistaService);
-
+    TransportistaController transportistaController = new TransportistaController();
     Scanner input = new Scanner(System.in);
     int option = 99;
 

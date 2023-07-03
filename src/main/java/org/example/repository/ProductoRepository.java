@@ -36,8 +36,6 @@ public class ProductoRepository implements CRUD<Producto> {
     @Override
 
     public void create(Producto producto) {
-
-    public void save(Producto producto) {
         productos.add(producto);
     }
 
@@ -117,6 +115,5 @@ public class ProductoRepository implements CRUD<Producto> {
         productos.add(producto9);
 
     }
-
 }
 

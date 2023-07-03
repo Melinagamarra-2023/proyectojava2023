@@ -1,19 +1,12 @@
 package org.example.controller;
 
-public class TransportistaController {
 import org.example.model.Transportista;
-import org.example.repository.TransportistaRepository;
 import org.example.service.TransportistaService;
 
 import java.util.List;
 
 public class TransportistaController implements CRUD<Transportista, Transportista> {
-
-    private final TransportistaService transportistaService;
-
-    public TransportistaController (TransportistaService transportistaService) {
-        this.transportistaService = transportistaService;
-    }
+    TransportistaService transportistaService = new TransportistaService();
 
     @Override
     public void create(Transportista transportista) {

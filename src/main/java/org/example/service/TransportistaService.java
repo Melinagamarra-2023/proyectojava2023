@@ -1,8 +1,5 @@
 package org.example.service;
 
-
-public class TransportistaService {
-
 import org.example.model.Transportista;
 import org.example.repository.TransportistaRepository;
 import java.util.ArrayList;
@@ -10,17 +7,13 @@ import java.util.List;
 
 public class TransportistaService implements CRUD<Transportista> {
 
-    private final TransportistaRepository transportistaRepository;
-
-    public TransportistaService (TransportistaRepository transportistaRepository) {
-        this.transportistaRepository = transportistaRepository;
-    }
+    TransportistaRepository transportistaRepository = new TransportistaRepository();
 
     @Override
     public void create(Transportista nuevotr) {
         Transportista trExiste = transportistaRepository.findOne(nuevotr.getCuit());
         if (trExiste == null) {
-            transportistaRepository.save(nuevotr);
+            transportistaRepository.create(nuevotr);
         }
     }
 

@@ -1,20 +1,13 @@
 package org.example;
 
-
 import org.example.view.*;
-
-
-import org.example.view.*;
-
 
 public class Main {
     public static void main(String[] args) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         MenuCliente menuCliente = new MenuCliente();
-
         MenuSucursal menuSucursal = new MenuSucursal();
         MenuTransportista menuTransportista = new MenuTransportista();
-
         MenuProveedor menuProveedor = new MenuProveedor();
         MenuProducto menuProducto = new MenuProducto();
         while (menuPrincipal.atras() != 0) {
@@ -56,18 +49,7 @@ public class Main {
                             case 0 -> menuPrincipal.regresar();
                             default -> menuPrincipal.invalido();
                         }
-
-
-                case 5 -> {
-                    while (menuProducto.atras() != 0) {
-                        switch (menuProducto.seleccionarOpcion()) {
-                            case 1 -> menuProducto.crearProducto();
-                            case 2 -> menuProducto.modificarProducto();
-                            case 3 -> menuProducto.eliminarProducto();
-                            case 4 -> menuProducto.buscarProductoPorId();
-                            case 5 -> menuProducto.buscarTodosLosProductos();
-                        }
-                   }
+                    }
                 }
                 case 4 -> {
                     while (menuTransportista.atras() != 0) {
@@ -82,6 +64,17 @@ public class Main {
                             default -> menuPrincipal.invalido();
                         }
                     }
+                }
+                case 5 -> {
+                    while (menuProducto.atras() != 0) {
+                        switch (menuProducto.seleccionarOpcion()) {
+                            case 1 -> menuProducto.crearProducto();
+                            case 2 -> menuProducto.modificarProducto();
+                            case 3 -> menuProducto.eliminarProducto();
+                            case 4 -> menuProducto.buscarProductoPorId();
+                            case 5 -> menuProducto.buscarTodosLosProductos();
+                        }
+                   }
                 }
             }
         }
