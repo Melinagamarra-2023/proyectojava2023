@@ -6,13 +6,10 @@ import java.util.List;
 
 
 public class ClienteController implements CRUD<Cliente, Cliente> {
-    private final ClienteService clienteService;
+    ClienteService clienteService = new ClienteService();
 
 
-    public ClienteController(ClienteService clienteService) {
-        this.clienteService = clienteService;
 
-    }
 
     @Override
     public void create(Cliente cliente) {

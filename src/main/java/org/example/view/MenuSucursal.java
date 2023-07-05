@@ -9,10 +9,8 @@ import org.example.service.SucursalService;
 import java.util.Scanner;
 
 public class MenuSucursal {
-    SucursalRepository sucursalRepository = new SucursalRepository();
-    SucursalService sucursalService = new SucursalService(sucursalRepository);
 
-    SucursalController sucursalController = new SucursalController(sucursalService);
+    SucursalController sucursalController = new SucursalController();
 
     Scanner input = new Scanner(System.in);
     int option = 99;

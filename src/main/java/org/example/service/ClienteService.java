@@ -9,10 +9,8 @@ import java.util.List;
 
 
 public class ClienteService {
-    ClienteRepository clienteRepository;
-    public ClienteService(ClienteRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
-    }
+    ClienteRepository clienteRepository = new ClienteRepository();
+
     public void crearCuentaCliente(Cliente nuevoCliente) {
         Cliente clienteExiste = clienteRepository.findOne(nuevoCliente.getCuit());
         if(clienteExiste == null){

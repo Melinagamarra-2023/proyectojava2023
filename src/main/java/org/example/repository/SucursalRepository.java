@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SucursalRepository implements CRUD<Sucursal> {
-    private List<Sucursal> sucursales;
+    private  final List<Sucursal> sucursales;
 
 
     public SucursalRepository() {
