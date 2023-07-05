@@ -61,7 +61,7 @@ public class ProductoRepository implements CRUD<Producto> {
             findOne(productoActualizado.getId()).setDescripcion(productoActualizado.getDescripcion());
             findOne(productoActualizado.getId()).setHabilitado(productoActualizado.getHabilitado());
         }
-        return null;
+        return productoActualizado;
     }
 
 

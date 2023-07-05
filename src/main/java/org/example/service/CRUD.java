@@ -1,6 +1,5 @@
 package org.example.service;
 
-import org.example.model.Transportista;
 
 import java.util.List;
 
@@ -13,6 +12,6 @@ public interface CRUD<T> {
 
     public T update(T t);
 
-    public Transportista delete(String id);
+    public void delete(String id);
 
 }

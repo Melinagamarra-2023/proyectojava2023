@@ -14,7 +14,10 @@ public class MenuProveedor {
     int option = 99;
 
     public int seleccionarOpcion() {
+        option = 99;
         System.out.println("""
+                
+                ----- MENÚ PROVEEDORES -----
                 Seleccione la opción:
                 1. Añadir proveedor.
                 2. Modificar Proveedor.

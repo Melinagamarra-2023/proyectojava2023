@@ -50,7 +50,7 @@ public class ProveedorRepository implements CRUD<Proveedor>{
             findOne(proveedorActualizado.getCuit()).setHabilitado(proveedorActualizado.getHabilitado());
 
         }
-        return null;
+        return proveedorActualizado;
     }
 
     @Override

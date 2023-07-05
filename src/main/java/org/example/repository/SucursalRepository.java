@@ -7,16 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SucursalRepository implements CRUD<Sucursal> {
-    private  final List<Sucursal> sucursales;
 
+    private  final List<Sucursal> sucursales;
 
     public SucursalRepository() {
         this.sucursales = new ArrayList<>();
         this.upload();
-
     }
-
-
 
     public void upload() {
 
@@ -59,8 +56,6 @@ public class SucursalRepository implements CRUD<Sucursal> {
     public void delete(String codSuc) {
         if (findOne(codSuc) != null) {
             findOne(codSuc).setHabilitado(false);
-
-
         }
     }
 

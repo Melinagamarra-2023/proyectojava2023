@@ -35,20 +35,17 @@ public class TransportistaService implements CRUD<Transportista> {
 
     @Override
     public Transportista update(Transportista tr) {
-        Transportista trAnterior = transportistaRepository.findOne(tr.getCuit());
-        if (trAnterior != null) {
-            transportistaRepository.update(tr);
-            return transportistaRepository.findOne(tr.getCuit());
+        if (transportistaRepository.findOne(tr.getCuit()) != null) {
+            return transportistaRepository.update(tr);
         }
         return null;
     }
 
     @Override
-    public Transportista delete(String id) {
+    public void delete(String id) {
         if (transportistaRepository.findOne(id) != null) {
             transportistaRepository.delete(id);
         }
-        return null;
     }
 
     public List<Transportista> buscarTransportistasPorTipo(int opc) {

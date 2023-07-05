@@ -5,7 +5,7 @@ import org.example.service.TransportistaService;
 
 import java.util.List;
 
-public class TransportistaController implements CRUD<Transportista, Transportista> {
+public class TransportistaController implements CRUD<Transportista> {
     TransportistaService transportistaService = new TransportistaService();
 
     @Override
@@ -20,8 +20,8 @@ public class TransportistaController implements CRUD<Transportista, Transportist
     }
 
     @Override
-    public Transportista delete(String cuit) {
-        return transportistaService.delete(cuit);
+    public void delete(String cuit) {
+        transportistaService.delete(cuit);
     }
 
     @Override

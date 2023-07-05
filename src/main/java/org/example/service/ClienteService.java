@@ -35,7 +35,6 @@ public class ClienteService {
     }
 
     public Cliente buscarPorCuit(String cuit) {
-
         return clienteRepository.findOne(cuit);
     }
 

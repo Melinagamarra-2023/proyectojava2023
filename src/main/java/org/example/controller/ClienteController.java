@@ -5,11 +5,8 @@ import org.example.service.ClienteService;
 import java.util.List;
 
 
-public class ClienteController implements CRUD<Cliente, Cliente> {
+public class ClienteController implements CRUD<Cliente> {
     ClienteService clienteService = new ClienteService();
-
-
-
 
     @Override
     public void create(Cliente cliente) {
@@ -29,12 +26,13 @@ public class ClienteController implements CRUD<Cliente, Cliente> {
 
     @Override
     public Cliente update(Cliente cliente) {
-        return clienteService.modificarCliente(cliente);
+        clienteService.modificarCliente(cliente);
+        return null;
     }
 
     @Override
-    public Cliente delete(String id) {
-        return clienteService.eliminarCliente(id);
+    public void delete(String id) {
+        clienteService.eliminarCliente(id);
     }
 }
 
