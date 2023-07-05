@@ -7,11 +7,8 @@ import org.example.service.ProductoService;
 import java.util.List;
 
 public class ProductoController {
-    private final ProductoService productoService;
+    ProductoService productoService = new ProductoService();
 
-    public ProductoController(ProductoService productoService) {
-        this.productoService = productoService;
-    }
 
     public void create(Producto nuevoProducto) {
         productoService.create(nuevoProducto);

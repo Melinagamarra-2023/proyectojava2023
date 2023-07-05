@@ -12,8 +12,7 @@ public class MenuTransportista {
     int option = 99;
 
     public int seleccionarOpcion() {
-        System.out.println("""
-                                
+        System.out.println("""                                
                 Seleccione la opción:
                 1. Añadir un nuevo transportista.
                 2. Modificar un transportista.

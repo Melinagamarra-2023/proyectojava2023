@@ -18,8 +18,7 @@ public class MenuSucursal {
     int option = 99;
 
     public int seleccionarOpcion() {
-        System.out.println("""
-                                
+        System.out.println("""                                
                 Seleccione la opción:
                 1. Agregar una Sucursal.
                 2. Modificar una Sucursal.

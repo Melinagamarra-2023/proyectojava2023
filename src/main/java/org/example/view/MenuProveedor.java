@@ -8,9 +8,8 @@ import org.example.service.ProveedorService;
 import java.util.Scanner;
 
 public class MenuProveedor {
-    ProveedorRepository proveedorRepository = new ProveedorRepository();
-    ProveedorService proveedorService = new ProveedorService(proveedorRepository);
-    ProveedorController proveedorController = new ProveedorController(proveedorService);
+
+    ProveedorController proveedorController = new ProveedorController();
     Scanner input = new Scanner(System.in);
     int option = 99;
 

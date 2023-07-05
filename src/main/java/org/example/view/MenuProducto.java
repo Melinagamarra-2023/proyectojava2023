@@ -13,20 +13,14 @@ import org.example.service.ProveedorService;
 import java.util.Scanner;
 
 public class MenuProducto {
-    ProductoRepository productoRepository = new ProductoRepository(new ProveedorRepository());
-    ProductoService productoService = new ProductoService(productoRepository);
-    ProductoController productoController = new ProductoController(productoService);
-    ProveedorRepository proveedorRepository = new ProveedorRepository();
-    ProveedorService proveedorService = new ProveedorService(proveedorRepository);
-    ProveedorController proveedorController = new ProveedorController(proveedorService);
 
-
+    ProductoController productoController = new ProductoController();
+    ProveedorController proveedorController = new ProveedorController();
     Scanner input = new Scanner(System.in);
     static int option = 99;
 
     public int seleccionarOpcion() {
-        System.out.println("""
-                                
+        System.out.println("""                               
                 Seleccione la opción:
                 1. Agregar un producto.
                 2. Modificar un producto.
