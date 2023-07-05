@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.view.*;
+import org.example.view.;
 
 public class Main {
     public static void main(String[] args) {
@@ -73,14 +73,11 @@ public class Main {
                             case 3 -> menuProducto.eliminarProducto();
                             case 4 -> menuProducto.buscarProductoPorId();
                             case 5 -> menuProducto.buscarTodosLosProductos();
-
+                            case 0 -> menuPrincipal.regresar();
+                            default -> menuPrincipal.invalido();
                         }
                     }
                 }
-
-
-
-
             }
         }
     }
