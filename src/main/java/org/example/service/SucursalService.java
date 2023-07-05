@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SucursalService {
-    SucursalRepository sucursalRepository;
+    SucursalRepository sucursalRepository = new SucursalRepository();
 
-    public SucursalService(SucursalRepository sucursalRepository) {
-        this.sucursalRepository = sucursalRepository;
-    }
 
 
     public void create(Sucursal sucursal) {

@@ -9,9 +9,8 @@ import java.util.Scanner;
 
 public class MenuCliente {
 
-    ClienteRepository clienteRepository = new ClienteRepository();
-    ClienteService clienteService = new ClienteService(clienteRepository);
-    ClienteController clienteController = new ClienteController(clienteService);
+
+    ClienteController clienteController = new ClienteController();
     Scanner input = new Scanner(System.in);
     int option = 99;
 
