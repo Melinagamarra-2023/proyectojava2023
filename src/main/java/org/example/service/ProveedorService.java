@@ -7,10 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProveedorService {
-    ProveedorRepository proveedorRepository;
-    public ProveedorService(ProveedorRepository proveedorRepository) {
-        this.proveedorRepository = proveedorRepository;
-    }
+    ProveedorRepository proveedorRepository = new ProveedorRepository();
+
     public void create(Proveedor nuevoCliente) {
         Proveedor proveedorExiste = proveedorRepository.findOne(nuevoCliente.getCuit());
         if(proveedorExiste == null){

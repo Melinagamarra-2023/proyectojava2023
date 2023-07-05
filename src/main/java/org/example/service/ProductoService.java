@@ -8,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductoService {
-    ProductoRepository productoRepository;
-
-    public ProductoService(ProductoRepository productoRepository) {
-        this.productoRepository = productoRepository;
-    }
+    ProductoRepository productoRepository = new ProductoRepository();
 
     public void create(Producto nuevoProducto) {
         Producto productoExiste = productoRepository.findOne(nuevoProducto.getId());
