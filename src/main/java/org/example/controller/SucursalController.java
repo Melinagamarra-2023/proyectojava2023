@@ -5,20 +5,16 @@ import org.example.service.SucursalService;
 
 import java.util.List;
 
-public class SucursalController implements CRUD<Sucursal, Sucursal> {
+public class SucursalController implements CRUD<Sucursal> {
     SucursalService sucursalService = new SucursalService();
-
-
 
     @Override
     public void create(Sucursal sucursal) {
         sucursalService.create(sucursal);
-
     }
 
     @Override
     public List<Sucursal> findAll() {
-
         return sucursalService.findAll();
     }
 
@@ -29,12 +25,12 @@ public class SucursalController implements CRUD<Sucursal, Sucursal> {
 
     @Override
     public Sucursal update(Sucursal sucursal) {
-        return sucursalService.update(sucursal);
+        sucursalService.update(sucursal);
+        return null;
     }
 
     @Override
-    public Sucursal delete(String sucId) {
-
-        return sucursalService.delete(sucId);
+    public void delete(String sucId) {
+        sucursalService.delete(sucId);
     }
 }

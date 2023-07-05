@@ -7,9 +7,9 @@ import java.util.List;
 
 public class SectorRepository {
     SucursalRepository sucursalRepository = new SucursalRepository();
-    private final List<Sector>sectores;
+    private final List<Sector> sectores;
 
-    public SectorRepository(List<Sector> sectores) {
+    public SectorRepository() {
         this.sectores = new ArrayList<>();
         this.upload();
     }

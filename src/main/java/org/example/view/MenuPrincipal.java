@@ -3,17 +3,22 @@ package org.example.view;
 import java.util.Scanner;
 
 public class MenuPrincipal {
+
     Scanner input = new Scanner(System.in);
     int option = 99;
+
     public int seleccionarModulo() {
         System.out.println("""
+                
+                ------ MENÚ PRINCIPAL ------
                 Seleccione el módulo que desea:
                 1. Gestión de clientes.
                 2. Gestión de proveedores.
                 3. Gestion de Sucursales.
                 4. Gestion de transportistas.
                 5. Gestión de productos.
-                0. Atras""");
+                6. Gestión de lineas de pedido.
+                0. Salir""");
         option = input.nextInt();
         return option;
     }

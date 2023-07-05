@@ -17,10 +17,13 @@ public class MenuProducto {
     ProductoController productoController = new ProductoController();
     ProveedorController proveedorController = new ProveedorController();
     Scanner input = new Scanner(System.in);
-    static int option = 99;
+    int option = 99;
 
     public int seleccionarOpcion() {
-        System.out.println("""                               
+        option = 99;
+        System.out.println("""
+                
+                ----- MENÚ PRODUCTOS -----
                 Seleccione la opción:
                 1. Agregar un producto.
                 2. Modificar un producto.

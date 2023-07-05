@@ -15,7 +15,10 @@ public class MenuCliente {
     int option = 99;
 
     public int seleccionarOpcion() {
-        System.out.println("""         
+        option = 99;
+        System.out.println("""
+                
+                ------ MENÚ CLIENTES ------
                 Seleccione la opción:
                 1. Crear cuenta de cliente.
                 2. Modificar cuenta de cliente.

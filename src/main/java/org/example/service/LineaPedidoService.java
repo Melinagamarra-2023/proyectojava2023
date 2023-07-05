@@ -1,46 +1,58 @@
 package org.example.service;
 
 import org.example.model.LineaPedido;
+import org.example.repository.LineaPedidoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class LineaPedidoService {
+public class LineaPedidoService implements CRUD<LineaPedido> {
 
-    private final List<LineaPedido> LineaPedido;
-    private int codigo = 0;
+    LineaPedidoRepository lineaPedidoRepository = new LineaPedidoRepository();
 
-    public LineaPedidoService() {
-        this.LineaPedido = new ArrayList<>();
-    }
-
+    @Override
     public void create(LineaPedido lineaPedido) {
-        codigo++;
-        lineaPedido.setCodigo(codigo);
-        LineaPedido.add(lineaPedido);
+        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) == null) {
+            lineaPedidoRepository.create(lineaPedido);
+        }
     }
 
-    public LineaPedido findOne(int id) {
-        for (LineaPedido lp : LineaPedido) {
-            if (lp.getCodigo() == id) {
-                return lp;
-            }
+    @Override
+    public LineaPedido findOne(String id) {
+        if (lineaPedidoRepository.findOne(id) != null) {
+            return lineaPedidoRepository.findOne(id);
         }
         return null;
     }
 
+    @Override
     public List<LineaPedido> findAll() {
-        return LineaPedido;
+        return lineaPedidoRepository.findAll();
     }
 
-    public void update(LineaPedido lineaPedido) {
-        lineaPedido.setProducto(lineaPedido.getProducto());
-        lineaPedido.setCantidad(lineaPedido.getCantidad());
+    @Override
+    public LineaPedido update(LineaPedido lineaPedido) {
+        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) != null) {
+            return lineaPedidoRepository.update(lineaPedido);
+        }
+        return null;
     }
 
-    public void delete(LineaPedido lineaPedido) {
-        lineaPedido.setCodigo(0);
-        lineaPedido.setCantidad(0);
-        lineaPedido.setProducto(null);
+    @Override
+    public void delete(String id) {
+        if (lineaPedidoRepository.findOne(id) != null) {
+            lineaPedidoRepository.delete(id);
+        }
+    }
+
+    public void calificarProveedor(LineaPedido lineaPedido, int star) {
+        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) != null) {
+            lineaPedidoRepository.calificarProveedor(lineaPedido, star);
+        }
+    }
+
+    public void calificarTransportista(LineaPedido lineaPedido, int star) {
+        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) != null) {
+            lineaPedidoRepository.calificarTransportista(lineaPedido, star);
+        }
     }
 }

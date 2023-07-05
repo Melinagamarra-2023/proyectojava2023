@@ -5,27 +5,41 @@ import org.example.service.LineaPedidoService;
 
 import java.util.List;
 
-public class LineaPedidoController {
+public class LineaPedidoController implements CRUD<LineaPedido>{
 
     LineaPedidoService lineaPedidoService = new LineaPedidoService();
 
+    @Override
+    public LineaPedido findOne(String id) {
+        return lineaPedidoService.findOne(id);
+    }
+
+    @Override
+    public LineaPedido update(LineaPedido lineaPedido) {
+        lineaPedidoService.update(lineaPedido);
+        return null;
+    }
+
+    @Override
     public void create(LineaPedido lineaPedido) {
         lineaPedidoService.create(lineaPedido);
     }
 
-    public LineaPedido findOne(int id) {
-        return lineaPedidoService.findOne(id);
-    }
-
+    @Override
     public List<LineaPedido> findAll() {
         return lineaPedidoService.findAll();
     }
 
-    public void update(LineaPedido lineaPedido) {
-        lineaPedidoService.update(lineaPedido);
+    @Override
+    public void delete(String id) {
+        lineaPedidoService.delete(id);
     }
 
-    public void delete(LineaPedido lineaPedido) {
-        lineaPedidoService.delete(lineaPedido);
+    public void calificarProveedor(LineaPedido lineaPedido, int star) {
+        lineaPedidoService.calificarProveedor(lineaPedido, star);
+    }
+
+    public void calificarTransportista(LineaPedido lineaPedido, int star) {
+        lineaPedidoService.calificarTransportista(lineaPedido, star);
     }
 }

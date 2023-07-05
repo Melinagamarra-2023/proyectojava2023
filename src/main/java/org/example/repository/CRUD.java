@@ -3,17 +3,18 @@ package org.example.repository;
 import java.util.List;
 
 public interface CRUD<T> {
-    T findOne(String id);
 
-    List<T> findAll();
+    public T findOne(String id);
 
-    void create(T t);
+    public List<T> findAll();
 
-    void delete(String id);
+    public void create(T t);
 
-    T update(T t);
+    public void delete(String id);
 
-    void upload();
+    public T update(T t);
+
+    public void upload();
 
 
 }

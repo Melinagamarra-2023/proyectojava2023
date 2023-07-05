@@ -11,12 +11,14 @@ import java.util.Scanner;
 public class MenuSucursal {
 
     SucursalController sucursalController = new SucursalController();
-
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
-        System.out.println("""                                
+        option = 99;
+        System.out.println("""
+                
+                ----- MENÚ SUCURSALES -----
                 Seleccione la opción:
                 1. Agregar una Sucursal.
                 2. Modificar una Sucursal.
