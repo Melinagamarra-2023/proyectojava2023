@@ -12,11 +12,13 @@ import java.util.Scanner;
 public class MenuPedido {
 
     ClienteController clienteController = new ClienteController();
+
     PedidoController pedidoController = new PedidoController();
     LineaPedidoController lineaPedidoController = new LineaPedidoController();
+    SucursalController sucursalController = new SucursalController();
     MenuLineaPedido menuLineaPedido = new MenuLineaPedido();
     MenuSucursal menuSucursal = new MenuSucursal();
-    SucursalController sucursalController = new SucursalController();
+    MenuTransportista menuTransportista = new MenuTransportista();
     Scanner input = new Scanner(System.in);
 
     public void añadirLineaPedido() {
@@ -50,6 +52,10 @@ public class MenuPedido {
         System.out.println("Ingrese el ID de la surcusal de destino para el pedido:");
         id = input.next();
         pedidoController.setSectorDestino(nuevoPedido, sucursalController.findOne(id).getSucId() + "9");
+        //seleccionar transportista
+        System.out.println("Seleccione el transporte que desea para su envio:");
+        menuTransportista.buscarTransportistasPorTipo();
+        System.out.println("Ingrese el ID del transportista elegido:");
 
     }
 }
