@@ -8,10 +8,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class Empleado {
-
     private String nombre;
     private Sucursal sucursal;
     private String cuit;
-
-
 }
