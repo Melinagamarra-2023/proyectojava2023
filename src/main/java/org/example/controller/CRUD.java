@@ -1,19 +1,21 @@
 package org.example.controller;
 
 
+import org.example.model.Transportista;
+
 import java.util.List;
 
-public interface CRUD<R, P> {
+public interface CRUD<P> {
 
 
     public void create(P p);
 
-    public List<R> findAll();
+    public List<P> findAll();
 
-    public R findOne(String id);
+    public P findOne(String id);
 
-    public R update(P p);
+    public P update(P p);
 
-    public R delete(String id);
+    public void delete(String id);
 
 }

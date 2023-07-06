@@ -1,17 +1,16 @@
 package org.example;
 
-import org.example.view.MenuPrincipal;
-import org.example.view.MenuCliente;
-import org.example.view.MenuTransportista;
-import org.example.view.MenuProveedor;
-
+import org.example.view.*;
 
 public class Main {
     public static void main(String[] args) {
         MenuPrincipal menuPrincipal = new MenuPrincipal();
         MenuCliente menuCliente = new MenuCliente();
-        //MenuTransportista menuTransportista = new MenuTransportista();
+        MenuSucursal menuSucursal = new MenuSucursal();
+        MenuTransportista menuTransportista = new MenuTransportista();
         MenuProveedor menuProveedor = new MenuProveedor();
+        MenuProducto menuProducto = new MenuProducto();
+        MenuLineaPedido menuLineaPedido = new MenuLineaPedido();
         while (menuPrincipal.atras() != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
                 case 1 -> {
@@ -27,7 +26,6 @@ public class Main {
                         }
                     }
                 }
-
                 case 2 -> {
                     while (menuProveedor.atras() != 0) {
                         switch (menuProveedor.seleccionarOpcion()) {
@@ -36,6 +34,59 @@ public class Main {
                             case 3 -> menuProveedor.eliminarProveedor();
                             case 4 -> menuProveedor.buscarProveedorPorCuit();
                             case 5 -> menuProveedor.buscarProveedores();
+                            case 0 -> menuPrincipal.regresar();
+                            default -> menuPrincipal.invalido();
+                        }
+                    }
+                }
+                case 3 -> {
+                    while (menuSucursal.atras() != 0) {
+                        switch (menuSucursal.seleccionarOpcion()) {
+                            case 1 -> menuSucursal.agregarUnaSucursal();
+                            case 2 -> menuSucursal.modificarSucursal();
+                            case 3 -> menuSucursal.deshablitarSucursal();
+                            case 4 -> menuSucursal.buscarSucursalPorCodigo();
+                            case 5 -> menuSucursal.buscarTodasLasSucursales();
+                            case 0 -> menuPrincipal.regresar();
+                            default -> menuPrincipal.invalido();
+                        }
+                    }
+                }
+                case 4 -> {
+                    while (menuTransportista.atras() != 0) {
+                        switch (menuTransportista.seleccionarOpcion()) {
+                            case 1 -> menuTransportista.añadirTransportista();
+                            case 2 -> menuTransportista.modificarTransportista();
+                            case 3 -> menuTransportista.eliminarTransportista();
+                            case 4 -> menuTransportista.buscarPorCuit();
+                            case 5 -> menuTransportista.buscarTransportistas();
+                            case 6 -> menuTransportista.buscarTransportistasPorTipo();
+                            case 0 -> menuPrincipal.regresar();
+                            default -> menuPrincipal.invalido();
+                        }
+                    }
+                }
+                case 5 -> {
+                    while (menuProducto.atras() != 0) {
+                        switch (menuProducto.seleccionarOpcion()) {
+                            case 1 -> menuProducto.crearProducto();
+                            case 2 -> menuProducto.modificarProducto();
+                            case 3 -> menuProducto.eliminarProducto();
+                            case 4 -> menuProducto.buscarProductoPorId();
+                            case 5 -> menuProducto.buscarTodosLosProductos();
+                            case 0 -> menuPrincipal.regresar();
+                            default -> menuPrincipal.invalido();
+                        }
+                    }
+                }
+                case 6 -> {
+                    while (menuLineaPedido.atras() != 0) {
+                        switch (menuLineaPedido.seleccionarOpcion()) {
+                            case 1 -> menuLineaPedido.seleccionarProductos();
+                            case 2 -> menuLineaPedido.modificarLineaPedido();
+                            case 3 -> menuLineaPedido.eliminarLineaPedido();
+                            case 4 -> menuLineaPedido.buscarLineasPedido();
+                            //case 5 -> menuLineaPedido.generarPedido();
                             case 0 -> menuPrincipal.regresar();
                             default -> menuPrincipal.invalido();
                         }
