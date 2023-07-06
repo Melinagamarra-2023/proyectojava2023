@@ -9,8 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class LineaPedido {
     private String codigo;
-    private Integer cantidad;
+    private Float cantidad;
     private Producto producto;
-    private int calificaProveedor;
-    private int calificaTransportista;
+
+
 }

@@ -2,28 +2,45 @@ package org.example.service;
 
 import org.example.model.Transportista;
 import org.example.repository.TransportistaRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransportistaService implements CRUD<Transportista> {
+public class TransportistaService {
+    TransportistaRepository transportistaRepository;
 
-    TransportistaRepository transportistaRepository = new TransportistaRepository();
+    public TransportistaService(TransportistaRepository transportistaRepository) {
+        this.transportistaRepository = transportistaRepository;
+    }
 
-    @Override
-    public void create(Transportista nuevotr) {
+    public void crearTransportista(Transportista nuevotr) {
         Transportista trExiste = transportistaRepository.findOne(nuevotr.getCuit());
         if (trExiste == null) {
-            transportistaRepository.create(nuevotr);
+            transportistaRepository.save(nuevotr);
         }
     }
 
-    @Override
-    public Transportista findOne(String id) {
-        return transportistaRepository.findOne(id);
+    public Transportista modificarTransportista(Transportista tr) {
+        Transportista trAnterior = transportistaRepository.findOne(tr.getCuit());
+        if (trAnterior != null) {
+            transportistaRepository.update(tr);
+            return transportistaRepository.findOne(tr.getCuit());
+        }
+        return null;
     }
 
-    @Override
-    public List<Transportista> findAll() {
+    public Transportista eliminarTransportista(String cuit) {
+        if (transportistaRepository.findOne(cuit) != null) {
+            transportistaRepository.delete(cuit);
+        }
+        return null;
+    }
+
+    public Transportista buscarPorCuit(String cuit) {
+        return transportistaRepository.findOne(cuit);
+    }
+
+    public List<Transportista> buscarTransportistas() {
         List<Transportista> resultado = new ArrayList<>();
         for (Transportista tr : this.transportistaRepository.findAll()) {
             if (tr.getHabilitado()) {
@@ -32,40 +49,35 @@ public class TransportistaService implements CRUD<Transportista> {
         }
         return resultado;
     }
-
-    @Override
-    public Transportista update(Transportista tr) {
-        if (transportistaRepository.findOne(tr.getCuit()) != null) {
-            return transportistaRepository.update(tr);
-        }
-        return null;
-    }
-
-    @Override
-    public void delete(String id) {
-        if (transportistaRepository.findOne(id) != null) {
-            transportistaRepository.delete(id);
-        }
-    }
-
+/*
     public List<Transportista> buscarTransportistasPorTipo(int opc) {
+        Transportista auxiliar = new Transportista("dou","a","a","a","a","a",null,true);
+        setTransporte(auxiliar, opc);
         List<Transportista> resultado = new ArrayList<>();
         for (Transportista tr : transportistaRepository.findAll()) {
-            if (opc==1) {
-                if (tr.getTerrestre() && tr.getHabilitado()) {
-                    resultado.add(tr);
-                }
-            }else if (opc==2) {
-                if (tr.getMaritimo() && tr.getHabilitado()) {
-                    resultado.add(tr);
-                }
-            }else if (opc==3) {
-                if (tr.getAereo() && tr.getHabilitado()) {
-                    resultado.add(tr);
-                }
+            if (tr.getTipoDeTransporte().equals(auxiliar.getTipoDeTransporte()) && tr.getHabilitado()) {
+                resultado.add(tr);
             }
         }
         return resultado;
     }
+
+    public void setTransporte(Transportista tr, int tipoDeTransporte) {
+        transportistaRepository.setTransporte(tr, tipoDeTransporte);
+    }
+
+
+/*
+    public Transportista buscarTransportistaPorTipoDeTransporte(List<Transportista> transportistas, String tipoDeTransporte) {
+        for (Transportista transportista : transportistas) {
+            if (transportista.getTipoDeTransporte().equals(tipoDeTransporte)) {
+                return transportista;
+            }
+        }
+        return null;  // Si no se encuentra ningún transportista con el tipo de transporte especificado
+    }
+
+ */
+
 
 }

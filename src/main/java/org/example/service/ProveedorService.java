@@ -7,19 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProveedorService {
-    ProveedorRepository proveedorRepository = new ProveedorRepository();
-
+    ProveedorRepository proveedorRepository;
+    public ProveedorService(ProveedorRepository proveedorRepository) {
+        this.proveedorRepository = proveedorRepository;
+    }
     public void create(Proveedor nuevoCliente) {
-        Proveedor proveedorExiste = proveedorRepository.findOne(nuevoCliente.getCuit());
+        Proveedor proveedorExiste = proveedorRepository.findOne(nuevoCliente.getCuit()); //tiene que ser findOne
         if(proveedorExiste == null){
-            proveedorRepository.create(nuevoCliente);
+            proveedorRepository.save(nuevoCliente);
         }
     }
 
     public void update(Proveedor pr) {
-        Proveedor proveedorAnterior = proveedorRepository.findOne(pr.getCuit());
+        Proveedor proveedorAnterior = proveedorRepository.findOne(pr.getCuit()); //tiene que ser findOne
         if (proveedorAnterior != null) {
-            proveedorRepository.update(pr);
+            proveedorRepository.update(pr.getCuit(), pr);
             proveedorRepository.findOne(pr.getCuit());
         }
     }
@@ -33,7 +35,7 @@ public class ProveedorService {
     public Proveedor findOne(String cuit) {
         for (Proveedor pr : proveedorRepository.findAll()) {
             if (pr.getCuit().equals(cuit)) {
-                return pr;
+                return pr; //función cambiada
             }
         }
         return null;

@@ -8,16 +8,14 @@ import org.example.service.ProveedorService;
 import java.util.Scanner;
 
 public class MenuProveedor {
-
-    ProveedorController proveedorController = new ProveedorController();
+    ProveedorRepository proveedorRepository = new ProveedorRepository();
+    ProveedorService proveedorService = new ProveedorService(proveedorRepository);
+    ProveedorController proveedorController = new ProveedorController(proveedorService, proveedorRepository);
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
-        option = 99;
         System.out.println("""
-                
-                ----- MENÚ PROVEEDORES -----
                 Seleccione la opción:
                 1. Añadir proveedor.
                 2. Modificar Proveedor.
@@ -130,7 +128,8 @@ public class MenuProveedor {
                     ", CUIT: " + pr.getCuit() +
                     ", Correo: " + pr.getCorreo() +
                     ", Dirección: " + pr.getDireccion() +
-                    ", Teléfono: " + pr.getTelefono() + ";");
+                    ", Teléfono: " + pr.getTelefono() +
+                    ", Estado: " + pr.getHabilitado() + ";");
         }
         System.out.println("\n");
     }

@@ -1,21 +1,24 @@
 package org.example.repository;
+
+import org.example.model.Transporte;
 import org.example.model.Transportista;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransportistaRepository implements CRUD<Transportista> {
     private final List<Transportista> transportistas;
-
-    public TransportistaRepository() {
+    public TransportistaRepository( ) {
         this.transportistas = new ArrayList<>();
         this.upload();
     }
 
+
     @Override
     public Transportista findOne(String cuit) {
-        for (Transportista tr : transportistas) {
-            if (tr.getCuit().equals(cuit)) {
-                return tr;
+        for (Transportista cl : transportistas) {
+            if (cl.getCuit().equals(cuit)) {
+                return cl;
             }
         }
         return null;
@@ -27,41 +30,58 @@ public class TransportistaRepository implements CRUD<Transportista> {
     }
 
     @Override
-    public void create(Transportista transportista) {
-        transportistas.add(transportista);
+    public void save(Transportista tr) {
+        transportistas.add(tr);
     }
 
     @Override
     public void delete(String cuit) {
+        if (findOne(cuit) != null) {
             findOne(cuit).setHabilitado(false);
+        }
+
     }
 
     @Override
-    public Transportista update(Transportista trActualizado) {
-        findOne(trActualizado.getCuit()).setNombre(trActualizado.getNombre());
-        findOne(trActualizado.getCuit()).setHabilitado(trActualizado.getHabilitado());
-        findOne(trActualizado.getCuit()).setTerrestre(trActualizado.getTerrestre());
-        findOne(trActualizado.getCuit()).setMaritimo(trActualizado.getMaritimo());
-        findOne(trActualizado.getCuit()).setAereo(trActualizado.getAereo());
-        return trActualizado;
+    public Transportista update(Transportista TransportistaActualizado) {
+        if (findOne(TransportistaActualizado.getCuit()) != null) {
+            findOne(TransportistaActualizado.getCuit()).setNombre(TransportistaActualizado.getNombre());
+            findOne(TransportistaActualizado.getCuit()).setHabilitado(TransportistaActualizado.getHabilitado());
+            findOne(TransportistaActualizado.getCuit()).setTipoDeTransporte(TransportistaActualizado.getTipoDeTransporte());
+        }
+        return null;
     }
+
+    Transporte tipoDeTransporte1 = new Transporte("Marítimo");
+    Transporte tipoDeTransporte2 = new Transporte("Aéreo");
+    Transporte tipoDeTransporte3 = new Transporte("Terrestre");
+
+
+
+
+
+   /* public void setTransporte(Transportista tr, int tipoDeTransporte) {
+        if(tipoDeTransporte == 1) {
+            tr.setTipoDeTransporte(tipoDeTransporte1);
+
+        } else if(tipoDeTransporte == 2) {
+            tr.setTipoDeTransporte(tipoDeTransporte2);
+        } else {
+            tr.setTipoDeTransporte(tipoDeTransporte3);
+        }
+    }*/
 
     @Override
     public void upload() {
-        Transportista tr1 = new Transportista("Alpha", "11111111", "11111", true, true, true, true);
-        Transportista tr2 = new Transportista("Beta", "22222222", "22222", true, true, true, false);
-        Transportista tr3 = new Transportista("Gamma", "33333333", "33333", true, true, false, true);
-        Transportista tr4 = new Transportista("Delta", "33333333", "44444", true, true, false, false);
-        Transportista tr5 = new Transportista("Epsilon", "44444444", "55555", true, true, false, true);
-        Transportista tr6 = new Transportista("Zeta", "55555555", "66666", true, true, true, false);
-        Transportista tr7 = new Transportista("Eta", "66666666", "77777", true, true, true, true);
-        Transportista tr8 = new Transportista("Iota", "77777777", "88888", true, true, true, false);
-        Transportista tr9 = new Transportista("Kappa", "88888888", "99999", true, true, true, true);
-        Transportista tr10 = new Transportista("Lambda", "99999999", "21111", true, true, true, false);
-        Transportista tr11 = new Transportista("Omicron", "21111111", "32222", true, true, false, true);
-        Transportista tr12 = new Transportista("Sigma", "32222222", "43333", true, true, true, false);
-        Transportista tr13 = new Transportista("Ypsilon", "43333333", "54444", true, true, false, false);
-        Transportista tr14 = new Transportista("Omega", "54444444", "65555", true, true, true, true);
+
+
+
+        Transportista tr1 = new Transportista("Juan", "435435435", tipoDeTransporte1,  true, null);
+        Transportista tr2 = new Transportista("Maria", "454354534", tipoDeTransporte1, true, null);
+        Transportista tr3 = new Transportista("Pedro", "4567891230", tipoDeTransporte3,true,null);
+        Transportista tr4 = new Transportista("Laura", "3216549870",tipoDeTransporte1, true,null);
+        Transportista tr5 = new Transportista("Carlos","7891234560",tipoDeTransporte2, true,null);
+        Transportista tr6 = new Transportista("Ana", "40456345435", tipoDeTransporte3, true, null);
 
         transportistas.add(tr1);
         transportistas.add(tr2);
@@ -69,13 +89,8 @@ public class TransportistaRepository implements CRUD<Transportista> {
         transportistas.add(tr4);
         transportistas.add(tr5);
         transportistas.add(tr6);
-        transportistas.add(tr7);
-        transportistas.add(tr8);
-        transportistas.add(tr9);
-        transportistas.add(tr10);
-        transportistas.add(tr11);
-        transportistas.add(tr12);
-        transportistas.add(tr13);
-        transportistas.add(tr14);
+
     }
+
+
 }
