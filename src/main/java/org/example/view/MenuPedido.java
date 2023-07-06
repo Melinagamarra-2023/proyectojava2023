@@ -33,7 +33,4 @@ public class MenuPedido {
         }
         System.out.println("Seleccione la sucursal de origen.");
     }
-
-
-
 }
