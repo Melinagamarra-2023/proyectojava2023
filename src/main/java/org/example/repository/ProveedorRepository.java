@@ -9,6 +9,7 @@ public class ProveedorRepository implements CRUD<Proveedor>{
     private final List<Proveedor> proveedores;
     public ProveedorRepository() {
         this.proveedores = new ArrayList<>();
+        this.upload();
     }
 
     @Override
