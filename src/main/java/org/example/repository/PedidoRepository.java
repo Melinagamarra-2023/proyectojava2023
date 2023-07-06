@@ -2,6 +2,7 @@ package org.example.repository;
 
 import org.example.model.LineaPedido;
 import org.example.model.Pedido;
+import org.example.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
