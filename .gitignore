@@ -8,7 +8,6 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
-.idea/sonarlint/
 *.iws
 *.iml
 *.ipr
@@ -37,9 +36,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-.idea/sonarlint/issuestore/index.pb
-.idea/sonarlint/issuestore/index.pb
-.idea/sonarlint/securityhotspotstore/index.pb
-.idea/sonarlint/securityhotspotstore/b/8/b8f2674ccbfbaca3c70935d98de952b3b904dd37
-.idea/sonarlint/issuestore/b/8/b8f2674ccbfbaca3c70935d98de952b3b904dd37
-.idea/sonarlint/issuestore/b/8/b8f2674ccbfbaca3c70935d98de952b3b904dd37

@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-
 public class Producto {
     private String id;
     private String nombre;
@@ -18,6 +17,5 @@ public class Producto {
     private Float peso;
     private Categoria categoria;
     private Proveedor proveedor;
-    private Boolean habilitado;
 
 }

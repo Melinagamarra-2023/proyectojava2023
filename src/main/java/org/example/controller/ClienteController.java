@@ -1,12 +1,20 @@
 package org.example.controller;
 
 import org.example.model.Cliente;
+import org.example.repository.ClienteRepository;
 import org.example.service.ClienteService;
+
 import java.util.List;
 
 
-public class ClienteController implements CRUD<Cliente> {
-    ClienteService clienteService = new ClienteService();
+public class ClienteController implements CRUD<Cliente, Cliente> {
+    private final ClienteService clienteService;
+
+
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+
+    }
 
     @Override
     public void create(Cliente cliente) {
@@ -26,13 +34,12 @@ public class ClienteController implements CRUD<Cliente> {
 
     @Override
     public Cliente update(Cliente cliente) {
-        clienteService.modificarCliente(cliente);
-        return null;
+        return clienteService.modificarCliente(cliente);
     }
 
     @Override
-    public void delete(String id) {
-        clienteService.eliminarCliente(id);
+    public Cliente delete(String id) {
+        return clienteService.eliminarCliente(id);
     }
 }
 

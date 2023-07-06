@@ -9,12 +9,14 @@ import java.util.List;
 
 
 public class ClienteService {
-    ClienteRepository clienteRepository = new ClienteRepository();
-
+    ClienteRepository clienteRepository;
+    public ClienteService(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
     public void crearCuentaCliente(Cliente nuevoCliente) {
         Cliente clienteExiste = clienteRepository.findOne(nuevoCliente.getCuit());
         if(clienteExiste == null){
-            clienteRepository.create(nuevoCliente);
+            clienteRepository.save(nuevoCliente);
         }
     }
 
@@ -35,6 +37,7 @@ public class ClienteService {
     }
 
     public Cliente buscarPorCuit(String cuit) {
+
         return clienteRepository.findOne(cuit);
     }
 

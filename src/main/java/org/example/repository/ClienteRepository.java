@@ -1,11 +1,12 @@
 package org.example.repository;
 
 import org.example.model.Cliente;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteRepository implements CRUD<Cliente> {
-    private final List<Cliente> clientes;
+    private List<Cliente> clientes;
 
     public ClienteRepository() {
         this.clientes = new ArrayList<>();
@@ -29,7 +30,7 @@ public class ClienteRepository implements CRUD<Cliente> {
     }
 
     @Override
-    public void create(Cliente cl) {
+    public void save(Cliente cl) {
         clientes.add(cl);
     }
 

@@ -8,17 +8,18 @@ import org.example.service.ClienteService;
 import java.util.Scanner;
 
 public class MenuCliente {
+    ClienteRepository clienteRepository = new ClienteRepository();
 
+    ClienteService clienteService = new ClienteService(clienteRepository);
 
-    ClienteController clienteController = new ClienteController();
+    ClienteController clienteController = new ClienteController(clienteService);
+
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
-        option = 99;
         System.out.println("""
                 
-                ------ MENÚ CLIENTES ------
                 Seleccione la opción:
                 1. Crear cuenta de cliente.
                 2. Modificar cuenta de cliente.
@@ -57,6 +58,7 @@ public class MenuCliente {
         Cliente nuevoCliente = new Cliente(nombre, apellido, cuit, direccion, correo, telefono, true);
         clienteController.create(nuevoCliente);
         System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
+
     }
 
     public void modificarCliente() {
@@ -129,12 +131,12 @@ public class MenuCliente {
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +
                     ", Teléfono: " + cl.getTelefono() +
-                    ", Estado: " + cl.getHabilitado() + ";");
+                    ", Estado: " + cl.getHabilitado() +";");
         }
         System.out.println("\n");
     }
 
-    public int atras() {
+    public int atras(){
         return option;
     }
 }
