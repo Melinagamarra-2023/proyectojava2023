@@ -21,15 +21,15 @@ public class SucursalRepository implements CRUD<Sucursal> {
         Sucursal sucursalB = new Sucursal("1234CD", 37.7749, -122.4194, "San Francisco", "America del Norte", true);
         Sucursal sucursalC = new Sucursal("5678EF", 51.5074, -0.1278, "London", "Europe", true);
         Sucursal sucursalD = new Sucursal("9012GH", -33.8688, 151.2093, "Sydney", "Australia", true);
-        Sucursal sucursalE = new Sucursal("3456IJ", 35.6895, 139.6917, "Tokyo", "Asia", true);
-        Sucursal sucursalF = new Sucursal("7890KL", -23.5505, -46.6333, "Sao Paulo", "South America", true);
+        //Sucursal sucursalE = new Sucursal("3456IJ", 35.6895, 139.6917, "Tokyo", "Asia", true);
+        //Sucursal sucursalF = new Sucursal("7890KL", -23.5505, -46.6333, "Sao Paulo", "South America", true);
 
         sucursales.add(sucursalA);
         sucursales.add(sucursalB);
         sucursales.add(sucursalC);
         sucursales.add(sucursalD);
-        sucursales.add(sucursalF);
-        sucursales.add(sucursalE);
+        //sucursales.add(sucursalF);
+        //sucursales.add(sucursalE);
     }
 
     @Override

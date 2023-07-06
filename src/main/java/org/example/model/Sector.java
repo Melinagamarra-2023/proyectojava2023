@@ -9,6 +9,6 @@ import lombok.Setter;
 public class Sector {
     private String nombre;
     private Sucursal sucursal;
-    private int sucId;
+    private String sucId;
 
 }

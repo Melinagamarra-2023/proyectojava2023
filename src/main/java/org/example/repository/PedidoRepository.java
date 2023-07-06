@@ -2,6 +2,8 @@ package org.example.repository;
 
 import org.example.model.LineaPedido;
 import org.example.model.Pedido;
+import org.example.model.Sector;
+import org.example.model.Sucursal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,10 +56,15 @@ public class PedidoRepository implements CRUD<Pedido> {
         pedido.getDetalle().add(lineaPedido);
     }
 
-
     @Override
     public void upload() {
+    }
 
+    public void setSectorOrigen(Pedido pedido, Sector sector) {
+        pedido.setSectorOrigen(sector);
+    }
 
+    public void setSectorDestino(Pedido pedido, Sector sector) {
+        pedido.setSectorDestino(sector);
     }
 }
