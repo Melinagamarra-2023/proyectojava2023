@@ -39,4 +39,11 @@ public class PedidoController implements CRUD<Pedido> {
         pedidoService.añadirLineaPedido(pedido, lineaPedido);
     }
 
+    public void setSectorOrigen(Pedido pedido, String id) {
+        pedidoService.setSectorOrigen(pedido, id);
+    }
+
+    public void setSectorDestino(Pedido pedido, String id) {
+        pedidoService.setSectorDestino(pedido, id);
+    }
 }

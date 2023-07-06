@@ -3,12 +3,16 @@ package org.example.service;
 import org.example.model.LineaPedido;
 import org.example.model.Pedido;
 import org.example.repository.PedidoRepository;
+import org.example.repository.SectorRepository;
+import org.example.repository.SucursalRepository;
 
 import java.util.List;
 
 public class PedidoService implements CRUD<Pedido> {
 
     PedidoRepository pedidoRepository = new PedidoRepository();
+    SectorRepository sectorRepository = new SectorRepository();
+    SucursalRepository sucursalRepository = new SucursalRepository();
 
     @Override
     public void create(Pedido pedido) {
@@ -49,5 +53,12 @@ public class PedidoService implements CRUD<Pedido> {
         pedidoRepository.añadirLineaPedido(pedido, lineaPedido);
     }
 
+    public void setSectorOrigen (Pedido pedido, String id) {
+        pedidoRepository.setSectorOrigen(pedido, sectorRepository.findOne(id));
+    }
+
+    public void setSectorDestino (Pedido pedido, String id) {
+        pedidoRepository.setSectorDestino(pedido, sectorRepository.findOne(id));
+    }
 
 }

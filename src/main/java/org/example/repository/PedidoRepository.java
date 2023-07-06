@@ -55,10 +55,15 @@ public class PedidoRepository implements CRUD<Pedido> {
         pedido.getDetalle().add(lineaPedido);
     }
 
-
     @Override
     public void upload() {
+    }
 
+    public void setSectorOrigen(Pedido pedido, Sector sector) {
+        pedido.setSectorOrigen(sector);
+    }
 
+    public void setSectorDestino(Pedido pedido, Sector sector) {
+        pedido.setSectorDestino(sector);
     }
 }
