@@ -34,8 +34,8 @@ public class ProductoController {
         productoService.setCategoria(pro, opc);
     }
 
-    public void setProveedor(Producto pro, Proveedor pr) {
-        productoService.setProveedor(pro, pr);
+    public void setProveedor(Producto pro, String id ) {
+        productoService.setProveedor(pro, id);
     }
 
 }

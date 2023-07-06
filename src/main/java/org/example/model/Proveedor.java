@@ -15,5 +15,4 @@ public class Proveedor {
     private String telefono;
     private Boolean habilitado;
 
-
 }
