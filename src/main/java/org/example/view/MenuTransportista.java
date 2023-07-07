@@ -176,10 +176,8 @@ public class MenuTransportista {
         System.out.print("\n");
     }
 
-    public int atras() {
 
     public int getOption() {
         return option;
     }
-
 }
