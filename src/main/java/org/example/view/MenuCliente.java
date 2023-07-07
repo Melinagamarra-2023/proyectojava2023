@@ -8,13 +8,14 @@ import java.util.Scanner;
 public class MenuCliente {
 
     private final ClienteController clienteController;
+    private final Scanner input;
+    private int option;
 
     public MenuCliente() {
         this.clienteController = new ClienteController();
+        this.input = new Scanner(System.in);
+        this.option = 99;
     }
-
-    Scanner input = new Scanner(System.in);
-    int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;

@@ -93,10 +93,7 @@ public class MenuTransportista {
         String cuitBuscado = input.next();
         Transportista transportistaBuscado = transportistaController.findOne(cuitBuscado);
         if (transportistaBuscado != null) {
-            System.out.print("El cuit proporcionado corresponde al transportista: " + transportistaBuscado.getNombre() +
-                    ", CUIT: " + transportistaBuscado.getCuit() +
-                    ", Teléfono: " + transportistaBuscado.getTelefono() +
-                    ", condición: ");
+            this.mostrarDatos(transportistaBuscado.getCuit());
             if (transportistaBuscado.getHabilitado()) {
                 System.out.print("Habilitado");
             } else {
@@ -110,15 +107,29 @@ public class MenuTransportista {
 
     public void buscarTransportistas() {
         System.out.println("\n");
-        for (Transportista tr : transportistaController.findAll()) {
-            System.out.print("Transportista: " +
-                    tr.getNombre() +
-                    ", CUIT: " + tr.getCuit() +
-                    ", Teléfono: " + tr.getTelefono());
-            this.Transportes(tr);
-        }
+        this.mostrarDatos(null);
         System.out.print("\n");
     }
+
+    private void mostrarDatos(String cuit) {
+        for (Transportista tr : transportistaController.findAll()) {
+            if (cuit == null) {
+                System.out.print("Transportista: " +
+                        tr.getNombre() +
+                        ", CUIT: " + tr.getCuit() +
+                        ", Teléfono: " + tr.getTelefono());
+                this.Transportes(tr);
+            } else {
+                if (tr.getCuit().equals(cuit)) {
+                    System.out.print("Transportista: " +
+                            tr.getNombre() +
+                            ", CUIT: " + tr.getCuit() +
+                            ", Teléfono: " + tr.getTelefono());
+                }
+            }
+        }
+    }
+
 
     public void buscarTransportistasPorTipo() {
         int opc;

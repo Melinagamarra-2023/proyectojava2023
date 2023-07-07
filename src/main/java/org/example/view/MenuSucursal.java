@@ -40,12 +40,9 @@ public class MenuSucursal {
         String sucId = input.next();
         Sucursal sucursalExistente = sucursalController.findOne(sucId);
         while (sucursalExistente != null) {
-
             System.out.println("Ya existe la sucursal con el Codigo ingresado," +
                     " por favor vuelva a intentar");
-
             System.out.println("Ya existe la sucursal con el Codigo ingresado, por favor vuelva a intentar:");
-
             System.out.print("sucId: ");
             sucId = input.next();
             sucursalExistente = sucursalController.findOne(sucId);
@@ -58,9 +55,7 @@ public class MenuSucursal {
         String dirrecion = input.next();
         System.out.println("Continente: ");
         String continente = input.next();
-
         Sucursal nuevaSucursal = new Sucursal(sucId, longitud, latitud, dirrecion, continente, true);
-
         sucursalController.create(nuevaSucursal);
         System.out.println("La Sucursal: " + nuevaSucursal.getSucId() + "ha sido añadida con exito");
 

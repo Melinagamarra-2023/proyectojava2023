@@ -10,9 +10,15 @@ import java.util.Scanner;
 
 public class MenuProducto {
 
-    ProductoController productoController = new ProductoController();
-    Scanner input = new Scanner(System.in);
-    int option = 99;
+    private final ProductoController productoController;
+    private final Scanner input;
+    private int option;
+
+    public MenuProducto(){
+        this.productoController = new ProductoController();
+        this.input = new Scanner(System.in);
+        this.option = 99;
+    }
 
     public int seleccionarOpcion() {
         option = 99;
@@ -84,14 +90,12 @@ public class MenuProducto {
             Double profundidadModificar = input.nextDouble();
             System.out.print("Peso: ");
             Double pesoModificar = input.nextDouble();
-
             productoModificar.setNombre(nombreModificar);
             productoModificar.setDescripcion(descripcionModificar);
             productoModificar.setAncho(anchoModificar);
             productoModificar.setAlto(altoModificar);
             productoModificar.setProfundidad(profundidadModificar);
             productoModificar.setPeso(pesoModificar);
-
             System.out.println("Proporcione el cuit del proveedor del producto: ");
             String cuit = input.next();
             productoController.setProveedor(productoModificar, cuit);
@@ -123,14 +127,13 @@ public class MenuProducto {
             System.out.print("El ID proporcionado corresponde al producto: " +
                     ", ID: " + productoBuscado.getId() +
                     ", Nombre: " + productoBuscado.getNombre() +
-                    ", Descripción: " + productoBuscado.getDescripcion() +
+                    ", Descripcion: " + productoBuscado.getDescripcion() +
                     ", Ancho: " + productoBuscado.getAncho() +
                     ", Alto: " + productoBuscado.getAlto() +
                     ", Profundidad: " + productoBuscado.getProfundidad() +
                     ", Peso: " + productoBuscado.getPeso() +
-                    ", Categoría: " + productoBuscado.getCategoria().getDescripcion() +
+                    ", Categoria: " + productoBuscado.getCategoria().getDescripcion() +
                     ", Proveedor: " + productoBuscado.getProveedor().getNombre());
-
             if (productoBuscado.getHabilitado()) {
                 System.out.print("Habilitado\n");
             } else {
@@ -147,14 +150,13 @@ public class MenuProducto {
             System.out.println("Producto: " + prod.getNombre() +
                     ", ID: " + prod.getId() +
                     ", Nombre: " + prod.getNombre() +
-                    ", Descripción: " + prod.getDescripcion() +
+                    ", Descripcion: " + prod.getDescripcion() +
                     ", Ancho: " + prod.getAncho() +
                     ", Alto: " + prod.getAlto() +
                     ", Profundidad: " + prod.getProfundidad() +
                     ", Peso: " + prod.getPeso() +
-                    ", Categoría: " + prod.getCategoria().getDescripcion() +
+                    ", Categoria: " + prod.getCategoria().getDescripcion() +
                     ", Proveedor: " + prod.getProveedor().getNombre());
-
         }
         System.out.println("\n");
     }

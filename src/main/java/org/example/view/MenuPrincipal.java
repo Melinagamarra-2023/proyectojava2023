@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
-    private final Scanner input = new Scanner(System.in); //Nose si corresponde private final
-    int option;
+    private final Scanner input; //Nose si corresponde private final
+    private int option;
+
     public MenuPrincipal() {
-        option = 99;
+        this.option = 99;
+        this.input = new Scanner(System.in);
     }
-
-
 
     public int seleccionarModulo() {
         System.out.println("""

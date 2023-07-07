@@ -8,6 +8,7 @@ public class MenuPrincipalController {
     private final MenuProveedor menuProveedor;
     private final MenuProducto menuProducto;
     private final MenuLineaPedido menuLineaPedido;
+    private final MenuPedido menuPedido;
 
     public MenuPrincipalController() {
         this.menuPrincipal = new MenuPrincipal();
@@ -17,10 +18,11 @@ public class MenuPrincipalController {
         this.menuProveedor = new MenuProveedor();
         this.menuProducto = new MenuProducto();
         this.menuLineaPedido = new MenuLineaPedido();
-        this.seleccionarOpciones();
+        this.menuPedido = new MenuPedido();
+        this.seleccionarOpcion();
     }
 
-    private void seleccionarOpciones() {
+    private void seleccionarOpcion() {
         while (menuPrincipal.getOption() != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
                 case 1 -> gestionarClientes();
@@ -29,6 +31,7 @@ public class MenuPrincipalController {
                 case 4 -> gestionarTransportista();
                 case 5 -> gestionarProductos();
                 case 6 -> gestionarLineaPedido();
+                case 7 -> gestionarPedidos();
                 default -> System.out.println("Opcion invalida.");
             }
         }
@@ -112,7 +115,17 @@ public class MenuPrincipalController {
                 case 2 -> menuLineaPedido.modificarLineaPedido();
                 case 3 -> menuLineaPedido.eliminarLineaPedido();
                 case 4 -> menuLineaPedido.buscarLineasPedido();
-                case 5 -> menuLineaPedido.generarLineaPedido();
+                case 5 -> menuPedido.generarPedido();
+                case 0 -> menuPrincipal.regresar();
+                default -> menuPrincipal.invalido();
+            }
+        }
+    }
+
+    private void gestionarPedidos() {
+        while (menuPedido.getOption() != 0) {
+            switch (menuPedido.seleccionarOpcion()) {
+                case 1 -> menuPedido.generarPedido();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }

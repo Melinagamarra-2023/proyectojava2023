@@ -11,15 +11,19 @@ public class MenuLineaPedido {
     private final LineaPedidoController lineaPedidoController;
     private final MenuProducto menuProducto;
     private final ProductoController productoController;
+    private final Scanner input;
+    private int option;
 
     public MenuLineaPedido() {
         this.lineaPedidoController = new LineaPedidoController();
         this.menuProducto = new MenuProducto();
         this.productoController = new ProductoController();
+        this.input = new Scanner(System.in);
+        this.option = 99;
     }
 
-    Scanner input = new Scanner(System.in);
-    int option = 99;
+
+
 
     public int seleccionarOpcion() {
         option = 99;
@@ -58,7 +62,7 @@ public class MenuLineaPedido {
     }
 
 
-    public void generarLineaPedido() {
+    private void generarLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
         LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), 0, 0);
