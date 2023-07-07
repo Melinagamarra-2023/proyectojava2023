@@ -6,8 +6,11 @@ import org.example.service.ProductoService;
 import java.util.List;
 
 public class ProductoController {
-    ProductoService productoService = new ProductoService();
+    private final ProductoService productoService;
 
+    public ProductoController() {
+        this.productoService = new ProductoService();
+    }
 
     public void create(Producto nuevoProducto) {
         productoService.create(nuevoProducto);
@@ -33,7 +36,7 @@ public class ProductoController {
         productoService.setCategoria(pro, opc);
     }
 
-    public void setProveedor(Producto pro, String id ) {
+    public void setProveedor(Producto pro, String id) {
         productoService.setProveedor(pro, id);
     }
 

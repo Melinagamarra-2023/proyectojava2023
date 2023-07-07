@@ -11,10 +11,12 @@ import java.util.List;
 public class RemitoRepository {
 
     private final List<Remito> remitos;
-    EmpleadoRepository empleadoRepository = new EmpleadoRepository();
+    private final EmpleadoRepository empleadoRepository;
+
     int codigo = 0;
 
     public RemitoRepository() {
+        this.empleadoRepository = new EmpleadoRepository();
         this.remitos = new ArrayList<>();
     }
 

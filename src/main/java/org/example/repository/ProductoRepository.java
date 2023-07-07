@@ -8,9 +8,10 @@ import java.util.List;
 
 public class ProductoRepository implements CRUD<Producto> {
     private final List<Producto> productos;
-    ProveedorRepository proveedorRepository = new ProveedorRepository();
+    private final ProveedorRepository proveedorRepository;
 
     public ProductoRepository() {
+        this.proveedorRepository = new ProveedorRepository();
         this.productos = new ArrayList<>();
         this.upload();
     }
