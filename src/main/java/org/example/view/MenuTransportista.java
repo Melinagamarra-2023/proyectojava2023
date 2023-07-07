@@ -36,44 +36,58 @@ public class MenuTransportista {
 
     public void agregarTransportista() {
         System.out.println("\nProporcione los datos del nuevo transportista: ");
+        System.out.print("Cuit: ");
+        String id = input.next();
+        Transportista transportistaExiste = transportistaController.findOne(id);
+        while (transportistaExiste != null) {
+            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("ID: ");
+            id = input.next();
+            if (id.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                transportistaExiste = transportistaController.findOne(id);
+            }
+        }
         System.out.print("Nombre: ");
         String nombre = input.next();
-        System.out.print("Cuit: ");
-        String cuit = input.next();
         System.out.print("Teléfono: ");
         String telefono = input.next();
-        Transportista transportistaExistente = transportistaController.findOne(cuit);
-        if (transportistaExistente != null) {
-            System.out.println("Ya existe un transportista con el mismo CUIT.");
-        } else {
-            Transportista nuevoTransportista = new Transportista(nombre, cuit, telefono, true, false, false, false);
-            transportistaController.create(nuevoTransportista);
-            this.setTransporte(nuevoTransportista);
-            System.out.println("Transportista: " + nuevoTransportista.getNombre() + " añadido con éxito");
-        }
+        Transportista nuevoTransportista = new Transportista(nombre, id, telefono, true, false, false, false);
+        transportistaController.create(nuevoTransportista);
+        this.setTransporte(nuevoTransportista);
+        System.out.println("Transportista: " + nuevoTransportista.getNombre() + " añadido con éxito");
     }
 
     public void modificarTransportista() {
         System.out.println("\nIngrese el CUIT del transportista a modificar:");
         String cuitModificar = input.next();
         Transportista transportistaModificar = transportistaController.findOne(cuitModificar);
-        if (transportistaModificar != null) {
-            System.out.println("Ingrese los nuevos datos del transportista:");
-            System.out.print("Nombre: ");
-            String nombreModificar = input.next();
-            System.out.print("Teléfono: ");
-            String telefonoModificar = input.next();
-            transportistaController.update(transportistaModificar).setTerrestre(false);
-            transportistaController.update(transportistaModificar).setMaritimo(false);
-            transportistaController.update(transportistaModificar).setAereo(false);
-            this.setTransporte(transportistaModificar);
-            transportistaModificar.setNombre(nombreModificar);
-            transportistaModificar.setTelefono(telefonoModificar);
-            transportistaController.update(transportistaModificar);
-            System.out.println("Transportista " + transportistaModificar.getNombre() + " modificado con éxito.");
-        } else {
-            System.out.println("No se encontró ningún transportista con el CUIT proporcionado.");
+        while (transportistaModificar == null) {
+            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("ID: ");
+            cuitModificar = input.next();
+            if (cuitModificar.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                transportistaModificar = transportistaController.findOne(cuitModificar);
+            }
         }
+        System.out.println("Ingrese los nuevos datos del transportista:");
+        System.out.print("Nombre: ");
+        String nombreModificar = input.next();
+        System.out.print("Teléfono: ");
+        String telefonoModificar = input.next();
+        transportistaController.update(transportistaModificar).setTerrestre(false);
+        transportistaController.update(transportistaModificar).setMaritimo(false);
+        transportistaController.update(transportistaModificar).setAereo(false);
+        this.setTransporte(transportistaModificar);
+        transportistaModificar.setNombre(nombreModificar);
+        transportistaModificar.setTelefono(telefonoModificar);
+        transportistaController.update(transportistaModificar);
+        System.out.println("Transportista " + transportistaModificar.getNombre() + " modificado con éxito.");
     }
 
     public void eliminarTransportista() {

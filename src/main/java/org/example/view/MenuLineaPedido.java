@@ -23,8 +23,6 @@ public class MenuLineaPedido {
     }
 
 
-
-
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
@@ -86,15 +84,22 @@ public class MenuLineaPedido {
         System.out.print("Ingrese el id de la linea pedido a modificar: ");
         String codigo = input.next();
         LineaPedido lineaPedidoModificar = lineaPedidoController.findOne(codigo);
-        if (lineaPedidoModificar != null) {
-            System.out.print("Determine la cantidad que desea de este producto: ");
-            int cantidad = input.nextInt();
-            lineaPedidoModificar.setCantidad(cantidad);
-            lineaPedidoController.update(lineaPedidoModificar);
-            System.out.println("Linea pedido modificada con exito.");
-        } else {
-            System.out.println("Esta linea pedido no existe.");
+        while (lineaPedidoModificar == null) {
+            System.out.println("Este codigo no existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("ID: ");
+            codigo = input.next();
+            if (codigo.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                lineaPedidoModificar = lineaPedidoController.findOne(codigo);
+            }
         }
+        System.out.print("Determine la cantidad que desea de este producto: ");
+        int cantidad = input.nextInt();
+        lineaPedidoModificar.setCantidad(cantidad);
+        lineaPedidoController.update(lineaPedidoModificar);
+        System.out.println("Linea pedido modificada con exito.");
     }
 
     public void eliminarLineaPedido() {
