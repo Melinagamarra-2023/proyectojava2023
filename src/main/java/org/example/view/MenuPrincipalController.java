@@ -53,7 +53,7 @@ public class MenuPrincipalController {
             switch (menuProveedor.seleccionarOpcion()) {
                 case 1 -> menuProveedor.crearProveedor();
                 case 2 -> menuProveedor.modificarProveedor();
-                case 3 -> menuProveedor.eliminarProveedor();
+                case 3 -> menuProveedor.eliminarProveerdor();
                 case 4 -> menuProveedor.buscarProveedorPorCuit();
                 case 5 -> menuProveedor.buscarProveedores();
                 case 0 -> menuPrincipal.regresar();
@@ -112,7 +112,7 @@ public class MenuPrincipalController {
                 case 2 -> menuLineaPedido.modificarLineaPedido();
                 case 3 -> menuLineaPedido.eliminarLineaPedido();
                 case 4 -> menuLineaPedido.buscarLineasPedido();
-                //case 5 -> menuLineaPedido.generarPedido();
+                case 5 -> menuLineaPedido.generarLineaPedido();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }

@@ -52,13 +52,13 @@ public class MenuLineaPedido {
             case 1 -> menuProducto.buscarTodosLosProductos();
             case 2 -> menuProducto.buscarProductoPorId(); //CAMBIAR...
             case 3 -> menuProducto.buscarProductoPorId(); //CAMBIAR CASO DUPLICADO...
-            case 4 -> agregarLineaPedido();
+            case 4 -> generarLineaPedido();
             default -> System.out.println("Ingrese una opción correcta.");
         }
     }
 
 
-    private void agregarLineaPedido() {
+    public void generarLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
         LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), 0, 0);
