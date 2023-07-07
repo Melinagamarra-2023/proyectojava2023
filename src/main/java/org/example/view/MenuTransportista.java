@@ -29,7 +29,7 @@ public class MenuTransportista {
         return option;
     }
 
-    public void añadirTransportista() {
+    public void agregarTransportista() {
         System.out.println("\nProporcione los datos del nuevo transportista: ");
         System.out.print("Nombre: ");
         String nombre = input.next();

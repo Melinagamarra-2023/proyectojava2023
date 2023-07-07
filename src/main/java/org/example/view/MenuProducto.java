@@ -4,10 +4,6 @@ import org.example.controller.ProductoController;
 import org.example.controller.ProveedorController;
 import org.example.model.Producto;
 import org.example.model.Proveedor;
-import org.example.repository.ProductoRepository;
-import org.example.repository.ProveedorRepository;
-import org.example.service.ProductoService;
-import org.example.service.ProveedorService;
 
 
 import java.util.Scanner;
@@ -178,7 +174,7 @@ public class MenuProducto {
         productoController.setCategoria(prod, opc);
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }
