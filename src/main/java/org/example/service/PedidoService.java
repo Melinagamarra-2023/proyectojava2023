@@ -2,19 +2,22 @@ package org.example.service;
 
 import org.example.model.LineaPedido;
 import org.example.model.Pedido;
-import org.example.model.Remito;
 import org.example.repository.PedidoRepository;
 import org.example.repository.RemitoRepository;
 import org.example.repository.SectorRepository;
-import org.example.repository.SucursalRepository;
 
 import java.util.List;
 
 public class PedidoService implements CRUD<Pedido> {
+    private final PedidoRepository pedidoRepository;
+    private final SectorRepository sectorRepository;
+    private final RemitoRepository remitoRepository;
 
-    PedidoRepository pedidoRepository = new PedidoRepository();
-    SectorRepository sectorRepository = new SectorRepository();
-    RemitoRepository remitoRepository = new RemitoRepository();
+    public PedidoService() {
+        this.pedidoRepository = new PedidoRepository();
+        this.sectorRepository = new SectorRepository();
+        this.remitoRepository = new RemitoRepository();
+    }
 
     @Override
     public void create(Pedido pedido) {
@@ -51,15 +54,15 @@ public class PedidoService implements CRUD<Pedido> {
         }
     }
 
-    public void añadirLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
-        pedidoRepository.añadirLineaPedido(pedido, lineaPedido);
+    public void agregarLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
+        pedidoRepository.agregarLineaPedido(pedido, lineaPedido);
     }
 
-    public void setSectorOrigen (Pedido pedido, String id) {
+    public void setSectorOrigen(Pedido pedido, String id) {
         pedidoRepository.setSectorOrigen(pedido, sectorRepository.findOne(id));
     }
 
-    public void setSectorDestino (Pedido pedido, String id) {
+    public void setSectorDestino(Pedido pedido, String id) {
         pedidoRepository.setSectorDestino(pedido, sectorRepository.findOne(id));
     }
 

@@ -1,9 +1,6 @@
 package org.example.view;
 
-import org.example.controller.ClienteController;
-import org.example.controller.LineaPedidoController;
-import org.example.controller.PedidoController;
-import org.example.controller.SucursalController;
+import org.example.controller.*;
 import org.example.model.Pedido;
 
 
@@ -13,6 +10,7 @@ public class MenuPedido {
 
     private final ClienteController clienteController;
     private final PedidoController pedidoController;
+    private final TransportistaController transportistaController;
     private final LineaPedidoController lineaPedidoController;
     private final SucursalController sucursalController;
     private final MenuLineaPedido menuLineaPedido;
@@ -27,6 +25,7 @@ public class MenuPedido {
         this.menuLineaPedido = new MenuLineaPedido();
         this.menuSucursal = new MenuSucursal();
         this.menuTransportista = new MenuTransportista();
+        this.transportistaController = new TransportistaController();
     }
 
     Scanner input = new Scanner(System.in);
@@ -66,6 +65,6 @@ public class MenuPedido {
         System.out.println("Seleccione el transporte que desea para su envio:");
         menuTransportista.buscarTransportistasPorTipo();
         System.out.println("Ingrese el ID del transportista elegido:");
-
+        id = input.next();
     }
 }
