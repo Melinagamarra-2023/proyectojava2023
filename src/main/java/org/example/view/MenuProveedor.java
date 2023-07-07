@@ -14,7 +14,7 @@ public class MenuProveedor {
     }
 
     Scanner input = new Scanner(System.in);
-    int option = 99;
+    int option;
 
     public int seleccionarOpcion() {
         option = 99;
@@ -80,14 +80,14 @@ public class MenuProveedor {
             System.out.println("Proveedor " + proveedorModificar.getCuit() + " Modificada con éxito.");
         } else {
             System.out.println("Ingrese un CUIT que corresponda a un proveedor existente.");
-=======
-        while (proveedorModificar == null) {
-            System.out.println("No se encontró ningún proveedor con el CUIT proporcionado, ingrese un CUIT diferente.");
-            System.out.print("Cuit: ");
-            cuitModificar = input.next();
-            proveedorModificar = proveedorController.findOne(cuitModificar);
-        }
+            while (proveedorModificar == null) {
+                System.out.println("No se encontró ningún proveedor con el CUIT proporcionado, ingrese un CUIT diferente.");
+                System.out.print("Cuit: ");
+                cuitModificar = input.next();
+                proveedorModificar = proveedorController.findOne(cuitModificar);
+            }
 
+        }
     }
 
     public void eliminarProveedor() {
@@ -139,4 +139,6 @@ public class MenuProveedor {
     public int getOption() {
         return option;
     }
+
+
 }
