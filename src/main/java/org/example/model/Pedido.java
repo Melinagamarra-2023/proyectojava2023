@@ -14,7 +14,7 @@ public class Pedido {
     private String pedidoId;
     private Sector sectorOrigen;
     private Sector sectorDestino;
-    private List<Ubicacion> ubicacion;
+    private List<SeguimientoPedido> seguimientoPedido;
     private List<LineaPedido> detalle;
     private Cliente cliente;
     private Estado estado;

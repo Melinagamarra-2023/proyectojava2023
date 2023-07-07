@@ -4,10 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Setter
+@Getter
 @AllArgsConstructor
-public class Posicion {
+public class SeguimientoPedido {
+    private LocalDate fecha;
+    private LocalDateTime hora;
     private Double latitud;
     private Double longitud;
+    private Pedido pedido;
 }

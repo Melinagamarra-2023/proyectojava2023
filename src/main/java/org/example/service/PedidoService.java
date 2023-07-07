@@ -1,13 +1,12 @@
 package org.example.service;
 
-import org.example.model.LineaPedido;
-import org.example.model.Pedido;
-import org.example.model.Sucursal;
-import org.example.model.Transportista;
+import org.example.model.*;
 import org.example.repository.PedidoRepository;
 import org.example.repository.RemitoRepository;
 import org.example.repository.SectorRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,10 @@ public class PedidoService implements CRUD<Pedido> {
 
     @Override
     public void create(Pedido pedido) {
+
         if (pedidoRepository.findOne(pedido.getPedidoId()) == null) {
+            SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(),LocalDateTime.now(),23.89,23.99,pedido);
+            pedido.getSeguimientoPedido().add(nuevoSeguimiento);
             pedidoRepository.create(pedido);
         }
     }

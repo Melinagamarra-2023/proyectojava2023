@@ -85,7 +85,7 @@ public class MenuPedido {
             }
             System.out.println("¿Desea añadir una línea de pedido nueva? (s/n)");
             String resp = input.next();
-            if (resp.contains("s")) {
+            if (resp.contains("n")) {
                 salir = 0;
             }
         } while (salir == 0);
