@@ -128,7 +128,7 @@ public class MenuLineaPedido {
         }
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }

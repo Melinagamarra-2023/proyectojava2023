@@ -136,7 +136,7 @@ public class MenuCliente {
         System.out.println("\n");
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }

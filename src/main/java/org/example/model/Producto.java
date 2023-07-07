@@ -19,5 +19,4 @@ public class Producto {
     private Categoria categoria;
     private Proveedor proveedor;
     private Boolean habilitado;
-
 }

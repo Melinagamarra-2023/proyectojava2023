@@ -15,5 +15,4 @@ public class Transportista {
     private Boolean terrestre;
     private Boolean maritimo;
     private Boolean aereo;
-
 }

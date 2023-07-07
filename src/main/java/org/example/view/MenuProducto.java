@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class MenuProducto {
 
     ProductoController productoController = new ProductoController();
-    ProveedorController proveedorController = new ProveedorController();
     Scanner input = new Scanner(System.in);
     int option = 99;
 
@@ -125,12 +124,12 @@ public class MenuProducto {
             System.out.print("El ID proporcionado corresponde al producto: " +
                     ", ID: " + productoBuscado.getId() +
                     ", Nombre: " + productoBuscado.getNombre() +
-                    ", Descripcion: " + productoBuscado.getDescripcion() +
+                    ", Descripción: " + productoBuscado.getDescripcion() +
                     ", Ancho: " + productoBuscado.getAncho() +
                     ", Alto: " + productoBuscado.getAlto() +
                     ", Profundidad: " + productoBuscado.getProfundidad() +
                     ", Peso: " + productoBuscado.getPeso() +
-                    ", Categoria: " + productoBuscado.getCategoria().getDescripcion() +
+                    ", Categoría: " + productoBuscado.getCategoria().getDescripcion() +
                     ", Proveedor: " + productoBuscado.getProveedor().getNombre());
 
             if (productoBuscado.getHabilitado()) {
@@ -149,12 +148,12 @@ public class MenuProducto {
             System.out.println("Producto: " + prod.getNombre() +
                     ", ID: " + prod.getId() +
                     ", Nombre: " + prod.getNombre() +
-                    ", Descripcion: " + prod.getDescripcion() +
+                    ", Descripción: " + prod.getDescripcion() +
                     ", Ancho: " + prod.getAncho() +
                     ", Alto: " + prod.getAlto() +
                     ", Profundidad: " + prod.getProfundidad() +
                     ", Peso: " + prod.getPeso() +
-                    ", Categoria: " + prod.getCategoria().getDescripcion() +
+                    ", Categoría: " + prod.getCategoria().getDescripcion() +
                     ", Proveedor: " + prod.getProveedor().getNombre());
 
         }

@@ -121,12 +121,15 @@ public class MenuTransportista {
     }
 
     public void buscarTransportistasPorTipo() {
-        System.out.println("""
-                Seleccione el tipo de transporte:
-                1. Terrestre.
-                2. Marítimo.
-                3. Aéreo.""");
-        int opc = input.nextInt();
+        int opc;
+        do {
+            System.out.println("""
+                    Seleccione el tipo de transporte:
+                    1. Terrestre.
+                    2. Marítimo.
+                    3. Aéreo.""");
+            opc = input.nextInt();
+        } while (opc != 1 && opc != 2 && opc != 3);
         for (Transportista tr : transportistaController.buscarTransportistasPorTipo(opc)) {
             System.out.print("Transportista: " + tr.getNombre() +
                     ", CUIT: " + tr.getCuit() +
@@ -174,6 +177,8 @@ public class MenuTransportista {
     }
 
     public int atras() {
+
+    public int getOption() {
         return option;
     }
 

@@ -36,7 +36,7 @@ public class MenuPrincipal {
         System.out.println("Regresando al menu...");
     }
 
-    public int getOpcion(){
+    public int getOption(){
         return option;
     }
 }

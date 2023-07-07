@@ -39,13 +39,11 @@ public class MenuProveedor {
         String cuit = input.next();
         Proveedor proveedorExiste = proveedorController.findOne(cuit);
         while (proveedorExiste != null) {
-            System.out.println("Ya existe un Proveedor con el mismo CUIT." +
-                    " Ingrese un CUIT diferente");
+            System.out.println("Ya existe un Proveedor con el mismo CUIT, ingrese un CUIT diferente.");
             System.out.print("Cuit: ");
             cuit = input.next();
             proveedorExiste = proveedorController.findOne(cuit);
         }
-
         System.out.print("Nombre: ");
         String nombre = input.next();
         System.out.print("Dirección: ");
@@ -82,6 +80,12 @@ public class MenuProveedor {
             System.out.println("Proveedor " + proveedorModificar.getCuit() + " Modificada con éxito.");
         } else {
             System.out.println("Ingrese un CUIT que corresponda a un proveedor existente.");
+=======
+        while (proveedorModificar == null) {
+            System.out.println("No se encontró ningún proveedor con el CUIT proporcionado, ingrese un CUIT diferente.");
+            System.out.print("Cuit: ");
+            cuitModificar = input.next();
+            proveedorModificar = proveedorController.findOne(cuitModificar);
         }
 
     }
@@ -132,7 +136,7 @@ public class MenuProveedor {
         System.out.println("\n");
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }
