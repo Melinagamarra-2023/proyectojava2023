@@ -55,13 +55,11 @@ public class MenuSucursal {
         System.out.println("Longitud: ");
         Double longitud = input.nextDouble();
         System.out.println("Dirrecion: ");
-
         String dirrecion = input.next();
         System.out.println("Continente: ");
         String continente = input.next();
 
         Sucursal nuevaSucursal = new Sucursal(sucId, longitud, latitud, dirrecion, continente, true);
-
 
         sucursalController.create(nuevaSucursal);
         System.out.println("La Sucursal: " + nuevaSucursal.getSucId() + "ha sido añadida con exito");
@@ -141,6 +139,4 @@ public class MenuSucursal {
     public int getOption() {
         return option;
     }
-
-
 }

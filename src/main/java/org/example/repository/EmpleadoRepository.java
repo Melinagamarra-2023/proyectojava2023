@@ -7,12 +7,8 @@ import java.util.List;
 
 public class EmpleadoRepository {
 
-    private final SucursalRepository sucursalRepository;
-
-
-
     private final List<Empleado> empleados;
-    SucursalRepository sucursalRepository = new SucursalRepository();
+    private final SucursalRepository sucursalRepository;
 
     public EmpleadoRepository() {
         this.sucursalRepository = new SucursalRepository();
