@@ -10,5 +10,5 @@ import lombok.Setter;
 public class Empleado {
     private String nombre;
     private Sucursal sucursal;
-    private String cuit;
+    private String id;
 }

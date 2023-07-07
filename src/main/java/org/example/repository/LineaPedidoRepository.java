@@ -15,7 +15,7 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
     }
 
     public void create(LineaPedido lineaPedido) {
-        codigo= codigo + 1;
+        codigo++;
         lineaPedido.setCodigo(String.valueOf(codigo));
         lineaPedidos.add(lineaPedido);
     }
