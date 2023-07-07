@@ -8,10 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Posicion {
-
     private Double latitud;
     private Double longitud;
-
-
-
 }

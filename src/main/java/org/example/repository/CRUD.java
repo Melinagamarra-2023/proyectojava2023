@@ -4,17 +4,17 @@ import java.util.List;
 
 public interface CRUD<T> {
 
-    public T findOne(String id);
+    T findOne(String id);
 
-    public List<T> findAll();
+    List<T> findAll();
 
-    public void create(T t);
+    void create(T t);
 
-    public void delete(String id);
+    void delete(String id);
 
-    public T update(T t);
+    T update(T t);
 
-    public void upload();
+    void upload();
 
 
 }

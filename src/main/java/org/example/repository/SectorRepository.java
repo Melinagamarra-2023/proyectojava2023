@@ -1,7 +1,6 @@
 package org.example.repository;
 
 import org.example.model.Sector;
-import org.example.model.Sucursal;
 
 import java.util.ArrayList;
 import java.util.Arrays;

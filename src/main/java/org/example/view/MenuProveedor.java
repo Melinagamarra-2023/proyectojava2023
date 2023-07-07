@@ -2,8 +2,6 @@ package org.example.view;
 
 import org.example.controller.ProveedorController;
 import org.example.model.Proveedor;
-import org.example.repository.ProveedorRepository;
-import org.example.service.ProveedorService;
 
 import java.util.Scanner;
 
@@ -16,7 +14,7 @@ public class MenuProveedor {
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 ----- MENÚ PROVEEDORES -----
                 Seleccione la opción:
                 1. Añadir proveedor.
@@ -36,13 +34,11 @@ public class MenuProveedor {
         String cuit = input.next();
         Proveedor proveedorExiste = proveedorController.findOne(cuit);
         while (proveedorExiste != null) {
-            System.out.println("Ya existe un Proveedor con el mismo CUIT." +
-                    " Ingrese un CUIT diferente");
+            System.out.println("Ya existe un Proveedor con el mismo CUIT, ingrese un CUIT diferente.");
             System.out.print("Cuit: ");
             cuit = input.next();
             proveedorExiste = proveedorController.findOne(cuit);
         }
-
         System.out.print("Nombre: ");
         String nombre = input.next();
         System.out.print("Dirección: ");
@@ -61,16 +57,11 @@ public class MenuProveedor {
         System.out.println("\nIngrese el CUIT del proveedor a modificar:");
         String cuitModificar = input.next();
         Proveedor proveedorModificar = proveedorController.findOne(cuitModificar);
-        while (proveedorModificar != null && proveedorModificar.getHabilitado() == false) {
-            System.out.println("Ya existe un Proveedor con el mismo CUIT." +
-                    " Ingrese un CUIT diferente");
+        while (proveedorModificar == null) {
+            System.out.println("No se encontró ningún proveedor con el CUIT proporcionado, ingrese un CUIT diferente.");
             System.out.print("Cuit: ");
             cuitModificar = input.next();
-            /*if (proveedorModificar == null) {
-                System.out.println("No se encontró ningún proveedor con el CUIT proporcionado.");
-            }
-
-             */
+            proveedorModificar = proveedorController.findOne(cuitModificar);
         }
         System.out.println("Ingrese los nuevos datos del proveedor:");
         System.out.print("Nombre: ");
@@ -135,7 +126,7 @@ public class MenuProveedor {
         System.out.println("\n");
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }

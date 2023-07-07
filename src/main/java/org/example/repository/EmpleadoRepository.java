@@ -1,7 +1,6 @@
 package org.example.repository;
 
 import org.example.model.Empleado;
-import org.example.model.Sucursal;
 
 import java.util.ArrayList;
 import java.util.List;

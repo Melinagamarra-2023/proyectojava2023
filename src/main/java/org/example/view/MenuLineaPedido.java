@@ -2,7 +2,6 @@ package org.example.view;
 
 import org.example.controller.LineaPedidoController;
 import org.example.controller.ProductoController;
-import org.example.model.Cliente;
 import org.example.model.LineaPedido;
 
 import java.util.Scanner;
@@ -120,7 +119,7 @@ public class MenuLineaPedido {
         }
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }

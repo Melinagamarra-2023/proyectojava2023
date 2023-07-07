@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.model.Producto;
-import org.example.model.Proveedor;
 import org.example.service.ProductoService;
 
 import java.util.List;
