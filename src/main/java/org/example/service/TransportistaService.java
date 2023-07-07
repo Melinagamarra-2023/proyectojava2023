@@ -2,16 +2,13 @@ package org.example.service;
 
 import org.example.model.Transportista;
 import org.example.repository.TransportistaRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransportistaService implements CRUD<Transportista> {
 
-    private final TransportistaRepository transportistaRepository;
-
-    public TransportistaService() {
-        this.transportistaRepository = new TransportistaRepository();
-    }
+    TransportistaRepository transportistaRepository = new TransportistaRepository();
 
     @Override
     public void create(Transportista nuevotr) {
@@ -54,42 +51,45 @@ public class TransportistaService implements CRUD<Transportista> {
 
     public List<Transportista> buscarTransportistasPorTipo(int opc) {
         List<Transportista> resultado = new ArrayList<>();
-            switch (opc) {
-                case 1 -> resultado = transportistasTerrestres();
-                case 2 -> resultado = transportistasMaritimos();
-                case 3 -> resultado = transportistasAereos();
-                default -> System.out.println("Ingrese una opción existente.");
+        switch (opc) {
+            case 1 -> resultado = terrestres();
+            case 2 -> resultado = maritimos();
+            case 3 -> resultado = aereos();
+            default -> {
+                return resultado;
             }
+        }
         return resultado;
     }
 
-    private List<Transportista> transportistasTerrestres() {
-        List<Transportista> transportistas = new ArrayList<>();
+    private List<Transportista> terrestres() {
+        List<Transportista> terrestres = new ArrayList<>();
         for (Transportista tr : transportistaRepository.findAll()) {
             if (tr.getTerrestre() && tr.getHabilitado()) {
-                transportistas.add(tr);
+                terrestres.add(tr);
             }
         }
-        return transportistas;
+        return terrestres;
     }
 
-    private List<Transportista> transportistasMaritimos() {
-        List<Transportista> transportistas = new ArrayList<>();
+    private List<Transportista> maritimos() {
+        List<Transportista> maritimos = new ArrayList<>();
         for (Transportista tr : transportistaRepository.findAll()) {
             if (tr.getTerrestre() && tr.getHabilitado()) {
-                transportistas.add(tr);
+                maritimos.add(tr);
             }
         }
-        return transportistas;
+        return maritimos;
     }
 
-    private List<Transportista> transportistasAereos() {
-        List<Transportista> transportistas = new ArrayList<>();
+    private List<Transportista> aereos() {
+        List<Transportista> aereos = new ArrayList<>();
         for (Transportista tr : transportistaRepository.findAll()) {
             if (tr.getTerrestre() && tr.getHabilitado()) {
-                transportistas.add(tr);
+                aereos.add(tr);
             }
         }
-        return transportistas;
+        return aereos;
     }
+
 }

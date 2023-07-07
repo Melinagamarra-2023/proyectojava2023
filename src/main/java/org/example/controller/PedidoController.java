@@ -2,6 +2,8 @@ package org.example.controller;
 
 import org.example.model.LineaPedido;
 import org.example.model.Pedido;
+import org.example.model.Sucursal;
+import org.example.model.Transportista;
 import org.example.service.PedidoService;
 
 import java.util.List;
@@ -49,5 +51,9 @@ public class PedidoController implements CRUD<Pedido> {
 
     public void setSectorDestino(Pedido pedido, String id) {
         pedidoService.setSectorDestino(pedido, id);
+    }
+
+    public void createRemito(Pedido pedido, Sucursal origen, Sucursal destino, Transportista transportista) {
+        pedidoService.createRemito(pedido, origen, destino, transportista);
     }
 }

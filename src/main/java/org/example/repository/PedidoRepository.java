@@ -9,11 +9,11 @@ import java.util.List;
 
 public class PedidoRepository implements CRUD<Pedido> {
 
-    private final LineaPedidoRepository lineaPedidoRepository;
+    private final EmpleadoRepository empleadoRepository;
     private final List<Pedido> pedidos;
 
     public PedidoRepository() {
-        this.lineaPedidoRepository = new LineaPedidoRepository();
+        this.empleadoRepository = new EmpleadoRepository();
         this.pedidos = new ArrayList<>();
     }
 
@@ -58,10 +58,13 @@ public class PedidoRepository implements CRUD<Pedido> {
 
     @Override
     public void upload() {
+        Pedido prueba = new Pedido(null, null, null, null, null, null, null, null);
+        pedidos.add(prueba);
     }
 
     public void setSectorOrigen(Pedido pedido, Sector sector) {
         pedido.setSectorOrigen(sector);
+        pedido.setEncargado(empleadoRepository.findOne(sector.getSucursal().getSucId() + "01"));
     }
 
     public void setSectorDestino(Pedido pedido, Sector sector) {

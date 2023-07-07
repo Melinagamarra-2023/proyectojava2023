@@ -4,20 +4,24 @@ import org.example.controller.ProductoController;
 import org.example.model.Producto;
 
 
-
-
 import java.util.Scanner;
 
 public class MenuProducto {
 
-    ProductoController productoController = new ProductoController();
-    Scanner input = new Scanner(System.in);
-    int option = 99;
+    private final ProductoController productoController;
+    private final Scanner input;
+    private int option;
+
+    public MenuProducto() {
+        this.productoController = new ProductoController();
+        this.input = new Scanner(System.in);
+        this.option = 99;
+    }
 
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 ----- MENÚ PRODUCTOS -----
                 Seleccione la opción:
                 1. Agregar un producto.
@@ -37,11 +41,15 @@ public class MenuProducto {
         String id = input.next();
         Producto productoExiste = productoController.findOne(id);
         while (productoExiste != null) {
-            System.out.println("Ya existe un producto con el mismo ID" +
-                    " Ingrese un ID diferente");
+            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
             System.out.print("ID: ");
             id = input.next();
-            productoExiste = productoController.findOne(id);
+            if (id.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                productoExiste = productoController.findOne(id);
+            }
         }
         System.out.print("Nombre: ");
         String nombre = input.next();
@@ -70,37 +78,42 @@ public class MenuProducto {
         System.out.println("\nIngrese el ID del producto a modificar:");
         String idModificar = input.next();
         Producto productoModificar = productoController.findOne(idModificar);
-        if (productoModificar != null) {
-            System.out.println("Ingrese los nuevos datos del producto:");
-            System.out.print("Nombre: ");
-            String nombreModificar = input.next();
-            System.out.print("Descripcion: ");
-            String descripcionModificar = input.next();
-            System.out.print("Ancho: ");
-            Double anchoModificar = input.nextDouble();
-            System.out.print("Alto: ");
-            Double altoModificar = input.nextDouble();
-            System.out.print("Profundidad: ");
-            Double profundidadModificar = input.nextDouble();
-            System.out.print("Peso: ");
-            Double pesoModificar = input.nextDouble();
-
-            productoModificar.setNombre(nombreModificar);
-            productoModificar.setDescripcion(descripcionModificar);
-            productoModificar.setAncho(anchoModificar);
-            productoModificar.setAlto(altoModificar);
-            productoModificar.setProfundidad(profundidadModificar);
-            productoModificar.setPeso(pesoModificar);
-
-            System.out.println("Proporcione el cuit del proveedor del producto: ");
-            String cuit = input.next();
-            productoController.setProveedor(productoModificar, cuit);
-            this.setCategoria(productoModificar);
-            productoController.update(productoModificar);
-            System.out.println("Producto: " + productoModificar.getId() + " Modificado con éxito.");
-        } else {
-            System.out.println("No se encontró ningún producto con el ID proporcionado.");
+        while (productoModificar == null) {
+            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("ID: ");
+            idModificar = input.next();
+            if (idModificar.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                productoModificar = productoController.findOne(idModificar);
+            }
         }
+        System.out.println("Ingrese los nuevos datos para este producto:");
+        System.out.print("Nombre: ");
+        String nombreModificar = input.next();
+        System.out.print("Descripcion: ");
+        String descripcionModificar = input.next();
+        System.out.print("Ancho: ");
+        Double anchoModificar = input.nextDouble();
+        System.out.print("Alto: ");
+        Double altoModificar = input.nextDouble();
+        System.out.print("Profundidad: ");
+        Double profundidadModificar = input.nextDouble();
+        System.out.print("Peso: ");
+        Double pesoModificar = input.nextDouble();
+        productoModificar.setNombre(nombreModificar);
+        productoModificar.setDescripcion(descripcionModificar);
+        productoModificar.setAncho(anchoModificar);
+        productoModificar.setAlto(altoModificar);
+        productoModificar.setProfundidad(profundidadModificar);
+        productoModificar.setPeso(pesoModificar);
+        System.out.println("Proporcione el cuit del proveedor del producto: ");
+        String cuit = input.next();
+        productoController.setProveedor(productoModificar, cuit);
+        this.setCategoria(productoModificar);
+        productoController.update(productoModificar);
+        System.out.println("Producto: " + productoModificar.getId() + " Modificado con éxito.");
     }
 
     public void eliminarProducto() {
@@ -123,14 +136,13 @@ public class MenuProducto {
             System.out.print("El ID proporcionado corresponde al producto: " +
                     ", ID: " + productoBuscado.getId() +
                     ", Nombre: " + productoBuscado.getNombre() +
-                    ", Descripción: " + productoBuscado.getDescripcion() +
+                    ", Descripcion: " + productoBuscado.getDescripcion() +
                     ", Ancho: " + productoBuscado.getAncho() +
                     ", Alto: " + productoBuscado.getAlto() +
                     ", Profundidad: " + productoBuscado.getProfundidad() +
                     ", Peso: " + productoBuscado.getPeso() +
-                    ", Categoría: " + productoBuscado.getCategoria().getDescripcion() +
+                    ", Categoria: " + productoBuscado.getCategoria().getDescripcion() +
                     ", Proveedor: " + productoBuscado.getProveedor().getNombre());
-
             if (productoBuscado.getHabilitado()) {
                 System.out.print("Habilitado\n");
             } else {
@@ -147,14 +159,13 @@ public class MenuProducto {
             System.out.println("Producto: " + prod.getNombre() +
                     ", ID: " + prod.getId() +
                     ", Nombre: " + prod.getNombre() +
-                    ", Descripción: " + prod.getDescripcion() +
+                    ", Descripcion: " + prod.getDescripcion() +
                     ", Ancho: " + prod.getAncho() +
                     ", Alto: " + prod.getAlto() +
                     ", Profundidad: " + prod.getProfundidad() +
                     ", Peso: " + prod.getPeso() +
-                    ", Categoría: " + prod.getCategoria().getDescripcion() +
+                    ", Categoria: " + prod.getCategoria().getDescripcion() +
                     ", Proveedor: " + prod.getProveedor().getNombre());
-
         }
         System.out.println("\n");
     }

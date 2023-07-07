@@ -11,15 +11,17 @@ public class MenuLineaPedido {
     private final LineaPedidoController lineaPedidoController;
     private final MenuProducto menuProducto;
     private final ProductoController productoController;
+    private final Scanner input;
+    private int option;
 
     public MenuLineaPedido() {
         this.lineaPedidoController = new LineaPedidoController();
         this.menuProducto = new MenuProducto();
         this.productoController = new ProductoController();
+        this.input = new Scanner(System.in);
+        this.option = 99;
     }
 
-    Scanner input = new Scanner(System.in);
-    int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
@@ -58,7 +60,7 @@ public class MenuLineaPedido {
     }
 
 
-    public void generarLineaPedido() {
+    private void generarLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
         LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), 0, 0);
@@ -82,15 +84,22 @@ public class MenuLineaPedido {
         System.out.print("Ingrese el id de la linea pedido a modificar: ");
         String codigo = input.next();
         LineaPedido lineaPedidoModificar = lineaPedidoController.findOne(codigo);
-        if (lineaPedidoModificar != null) {
-            System.out.print("Determine la cantidad que desea de este producto: ");
-            int cantidad = input.nextInt();
-            lineaPedidoModificar.setCantidad(cantidad);
-            lineaPedidoController.update(lineaPedidoModificar);
-            System.out.println("Linea pedido modificada con exito.");
-        } else {
-            System.out.println("Esta linea pedido no existe.");
+        while (lineaPedidoModificar == null) {
+            System.out.println("Este codigo no existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("ID: ");
+            codigo = input.next();
+            if (codigo.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                lineaPedidoModificar = lineaPedidoController.findOne(codigo);
+            }
         }
+        System.out.print("Determine la cantidad que desea de este producto: ");
+        int cantidad = input.nextInt();
+        lineaPedidoModificar.setCantidad(cantidad);
+        lineaPedidoController.update(lineaPedidoModificar);
+        System.out.println("Linea pedido modificada con exito.");
     }
 
     public void eliminarLineaPedido() {

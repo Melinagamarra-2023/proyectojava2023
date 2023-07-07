@@ -40,15 +40,15 @@ public class MenuSucursal {
         String sucId = input.next();
         Sucursal sucursalExistente = sucursalController.findOne(sucId);
         while (sucursalExistente != null) {
-
-            System.out.println("Ya existe la sucursal con el Codigo ingresado," +
-                    " por favor vuelva a intentar");
-
-            System.out.println("Ya existe la sucursal con el Codigo ingresado, por favor vuelva a intentar:");
-
-            System.out.print("sucId: ");
+            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("ID: ");
             sucId = input.next();
-            sucursalExistente = sucursalController.findOne(sucId);
+            if (sucId.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                sucursalExistente = sucursalController.findOne(sucId);
+            }
         }
         System.out.println("Latitud: ");
         Double latitud = input.nextDouble();
@@ -58,9 +58,7 @@ public class MenuSucursal {
         String dirrecion = input.next();
         System.out.println("Continente: ");
         String continente = input.next();
-
         Sucursal nuevaSucursal = new Sucursal(sucId, longitud, latitud, dirrecion, continente, true);
-
         sucursalController.create(nuevaSucursal);
         System.out.println("La Sucursal: " + nuevaSucursal.getSucId() + "ha sido añadida con exito");
 
@@ -70,24 +68,31 @@ public class MenuSucursal {
         System.out.println("\nIngrese el Codigo de la Sucursal a modificar:");
         String sucId = input.next();
         Sucursal sucursalModificar = sucursalController.findOne(sucId);
-        if (sucursalModificar != null) {
-            System.out.println("Ingrese los nuevos datos de la sucursal");
-            System.out.print("Latitud: ");
-            Double latitudModificar = input.nextDouble();
-            System.out.print("Longitud: ");
-            Double longitudModificar = input.nextDouble();
-            System.out.print("Dirección: ");
-            String direccionModificar = input.next();
-            System.out.print("Continente: ");
-            String continenteModificar = input.next();
-            sucursalModificar.setLatitud(latitudModificar);
-            sucursalModificar.setLongitud(longitudModificar);
-            sucursalModificar.setDireccion(direccionModificar);
-            sucursalModificar.setContinente(continenteModificar);
-            System.out.println("La Sucursal " + sucursalModificar.getSucId() + " ha sido modificada con éxito.");
-        } else {
-            System.out.println("No se encontró ninguna Sucursal con el Codigo proporcionado.");
+        while (sucursalModificar == null) {
+            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("ID: ");
+            sucId = input.next();
+            if (sucId.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                sucursalModificar = sucursalController.findOne(sucId);
+            }
         }
+        System.out.println("Ingrese los nuevos datos de la sucursal");
+        System.out.print("Latitud: ");
+        Double latitudModificar = input.nextDouble();
+        System.out.print("Longitud: ");
+        Double longitudModificar = input.nextDouble();
+        System.out.print("Dirección: ");
+        String direccionModificar = input.next();
+        System.out.print("Continente: ");
+        String continenteModificar = input.next();
+        sucursalModificar.setLatitud(latitudModificar);
+        sucursalModificar.setLongitud(longitudModificar);
+        sucursalModificar.setDireccion(direccionModificar);
+        sucursalModificar.setContinente(continenteModificar);
+        System.out.println("La Sucursal " + sucursalModificar.getSucId() + " ha sido modificada con éxito.");
     }
 
     public void deshablitarSucursal() {

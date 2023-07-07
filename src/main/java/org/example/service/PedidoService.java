@@ -2,10 +2,13 @@ package org.example.service;
 
 import org.example.model.LineaPedido;
 import org.example.model.Pedido;
+import org.example.model.Sucursal;
+import org.example.model.Transportista;
 import org.example.repository.PedidoRepository;
 import org.example.repository.RemitoRepository;
 import org.example.repository.SectorRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoService implements CRUD<Pedido> {
@@ -39,7 +42,7 @@ public class PedidoService implements CRUD<Pedido> {
         if (pedidoRepository.findAll() != null) {
             return pedidoRepository.findAll();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -64,6 +67,10 @@ public class PedidoService implements CRUD<Pedido> {
 
     public void setSectorDestino(Pedido pedido, String id) {
         pedidoRepository.setSectorDestino(pedido, sectorRepository.findOne(id));
+    }
+
+    public void createRemito(Pedido pedido, Sucursal origen, Sucursal destino, Transportista transportista) {
+        remitoRepository.create(pedido, origen, destino, transportista);
     }
 
 }

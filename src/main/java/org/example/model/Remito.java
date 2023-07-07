@@ -15,4 +15,5 @@ public class Remito {
     private Pedido detalle;
     private Empleado empleadoEmisor;
     private Empleado empleadoReceptor;
+    private Transportista encargado;
 }

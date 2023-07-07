@@ -40,7 +40,8 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
 
     @Override
     public void upload() {
-
+        LineaPedido prueba = new LineaPedido(null, null, null, 0, 0);
+        lineaPedidos.add(prueba);
     }
 
     public void delete(String id) {
