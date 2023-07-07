@@ -8,7 +8,11 @@ import java.util.List;
 
 public class PedidoController implements CRUD<Pedido> {
 
-    PedidoService pedidoService = new PedidoService();
+    private final PedidoService pedidoService;
+
+    public PedidoController() {
+        this.pedidoService =  new PedidoService();
+    }
 
     @Override
     public void create(Pedido pedido) {

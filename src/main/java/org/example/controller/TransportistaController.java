@@ -6,7 +6,11 @@ import org.example.service.TransportistaService;
 import java.util.List;
 
 public class TransportistaController implements CRUD<Transportista> {
-    TransportistaService transportistaService = new TransportistaService();
+    private final TransportistaService transportistaService;
+
+    public TransportistaController() {
+        this.transportistaService = new TransportistaService();
+    }
 
     @Override
     public void create(Transportista transportista) {

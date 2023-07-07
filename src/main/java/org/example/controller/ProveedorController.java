@@ -6,8 +6,11 @@ import org.example.service.ProveedorService;
 import java.util.List;
 
 public class ProveedorController {
-    ProveedorService proveedorService = new ProveedorService();
+    private final ProveedorService proveedorService;
 
+    public ProveedorController() {
+        this.proveedorService = new ProveedorService();
+    }
 
     public void create(Proveedor nuevoProveedor) {
         proveedorService.create(nuevoProveedor);

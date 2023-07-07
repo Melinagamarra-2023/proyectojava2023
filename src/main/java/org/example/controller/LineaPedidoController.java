@@ -5,9 +5,13 @@ import org.example.service.LineaPedidoService;
 
 import java.util.List;
 
-public class LineaPedidoController implements CRUD<LineaPedido>{
+public class LineaPedidoController implements CRUD<LineaPedido> {
 
-    LineaPedidoService lineaPedidoService = new LineaPedidoService();
+    private final LineaPedidoService lineaPedidoService;
+
+    public LineaPedidoController() {
+        this.lineaPedidoService = new LineaPedidoService();
+    }
 
     @Override
     public LineaPedido findOne(String id) {

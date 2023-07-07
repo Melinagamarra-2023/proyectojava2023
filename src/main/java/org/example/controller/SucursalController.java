@@ -6,7 +6,11 @@ import org.example.service.SucursalService;
 import java.util.List;
 
 public class SucursalController implements CRUD<Sucursal> {
-    SucursalService sucursalService = new SucursalService();
+    private final SucursalService sucursalService;
+
+    public SucursalController() {
+        this.sucursalService = new SucursalService();
+    }
 
     @Override
     public void create(Sucursal sucursal) {
