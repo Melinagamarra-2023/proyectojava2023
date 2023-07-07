@@ -54,8 +54,8 @@ public class ProductoService {
         productoRepository.setCategoria(pro, opc);
     }
 
-    public void setProveedor(Producto pro, Proveedor pr) {
-        productoRepository.setProveedor(pro, pr);
+    public void setProveedor(Producto pro, String id) {
+        productoRepository.setProveedor(pro, id);
     }
 
 }

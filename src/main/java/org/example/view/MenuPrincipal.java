@@ -5,7 +5,12 @@ import java.util.Scanner;
 public class MenuPrincipal {
 
     Scanner input = new Scanner(System.in);
-    int option = 99;
+    int option;
+    public MenuPrincipal() {
+        option = 99;
+    }
+
+
 
     public int seleccionarModulo() {
         System.out.println("""
@@ -31,7 +36,7 @@ public class MenuPrincipal {
         System.out.println("Regresando al menu...");
     }
 
-    public int atras(){
+    public int getOpcion(){
         return option;
     }
 }

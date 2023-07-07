@@ -12,10 +12,10 @@ public class Producto {
     private String id;
     private String nombre;
     private String descripcion;
-    private Float ancho;
-    private Float alto;
-    private Float profundidad;
-    private Float peso;
+    private Double ancho;
+    private Double alto;
+    private Double profundidad;
+    private Double peso;
     private Categoria categoria;
     private Proveedor proveedor;
     private Boolean habilitado;

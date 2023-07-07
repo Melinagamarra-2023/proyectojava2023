@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.model.Empleado;
+import org.example.model.Sucursal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class EmpleadoRepository {
         this.empleados = new ArrayList<>();
         this.upload();
     }
-
+  
     public Empleado findOne(String id) {
         for (Empleado empleado : empleados) {
             if (empleado.getId().equals(id)) {
@@ -32,5 +33,5 @@ public class EmpleadoRepository {
         empleados.add(empleado01);
         empleados.add(empleado02);
     }
-
+  
 }
