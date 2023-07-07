@@ -7,6 +7,7 @@ import org.example.model.Proveedor;
 
 
 
+
 import java.util.Scanner;
 
 public class MenuProducto {
@@ -174,7 +175,7 @@ public class MenuProducto {
         productoController.setCategoria(prod, opc);
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }
