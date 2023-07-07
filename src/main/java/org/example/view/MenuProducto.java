@@ -12,7 +12,7 @@ public class MenuProducto {
 
     ProductoController productoController = new ProductoController();
     Scanner input = new Scanner(System.in);
-    int option;
+    int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;

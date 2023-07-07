@@ -14,7 +14,7 @@ public class MenuProveedor {
     }
 
     Scanner input = new Scanner(System.in);
-    int option;
+    int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
@@ -103,51 +103,45 @@ public class MenuProveedor {
     }
 
 
-
-        public void buscarProveedorPorCuit () {
-            System.out.println("\nIngrese el CUIT del proveedor a buscar:");
-            String cuitBuscado = input.next();
-            Proveedor proveedorBuscado = proveedorController.findOne(cuitBuscado);
-            if (proveedorBuscado != null) {
-                System.out.print("El cuit proporcionado corresponde al proveedor: " +
-                        proveedorBuscado.getNombre() +
-                        ", CUIT: " + proveedorBuscado.getCuit() +
-                        ", Correo: " + proveedorBuscado.getCorreo() +
-                        ", Dirección: " + proveedorBuscado.getDireccion() +
-                        ", Teléfono: " + proveedorBuscado.getTelefono() +
-                        ", condición: ");
-                if (proveedorBuscado.getHabilitado()) {
-                    System.out.print("Habilitado\n");
-                } else {
-                    System.out.print("Inhabilitado\n");
-                }
+    public void buscarProveedorPorCuit() {
+        System.out.println("\nIngrese el CUIT del proveedor a buscar:");
+        String cuitBuscado = input.next();
+        Proveedor proveedorBuscado = proveedorController.findOne(cuitBuscado);
+        if (proveedorBuscado != null) {
+            System.out.print("El cuit proporcionado corresponde al proveedor: " +
+                    proveedorBuscado.getNombre() +
+                    ", CUIT: " + proveedorBuscado.getCuit() +
+                    ", Correo: " + proveedorBuscado.getCorreo() +
+                    ", Dirección: " + proveedorBuscado.getDireccion() +
+                    ", Teléfono: " + proveedorBuscado.getTelefono() +
+                    ", condición: ");
+            if (proveedorBuscado.getHabilitado()) {
+                System.out.print("Habilitado\n");
             } else {
-                System.out.println("El cuit proporcionado no corresponde a ningún proveedor.");
+                System.out.print("Inhabilitado\n");
             }
+        } else {
+            System.out.println("El cuit proporcionado no corresponde a ningún proveedor.");
         }
+    }
 
-        public void buscarProveedores () {
-            System.out.println("\n");
-            for (Proveedor pr : proveedorController.findAll()) {
-                System.out.println("Proveedor: " + pr.getNombre() +
-                        ", CUIT: " + pr.getCuit() +
-                        ", Correo: " + pr.getCorreo() +
-                        ", Dirección: " + pr.getDireccion() +
-                        ", Teléfono: " + pr.getTelefono() + ";");
-            }
-            System.out.println("\n");
+    public void buscarProveedores() {
+        System.out.println("\n");
+        for (Proveedor pr : proveedorController.findAll()) {
+            System.out.println("Proveedor: " + pr.getNombre() +
+                    ", CUIT: " + pr.getCuit() +
+                    ", Correo: " + pr.getCorreo() +
+                    ", Dirección: " + pr.getDireccion() +
+                    ", Teléfono: " + pr.getTelefono() + ";");
         }
-
+        System.out.println("\n");
+    }
 
 
     public int getOption() {
         return option;
     }
 
-
-
-
 }
 
-}
 

@@ -10,29 +10,29 @@ public class ClienteController implements CRUD<Cliente> {
 
     @Override
     public void create(Cliente cliente) {
-        clienteService.crearCuentaCliente(cliente);
+        clienteService.create(cliente);
     }
 
     @Override
     public List<Cliente>findAll() {
-        return clienteService.buscarTodosLosClientes();
+        return clienteService.findAll();
 
     }
 
     @Override
     public Cliente findOne(String id) {
-        return clienteService.buscarPorCuit(id);
+        return clienteService.findOne(id);
     }
 
     @Override
     public Cliente update(Cliente cliente) {
-        clienteService.modificarCliente(cliente);
+        clienteService.update(cliente);
         return null;
     }
 
     @Override
     public void delete(String id) {
-        clienteService.eliminarCliente(id);
+        clienteService.delete(id);
     }
 }
 

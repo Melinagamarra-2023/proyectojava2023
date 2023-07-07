@@ -9,10 +9,11 @@ import java.util.List;
 
 public class PedidoRepository implements CRUD<Pedido> {
 
-    LineaPedidoRepository lineaPedidoRepository = new LineaPedidoRepository();
+    private final LineaPedidoRepository lineaPedidoRepository;
     private final List<Pedido> pedidos;
 
     public PedidoRepository() {
+        this.lineaPedidoRepository = new LineaPedidoRepository();
         this.pedidos = new ArrayList<>();
     }
 
@@ -51,7 +52,7 @@ public class PedidoRepository implements CRUD<Pedido> {
         return null;
     }
 
-    public void añadirLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
+    public void agregarLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
         pedido.getDetalle().add(lineaPedido);
     }
 

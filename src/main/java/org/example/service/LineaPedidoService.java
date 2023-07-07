@@ -7,7 +7,11 @@ import java.util.List;
 
 public class LineaPedidoService implements CRUD<LineaPedido> {
 
-    LineaPedidoRepository lineaPedidoRepository = new LineaPedidoRepository();
+    private final LineaPedidoRepository lineaPedidoRepository;
+
+    public LineaPedidoService() {
+        this.lineaPedidoRepository = new LineaPedidoRepository();
+    }
 
     @Override
     public void create(LineaPedido lineaPedido) {
