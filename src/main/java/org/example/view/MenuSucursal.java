@@ -8,14 +8,19 @@ import java.util.Scanner;
 
 public class MenuSucursal {
 
-    SucursalController sucursalController = new SucursalController();
+    private final SucursalController sucursalController;
+
+    public MenuSucursal() {
+        this.sucursalController = new SucursalController();
+    }
+
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 ----- MENÚ SUCURSALES -----
                 Seleccione la opción:
                 1. Agregar una Sucursal.
@@ -35,7 +40,12 @@ public class MenuSucursal {
         String sucId = input.next();
         Sucursal sucursalExistente = sucursalController.findOne(sucId);
         while (sucursalExistente != null) {
+
+            System.out.println("Ya existe la sucursal con el Codigo ingresado," +
+                    " por favor vuelva a intentar");
+
             System.out.println("Ya existe la sucursal con el Codigo ingresado, por favor vuelva a intentar:");
+
             System.out.print("sucId: ");
             sucId = input.next();
             sucursalExistente = sucursalController.findOne(sucId);
@@ -45,11 +55,19 @@ public class MenuSucursal {
         System.out.println("Longitud: ");
         Double longitud = input.nextDouble();
         System.out.println("Dirrecion: ");
+
+        String dirrecion = input.next();
+        System.out.println("Continente: ");
+        String continente = input.next();
+
+        Sucursal nuevaSucursal = new Sucursal(sucId, longitud, latitud, dirrecion, continente, true);
+
         String direccion = input.next();
         System.out.println("Continente: ");
         String continente = input.next();
 
         Sucursal nuevaSucursal = new Sucursal(sucId, longitud, latitud, direccion, continente, true);
+
         sucursalController.create(nuevaSucursal);
         System.out.println("La Sucursal: " + nuevaSucursal.getSucId() + "ha sido añadida con exito");
 

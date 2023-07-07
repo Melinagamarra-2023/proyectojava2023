@@ -7,15 +7,19 @@ import java.util.Scanner;
 
 public class MenuCliente {
 
+    private final ClienteController clienteController;
 
-    ClienteController clienteController = new ClienteController();
+    public MenuCliente() {
+        this.clienteController = new ClienteController();
+    }
+
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 ------ MENÚ CLIENTES ------
                 Seleccione la opción:
                 1. Crear cuenta de cliente.

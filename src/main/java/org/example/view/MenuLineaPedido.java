@@ -8,16 +8,23 @@ import java.util.Scanner;
 
 public class MenuLineaPedido {
 
-    LineaPedidoController lineaPedidoController = new LineaPedidoController();
-    MenuProducto menuProducto = new MenuProducto();
-    ProductoController productoController = new ProductoController();
+    private final LineaPedidoController lineaPedidoController;
+    private final MenuProducto menuProducto;
+    private final ProductoController productoController;
+
+    public MenuLineaPedido() {
+        this.lineaPedidoController = new LineaPedidoController();
+        this.menuProducto = new MenuProducto();
+        this.productoController = new ProductoController();
+    }
+
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 --- MENÚ LINEAS DE PEDIDO ---
                 Seleccione la opción:
                 1. Crear linea pedido.
@@ -44,12 +51,14 @@ public class MenuLineaPedido {
         switch (opc) {
             case 1 -> menuProducto.buscarTodosLosProductos();
             case 2 -> menuProducto.buscarProductoPorId(); //CAMBIAR...
-            case 3 -> menuProducto.buscarProductoPorId(); //CAMBIAR...
-            case 4 -> añadirLineaPedido();
+            case 3 -> menuProducto.buscarProductoPorId(); //CAMBIAR CASO DUPLICADO...
+            case 4 -> agregarLineaPedido();
+            default -> System.out.println("Ingrese una opción correcta.");
         }
     }
 
-    private void añadirLineaPedido() {
+
+    private void agregarLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
         LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), 0, 0);

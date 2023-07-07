@@ -7,10 +7,15 @@ import java.util.List;
 
 public class EmpleadoRepository {
 
+    private final SucursalRepository sucursalRepository;
+
+
+
     private final List<Empleado> empleados;
     SucursalRepository sucursalRepository = new SucursalRepository();
 
     public EmpleadoRepository() {
+        this.sucursalRepository = new SucursalRepository();
         this.empleados = new ArrayList<>();
         this.upload();
     }

@@ -7,7 +7,12 @@ import java.util.Scanner;
 
 public class MenuTransportista {
 
-    TransportistaController transportistaController = new TransportistaController();
+    private final TransportistaController transportistaController;
+
+    public MenuTransportista() {
+        this.transportistaController = new TransportistaController();
+    }
+
     Scanner input = new Scanner(System.in);
     int option = 99;
 
@@ -170,6 +175,8 @@ public class MenuTransportista {
         }
         System.out.print("\n");
     }
+
+    public int atras() {
 
     public int getOption() {
         return option;
