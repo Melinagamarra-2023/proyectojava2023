@@ -1,7 +1,6 @@
 package org.example.view;
 
 import org.example.controller.ProductoController;
-import org.example.controller.ProveedorController;
 import org.example.model.Producto;
 
 
@@ -13,7 +12,7 @@ public class MenuProducto {
 
     ProductoController productoController = new ProductoController();
     Scanner input = new Scanner(System.in);
-    int option = 99;
+    int option;
 
     public int seleccionarOpcion() {
         option = 99;

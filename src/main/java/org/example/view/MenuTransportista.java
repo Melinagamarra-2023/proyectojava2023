@@ -14,7 +14,7 @@ public class MenuTransportista {
     }
 
     Scanner input = new Scanner(System.in);
-    int option = 99;
+    int option;
 
     public int seleccionarOpcion() {
         option = 99;
@@ -176,10 +176,8 @@ public class MenuTransportista {
         System.out.print("\n");
     }
 
-    public int atras() {
 
     public int getOption() {
         return option;
     }
-
 }
