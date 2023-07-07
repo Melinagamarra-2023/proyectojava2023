@@ -1,17 +1,17 @@
 package org.example.repository;
 
 import org.example.model.Sector;
-import org.example.model.Sucursal;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SectorRepository {
-    SucursalRepository sucursalRepository = new SucursalRepository();
+    private final SucursalRepository sucursalRepository;
     private final List<Sector> sectores;
 
     public SectorRepository() {
+        this.sucursalRepository = new SucursalRepository();
         this.sectores = new ArrayList<>();
         this.upload();
     }
@@ -67,6 +67,6 @@ public class SectorRepository {
 //        Sector sector38 = new Sector("Entregado", sucursalRepository.findOne("9012GH"), "8");
 //        Sector sector39 = new Sector("Destino", sucursalRepository.findOne("9012GH"), "9");
 
-          List<Sector> list = Arrays.asList(sector01, sector03, sector02, sector04, sector05, sector06, sector07, sector08, sector09, sector11, sector12, sector13, sector14, sector15, sector16, sector17, sector18, sector19);
+        List<Sector> list = Arrays.asList(sector01, sector03, sector02, sector04, sector05, sector06, sector07, sector08, sector09, sector11, sector12, sector13, sector14, sector15, sector16, sector17, sector18, sector19);
     }
 }

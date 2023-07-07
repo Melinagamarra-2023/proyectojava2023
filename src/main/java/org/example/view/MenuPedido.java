@@ -5,23 +5,33 @@ import org.example.controller.LineaPedidoController;
 import org.example.controller.PedidoController;
 import org.example.controller.SucursalController;
 import org.example.model.Pedido;
-import org.example.model.Sector;
+
 
 import java.util.Scanner;
 
 public class MenuPedido {
 
-    ClienteController clienteController = new ClienteController();
+    private final ClienteController clienteController;
+    private final PedidoController pedidoController;
+    private final LineaPedidoController lineaPedidoController;
+    private final SucursalController sucursalController;
+    private final MenuLineaPedido menuLineaPedido;
+    private final MenuSucursal menuSucursal;
+    private final MenuTransportista menuTransportista;
 
-    PedidoController pedidoController = new PedidoController();
-    LineaPedidoController lineaPedidoController = new LineaPedidoController();
-    SucursalController sucursalController = new SucursalController();
-    MenuLineaPedido menuLineaPedido = new MenuLineaPedido();
-    MenuSucursal menuSucursal = new MenuSucursal();
-    MenuTransportista menuTransportista = new MenuTransportista();
+    public MenuPedido() {
+        this.clienteController = new ClienteController();
+        this.pedidoController = new PedidoController();
+        this.lineaPedidoController = new LineaPedidoController();
+        this.sucursalController = new SucursalController();
+        this.menuLineaPedido = new MenuLineaPedido();
+        this.menuSucursal = new MenuSucursal();
+        this.menuTransportista = new MenuTransportista();
+    }
+
     Scanner input = new Scanner(System.in);
 
-    public void añadirLineaPedido() {
+    public void agregarLineaPedido() {
         Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null, null);
         System.out.println("Ingrese el cuit del cliente:");
         String id = input.next();
@@ -33,7 +43,7 @@ public class MenuPedido {
             System.out.println("Ingrese los artículos del carrito a añadir al pedido:");
             id = input.next();
             if (lineaPedidoController.findOne(id) != null) {
-                pedidoController.añadirLineaPedido(nuevoPedido, lineaPedidoController.findOne(id));
+                pedidoController.agregarLineaPedido(nuevoPedido, lineaPedidoController.findOne(id));
             } else {
                 System.out.println("Ingrese una línea de pedido válida.");
             }

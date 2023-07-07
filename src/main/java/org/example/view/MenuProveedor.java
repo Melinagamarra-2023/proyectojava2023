@@ -2,21 +2,24 @@ package org.example.view;
 
 import org.example.controller.ProveedorController;
 import org.example.model.Proveedor;
-import org.example.repository.ProveedorRepository;
-import org.example.service.ProveedorService;
 
 import java.util.Scanner;
 
 public class MenuProveedor {
 
-    ProveedorController proveedorController = new ProveedorController();
+    private final ProveedorController proveedorController;
+
+    public MenuProveedor() {
+        this.proveedorController = new ProveedorController();
+    }
+
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 ----- MENÚ PROVEEDORES -----
                 Seleccione la opción:
                 1. Añadir proveedor.
@@ -61,32 +64,26 @@ public class MenuProveedor {
         System.out.println("\nIngrese el CUIT del proveedor a modificar:");
         String cuitModificar = input.next();
         Proveedor proveedorModificar = proveedorController.findOne(cuitModificar);
-        while (proveedorModificar != null && proveedorModificar.getHabilitado() == false) {
-            System.out.println("Ya existe un Proveedor con el mismo CUIT." +
-                    " Ingrese un CUIT diferente");
-            System.out.print("Cuit: ");
-            cuitModificar = input.next();
-            /*if (proveedorModificar == null) {
-                System.out.println("No se encontró ningún proveedor con el CUIT proporcionado.");
-            }
-
-             */
+        if (proveedorModificar != null) {
+            System.out.println("Ingrese los nuevos datos del proveedor:");
+            System.out.print("Nombre: ");
+            String nombreModificar = input.next();
+            System.out.print("Dirección: ");
+            String direccionModificar = input.next();
+            System.out.print("Correo: ");
+            String correoModificar = input.next();
+            System.out.print("Teléfono: ");
+            String telefonoModificar = input.next();
+            proveedorModificar.setNombre(nombreModificar);
+            proveedorModificar.setDireccion(direccionModificar);
+            proveedorModificar.setCorreo(correoModificar);
+            proveedorModificar.setTelefono(telefonoModificar);
+            proveedorController.update(proveedorModificar);
+            System.out.println("Proveedor " + proveedorModificar.getCuit() + " Modificada con éxito.");
+        } else {
+            System.out.println("Ingrese un CUIT que corresponda a un proveedor existente.");
         }
-        System.out.println("Ingrese los nuevos datos del proveedor:");
-        System.out.print("Nombre: ");
-        String nombreModificar = input.next();
-        System.out.print("Dirección: ");
-        String direccionModificar = input.next();
-        System.out.print("Correo: ");
-        String correoModificar = input.next();
-        System.out.print("Teléfono: ");
-        String telefonoModificar = input.next();
-        proveedorModificar.setNombre(nombreModificar);
-        proveedorModificar.setDireccion(direccionModificar);
-        proveedorModificar.setCorreo(correoModificar);
-        proveedorModificar.setTelefono(telefonoModificar);
-        proveedorController.update(proveedorModificar);
-        System.out.println("Proveedor " + proveedorModificar.getCuit() + " Modificada con éxito.");
+
     }
 
     public void eliminarProveedor() {

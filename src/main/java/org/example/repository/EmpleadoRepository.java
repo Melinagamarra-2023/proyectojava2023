@@ -2,16 +2,16 @@ package org.example.repository;
 
 
 import org.example.model.Empleado;
-import org.example.model.Sucursal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmpleadoRepository {
-    SucursalRepository sucursalRepository = new SucursalRepository();
+    private final SucursalRepository sucursalRepository;
     private final List<Empleado> empleados;
 
     public EmpleadoRepository() {
+        this.sucursalRepository = new SucursalRepository();
         this.empleados = new ArrayList<>();
         this.upload();
     }

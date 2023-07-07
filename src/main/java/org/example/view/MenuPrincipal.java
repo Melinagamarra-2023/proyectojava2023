@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class MenuPrincipal {
 
-    Scanner input = new Scanner(System.in);
+    private final Scanner input = new Scanner(System.in); //Nose si corresponde private final
     int option;
     public MenuPrincipal() {
         option = 99;

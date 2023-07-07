@@ -7,14 +7,19 @@ import java.util.Scanner;
 
 public class MenuTransportista {
 
-    TransportistaController transportistaController = new TransportistaController();
+    private final TransportistaController transportistaController;
+
+    public MenuTransportista() {
+        this.transportistaController = new TransportistaController();
+    }
+
     Scanner input = new Scanner(System.in);
     int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 ---- MENÚ TRANSPORTISTAS ----
                 Seleccione la opción:
                 1. Añadir un nuevo transportista.
@@ -41,7 +46,7 @@ public class MenuTransportista {
         if (transportistaExistente != null) {
             System.out.println("Ya existe un transportista con el mismo CUIT.");
         } else {
-            Transportista nuevoTransportista = new Transportista(nombre, cuit, telefono, true, false,false, false);
+            Transportista nuevoTransportista = new Transportista(nombre, cuit, telefono, true, false, false, false);
             transportistaController.create(nuevoTransportista);
             this.setTransporte(nuevoTransportista);
             System.out.println("Transportista: " + nuevoTransportista.getNombre() + " añadido con éxito");
@@ -160,15 +165,15 @@ public class MenuTransportista {
         }
         if (tr.getAereo() && !(tr.getTerrestre() || tr.getMaritimo())) {
             System.out.print("Aéreo.");
-        }else if (!(tr.getAereo())){
+        } else if (!(tr.getAereo())) {
             System.out.print(".");
-        }else{
+        } else {
             System.out.print(", Aéreo.");
         }
         System.out.print("\n");
     }
 
-    public int atras(){
+    public int atras() {
         return option;
     }
 
