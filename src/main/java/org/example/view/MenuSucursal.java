@@ -3,8 +3,6 @@ package org.example.view;
 import org.example.controller.SucursalController;
 
 import org.example.model.Sucursal;
-import org.example.repository.SucursalRepository;
-import org.example.service.SucursalService;
 
 import java.util.Scanner;
 
@@ -35,24 +33,23 @@ public class MenuSucursal {
         System.out.println("\nporfavor escriba los datos de la sucursal");
         System.out.println("sucId: ");
         String sucId = input.next();
-        Sucursal sucursalExistene = sucursalController.findOne(sucId);
-        while (sucursalExistene != null) {
-            System.out.println("Ya existe la sucursal con el Codigo ingresado," +
-                    " por favor vuelva a intentar");
+        Sucursal sucursalExistente = sucursalController.findOne(sucId);
+        while (sucursalExistente != null) {
+            System.out.println("Ya existe la sucursal con el Codigo ingresado, por favor vuelva a intentar:");
             System.out.print("sucId: ");
             sucId = input.next();
-            Sucursal sucursalExistente = sucursalController.findOne(sucId);
+            sucursalExistente = sucursalController.findOne(sucId);
         }
         System.out.println("Latitud: ");
-        Double Latitud = input.nextDouble();
+        Double latitud = input.nextDouble();
         System.out.println("Longitud: ");
-        Double Longitud = input.nextDouble();
+        Double longitud = input.nextDouble();
         System.out.println("Dirrecion: ");
-        String Dirrecion = input.next();
+        String direccion = input.next();
         System.out.println("Continente: ");
-        String Continente = input.next();
+        String continente = input.next();
 
-        Sucursal nuevaSucursal = new Sucursal(sucId, Longitud, Latitud, Dirrecion, Continente, true);
+        Sucursal nuevaSucursal = new Sucursal(sucId, longitud, latitud, direccion, continente, true);
         sucursalController.create(nuevaSucursal);
         System.out.println("La Sucursal: " + nuevaSucursal.getSucId() + "ha sido añadida con exito");
 
@@ -128,7 +125,7 @@ public class MenuSucursal {
         System.out.println("\n");
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 

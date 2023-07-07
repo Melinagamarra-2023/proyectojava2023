@@ -14,7 +14,7 @@ public class MenuTransportista {
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
-                
+                                
                 ---- MENÚ TRANSPORTISTAS ----
                 Seleccione la opción:
                 1. Añadir un nuevo transportista.
@@ -41,7 +41,7 @@ public class MenuTransportista {
         if (transportistaExistente != null) {
             System.out.println("Ya existe un transportista con el mismo CUIT.");
         } else {
-            Transportista nuevoTransportista = new Transportista(nombre, cuit, telefono, true, false,false, false);
+            Transportista nuevoTransportista = new Transportista(nombre, cuit, telefono, true, false, false, false);
             transportistaController.create(nuevoTransportista);
             this.setTransporte(nuevoTransportista);
             System.out.println("Transportista: " + nuevoTransportista.getNombre() + " añadido con éxito");
@@ -116,12 +116,15 @@ public class MenuTransportista {
     }
 
     public void buscarTransportistasPorTipo() {
-        System.out.println("""
-                Seleccione el tipo de transporte:
-                1. Terrestre.
-                2. Marítimo.
-                3. Aéreo.""");
-        int opc = input.nextInt();
+        int opc;
+        do {
+            System.out.println("""
+                    Seleccione el tipo de transporte:
+                    1. Terrestre.
+                    2. Marítimo.
+                    3. Aéreo.""");
+            opc = input.nextInt();
+        } while (opc != 1 && opc != 2 && opc != 3);
         for (Transportista tr : transportistaController.buscarTransportistasPorTipo(opc)) {
             System.out.print("Transportista: " + tr.getNombre() +
                     ", CUIT: " + tr.getCuit() +
@@ -160,15 +163,15 @@ public class MenuTransportista {
         }
         if (tr.getAereo() && !(tr.getTerrestre() || tr.getMaritimo())) {
             System.out.print("Aéreo.");
-        }else if (!(tr.getAereo())){
+        } else if (!(tr.getAereo())) {
             System.out.print(".");
-        }else{
+        } else {
             System.out.print(", Aéreo.");
         }
         System.out.print("\n");
     }
 
-    public int atras(){
+    public int getOption() {
         return option;
     }
 

@@ -11,5 +11,4 @@ public class Ubicacion {
     private String fecha;
     private String hora;
     private Posicion posicion;
-
 }

@@ -2,8 +2,6 @@ package org.example.view;
 
 import org.example.controller.ClienteController;
 import org.example.model.Cliente;
-import org.example.repository.ClienteRepository;
-import org.example.service.ClienteService;
 
 import java.util.Scanner;
 
@@ -134,7 +132,7 @@ public class MenuCliente {
         System.out.println("\n");
     }
 
-    public int atras() {
+    public int getOption() {
         return option;
     }
 }

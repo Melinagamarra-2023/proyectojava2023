@@ -50,22 +50,41 @@ public class TransportistaService implements CRUD<Transportista> {
 
     public List<Transportista> buscarTransportistasPorTipo(int opc) {
         List<Transportista> resultado = new ArrayList<>();
-        for (Transportista tr : transportistaRepository.findAll()) {
-            if (opc==1) {
-                if (tr.getTerrestre() && tr.getHabilitado()) {
-                    resultado.add(tr);
-                }
-            }else if (opc==2) {
-                if (tr.getMaritimo() && tr.getHabilitado()) {
-                    resultado.add(tr);
-                }
-            }else if (opc==3) {
-                if (tr.getAereo() && tr.getHabilitado()) {
-                    resultado.add(tr);
-                }
+            switch (opc) {
+                case 1 -> resultado = transportistasTerrestres();
+                case 2 -> resultado = transportistasMaritimos();
+                case 3 -> resultado = transportistasAereos();
             }
-        }
         return resultado;
     }
 
+    private List<Transportista> transportistasTerrestres() {
+        List<Transportista> transportistas = new ArrayList<>();
+        for (Transportista tr : transportistaRepository.findAll()) {
+            if (tr.getTerrestre() && tr.getHabilitado()) {
+                transportistas.add(tr);
+            }
+        }
+        return transportistas;
+    }
+
+    private List<Transportista> transportistasMaritimos() {
+        List<Transportista> transportistas = new ArrayList<>();
+        for (Transportista tr : transportistaRepository.findAll()) {
+            if (tr.getTerrestre() && tr.getHabilitado()) {
+                transportistas.add(tr);
+            }
+        }
+        return transportistas;
+    }
+
+    private List<Transportista> transportistasAereos() {
+        List<Transportista> transportistas = new ArrayList<>();
+        for (Transportista tr : transportistaRepository.findAll()) {
+            if (tr.getTerrestre() && tr.getHabilitado()) {
+                transportistas.add(tr);
+            }
+        }
+        return transportistas;
+    }
 }

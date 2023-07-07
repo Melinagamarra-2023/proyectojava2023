@@ -2,7 +2,6 @@ package org.example.repository;
 
 import org.example.model.Categoria;
 import org.example.model.Producto;
-import org.example.model.Proveedor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,6 @@ public class ProductoRepository implements CRUD<Producto> {
     ProveedorRepository proveedorRepository = new ProveedorRepository();
 
     public ProductoRepository() {
-        this.proveedorRepository = proveedorRepository;
         this.productos = new ArrayList<>();
         this.upload();
     }

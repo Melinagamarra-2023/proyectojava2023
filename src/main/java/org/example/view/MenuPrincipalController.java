@@ -21,7 +21,7 @@ public class MenuPrincipalController {
     }
 
     private void seleccionarOpciones() {
-        while (menuPrincipal.getOpcion() != 0) {
+        while (menuPrincipal.getOption() != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
                 case 1 -> gestionarClientes();
                 case 2 -> gestionarProveedor();
@@ -35,7 +35,7 @@ public class MenuPrincipalController {
     }
 
     private void gestionarClientes() {
-        while (menuCliente.atras() != 0) {
+        while (menuCliente.getOption() != 0) {
             switch (menuCliente.seleccionarOpcion()) {
                 case 1 -> menuCliente.crearNuevoCliente();
                 case 2 -> menuCliente.modificarCliente();
@@ -49,7 +49,7 @@ public class MenuPrincipalController {
     }
 
     private void gestionarProveedor() {
-        while (menuProveedor.atras() != 0) {
+        while (menuProveedor.getOption() != 0) {
             switch (menuProveedor.seleccionarOpcion()) {
                 case 1 -> menuProveedor.crearProveedor();
                 case 2 -> menuProveedor.modificarProveedor();
@@ -63,7 +63,7 @@ public class MenuPrincipalController {
     }
 
     private void gestionarSucursales() {
-        while (menuSucursal.atras() != 0) {
+        while (menuSucursal.getOption() != 0) {
             switch (menuSucursal.seleccionarOpcion()) {
                 case 1 -> menuSucursal.agregarUnaSucursal();
                 case 2 -> menuSucursal.modificarSucursal();
@@ -77,7 +77,7 @@ public class MenuPrincipalController {
     }
 
     private void gestionarTransportista() {
-        while (menuTransportista.atras() != 0) {
+        while (menuTransportista.getOption() != 0) {
             switch (menuTransportista.seleccionarOpcion()) {
                 case 1 -> menuTransportista.agregarTransportista();
                 case 2 -> menuTransportista.modificarTransportista();
@@ -106,7 +106,7 @@ public class MenuPrincipalController {
     }
 
     private void gestionarLineaPedido() {
-        while (menuLineaPedido.atras() != 0) {
+        while (menuLineaPedido.getOption() != 0) {
             switch (menuLineaPedido.seleccionarOpcion()) {
                 case 1 -> menuLineaPedido.seleccionarProductos();
                 case 2 -> menuLineaPedido.modificarLineaPedido();

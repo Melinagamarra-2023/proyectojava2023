@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 
 public class Pedido {
-
     private String pedidoId;
     private Sector sectorOrigen;
     private Sector sectorDestino;
