@@ -2,7 +2,9 @@ package org.example.service;
 
 import org.example.model.LineaPedido;
 import org.example.model.Pedido;
+import org.example.model.Remito;
 import org.example.repository.PedidoRepository;
+import org.example.repository.RemitoRepository;
 import org.example.repository.SectorRepository;
 import org.example.repository.SucursalRepository;
 
@@ -12,7 +14,7 @@ public class PedidoService implements CRUD<Pedido> {
 
     PedidoRepository pedidoRepository = new PedidoRepository();
     SectorRepository sectorRepository = new SectorRepository();
-    SucursalRepository sucursalRepository = new SucursalRepository();
+    RemitoRepository remitoRepository = new RemitoRepository();
 
     @Override
     public void create(Pedido pedido) {
