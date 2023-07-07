@@ -6,6 +6,8 @@ import org.example.model.Producto;
 import org.example.model.Proveedor;
 
 
+
+
 import java.util.Scanner;
 
 public class MenuProducto {
@@ -48,19 +50,19 @@ public class MenuProducto {
         String nombre = input.next();
         System.out.print("Descripcion: ");
         String descripcion = input.next();
+        input.nextLine();
         System.out.print("Ancho: ");
-        Float ancho = input.nextFloat();
+        Double ancho = input.nextDouble();
         System.out.print("Alto: ");
-        Float alto = input.nextFloat();
+        Double alto = input.nextDouble();
         System.out.print("Profundidad: ");
-        Float profundidad = input.nextFloat();
+        Double profundidad = input.nextDouble();
         System.out.print("Peso: ");
-        Float peso = input.nextFloat();
-        Producto nuevoProducto = new Producto(nombre, descripcion, id, ancho, alto, profundidad, peso, null, null, true);
+        Double peso = input.nextDouble();
+        Producto nuevoProducto = new Producto(id, nombre, descripcion, ancho, alto, profundidad, peso, null, null, true);
         System.out.println("Proporcione el cuit del proveedor del producto: ");
         String cuit = input.next();
-        Proveedor pr = proveedorController.findOne(cuit);
-        productoController.setProveedor(nuevoProducto, pr);
+        productoController.setProveedor(nuevoProducto, cuit);
         this.setCategoria(nuevoProducto);
         productoController.create(nuevoProducto);
         System.out.println("Producto: " + nuevoProducto.getNombre() + " Creado con éxito");
@@ -78,13 +80,13 @@ public class MenuProducto {
             System.out.print("Descripcion: ");
             String descripcionModificar = input.next();
             System.out.print("Ancho: ");
-            Float anchoModificar = input.nextFloat();
+            Double anchoModificar = input.nextDouble();
             System.out.print("Alto: ");
-            Float altoModificar = input.nextFloat();
+            Double altoModificar = input.nextDouble();
             System.out.print("Profundidad: ");
-            Float profundidadModificar = input.nextFloat();
+            Double profundidadModificar = input.nextDouble();
             System.out.print("Peso: ");
-            Float pesoModificar = input.nextFloat();
+            Double pesoModificar = input.nextDouble();
 
             productoModificar.setNombre(nombreModificar);
             productoModificar.setDescripcion(descripcionModificar);
@@ -95,8 +97,7 @@ public class MenuProducto {
 
             System.out.println("Proporcione el cuit del proveedor del producto: ");
             String cuit = input.next();
-            Proveedor pr = proveedorController.findOne(cuit);
-            productoController.setProveedor(productoModificar, pr);
+            productoController.setProveedor(productoModificar, cuit);
             this.setCategoria(productoModificar);
             productoController.update(productoModificar);
             System.out.println("Producto: " + productoModificar.getId() + " Modificado con éxito.");
@@ -130,8 +131,8 @@ public class MenuProducto {
                     ", Alto: " + productoBuscado.getAlto() +
                     ", Profundidad: " + productoBuscado.getProfundidad() +
                     ", Peso: " + productoBuscado.getPeso() +
-                    ", Categoria: " + productoBuscado.getCategoria() +
-                    ", Proveedor: " + productoBuscado.getProveedor());
+                    ", Categoria: " + productoBuscado.getCategoria().getDescripcion() +
+                    ", Proveedor: " + productoBuscado.getProveedor().getNombre());
 
             if (productoBuscado.getHabilitado()) {
                 System.out.print("Habilitado\n");
@@ -154,8 +155,8 @@ public class MenuProducto {
                     ", Alto: " + prod.getAlto() +
                     ", Profundidad: " + prod.getProfundidad() +
                     ", Peso: " + prod.getPeso() +
-                    ", Categoria: " + prod.getCategoria() +
-                    ", Proveedor: " + prod.getProveedor());
+                    ", Categoria: " + prod.getCategoria().getDescripcion() +
+                    ", Proveedor: " + prod.getProveedor().getNombre());
 
         }
         System.out.println("\n");
