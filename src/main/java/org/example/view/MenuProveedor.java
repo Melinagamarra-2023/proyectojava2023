@@ -8,13 +8,14 @@ import java.util.Scanner;
 public class MenuProveedor {
 
     private final ProveedorController proveedorController;
+    private final Scanner input;
 
     public MenuProveedor() {
         this.proveedorController = new ProveedorController();
+        this.input = new Scanner(System.in);
     }
 
-    Scanner input = new Scanner(System.in);
-    int option = 99;
+    private int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;

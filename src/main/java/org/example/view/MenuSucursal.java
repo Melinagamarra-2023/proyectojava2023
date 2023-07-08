@@ -9,13 +9,14 @@ import java.util.Scanner;
 public class MenuSucursal {
 
     private final SucursalController sucursalController;
+    private final Scanner input;
 
     public MenuSucursal() {
         this.sucursalController = new SucursalController();
+        this.input = new Scanner(System.in);
     }
 
-    Scanner input = new Scanner(System.in);
-    int option = 99;
+    private int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;

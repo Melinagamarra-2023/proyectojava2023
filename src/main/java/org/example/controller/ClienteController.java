@@ -31,8 +31,7 @@ public class ClienteController implements CRUD<Cliente> {
 
     @Override
     public Cliente update(Cliente cliente) {
-        clienteService.update(cliente);
-        return null;
+        return clienteService.update(cliente);
     }
 
     @Override

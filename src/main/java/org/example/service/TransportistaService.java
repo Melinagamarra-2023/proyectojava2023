@@ -8,7 +8,11 @@ import java.util.List;
 
 public class TransportistaService implements CRUD<Transportista> {
 
-    TransportistaRepository transportistaRepository = new TransportistaRepository();
+    private final TransportistaRepository transportistaRepository;
+
+    public TransportistaService() {
+        this.transportistaRepository = new TransportistaRepository();
+    }
 
     @Override
     public void create(Transportista nuevotr) {

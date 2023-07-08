@@ -8,13 +8,14 @@ import java.util.Scanner;
 public class MenuTransportista {
 
     private final TransportistaController transportistaController;
+    private final Scanner input;
 
     public MenuTransportista() {
         this.transportistaController = new TransportistaController();
+        this.input = new Scanner(System.in);
     }
 
-    Scanner input = new Scanner(System.in);
-    int option = 99;
+    private int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;

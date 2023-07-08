@@ -138,12 +138,16 @@ public class MenuCliente {
     public void buscarTodosLosClientes() {
         System.out.println("\n");
         for (Cliente cl : clienteController.findAll()) {
-            System.out.println("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
+            System.out.print("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
                     ", CUIT: " + cl.getCuit() +
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +
-                    ", Teléfono: " + cl.getTelefono() +
-                    ", Estado: " + cl.getHabilitado() + ";");
+                    ", Teléfono: " + cl.getTelefono() + " ");
+            if (cl.getHabilitado()) {
+                System.out.print("Estado: Habilitado\n");
+            } else {
+                System.out.print("Estado: Inhabilitado\n");
+            }
         }
         System.out.println("\n");
     }
