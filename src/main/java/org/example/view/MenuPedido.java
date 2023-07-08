@@ -3,6 +3,7 @@ package org.example.view;
 import org.example.controller.*;
 import org.example.model.Pedido;
 
+
 import java.util.Scanner;
 
 public class MenuPedido {
@@ -10,57 +11,41 @@ public class MenuPedido {
     private final MenuLineaPedido menuLineaPedido;
     private final MenuSucursal menuSucursal;
     private final MenuTransportista menuTransportista;
-<<<<<<< Updated upstream
     private final ClienteController clienteController;
     private final PedidoController pedidoController;
+    private final TransportistaController transportistaController;
     private final LineaPedidoController lineaPedidoController;
     private final SucursalController sucursalController;
+
     private final TransportistaController transportistaController;
     private final Scanner input;
-=======
->>>>>>> Stashed changes
+
     private int option;
 
+    private final MenuLineaPedido menuLineaPedido;
+    private final MenuSucursal menuSucursal;
+    private final MenuTransportista menuTransportista;
+
     public MenuPedido() {
-        this.menuLineaPedido = new MenuLineaPedido();
-        this.menuSucursal = new MenuSucursal();
-        this.menuTransportista = new MenuTransportista();
         this.clienteController = new ClienteController();
         this.pedidoController = new PedidoController();
         this.lineaPedidoController = new LineaPedidoController();
         this.sucursalController = new SucursalController();
+        this.menuLineaPedido = new MenuLineaPedido();
+        this.menuSucursal = new MenuSucursal();
+        this.menuTransportista = new MenuTransportista();
         this.transportistaController = new TransportistaController();
-<<<<<<< Updated upstream
         this.input = new Scanner(System.in);
-=======
->>>>>>> Stashed changes
         this.option = 99;
+        Scanner input = new Scanner(System.in);  
     }
 
-    public int seleccionarOpcion() {
-        option = 99;
-        System.out.println("""
-                                
-                ------- MENÚ PEDIDO -------
-                Seleccione la opción:
-                1. Crear nuevo pedido.
-                2. Modificar destino de un pedido.
-                3. Cancelar pedido.
-                4. Mostrar todos los pedidos.
-                5. Mostrar pedidos por cliente.
-                6. Buscar pedido por ID.
-                0. Cancelar.
-                """);
-        option = input.nextInt();
-        return option;
-    }
-
-<<<<<<< Updated upstream
+    
     public void generarPedido() {
         //
         //se crea un pedido vacío y primero se setea al cliente.
         //
-=======
+
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""
@@ -78,34 +63,14 @@ public class MenuPedido {
         return option;
     }
     public void agregarLineaPedido() {
->>>>>>> Stashed changes
         Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null, null);
         System.out.println("Ingrese el cuit del cliente:");
         String id = input.next();
+        nuevoPedido.setCliente(clienteController.findOne(id));
         int salir = 1;
-        do {
-            if (clienteController.findOne(id) == null) {
-                nuevoPedido.setCliente(clienteController.findOne(id));
-                salir = 0;
-            } else {
-                System.out.println("Este cliente no existe, intentelo de nuevo. (0 para cancelar)");
-                System.out.print("cuit: ");
-                id = input.next();
-                if (id.equals("0")) {
-                    System.out.println("Operación cancelada.");
-                    seleccionarOpcion();
-                }
-            }
-        } while (salir == 0);
-        //
-        //se arma el carrito.
-        //
         menuLineaPedido.seleccionarOpcion();
-<<<<<<< Updated upstream
-=======
-        //arma el carrito
->>>>>>> Stashed changes
         do {
+        //arma el carrito
             System.out.println("Ingrese los artículos del carrito a añadir al pedido:");
             id = input.next();
             if (lineaPedidoController.findOne(id) != null) {
@@ -119,36 +84,24 @@ public class MenuPedido {
                 salir = 0;
             }
         } while (salir == 0);
-<<<<<<< Updated upstream
         //
         //se elige origen y destino, adicionalmente se setea al empleado encargado (sucursal origen).
         //
-=======
+        }
         //elige origen y destino
->>>>>>> Stashed changes
         System.out.println("Seleccione la sucursal de origen.");
         menuSucursal.buscarTodasLasSucursales();
         System.out.println("Ingrese el ID de la sucursal de origen para el pedido:");
-        String idOrigen = input.next();
+        id = input.next();
         pedidoController.setSectorOrigen(nuevoPedido, sucursalController.findOne(id).getSucId() + "1");
         System.out.println("Ingrese el ID de la surcusal de destino para el pedido:");
-        String idDestino = input.next();
+        id = input.next();
         pedidoController.setSectorDestino(nuevoPedido, sucursalController.findOne(id).getSucId() + "9");
-        //
-        //seleccionar transportista.
-        //
+        //seleccionar transportista
         System.out.println("Seleccione el transporte que desea para su envio:");
         menuTransportista.buscarTransportistasPorTipo();
         System.out.println("Ingrese el ID del transportista elegido:");
         id = input.next();
-        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), sucursalController.findOne(idDestino), transportistaController.findOne(id));
-        //
-        //pedido creado con exito.
-        //
-    }
-
-    public int getOption() {
-        return option;
     }
     public int getOption() {
         return option;
