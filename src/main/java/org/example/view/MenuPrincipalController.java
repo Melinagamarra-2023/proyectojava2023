@@ -115,7 +115,6 @@ public class MenuPrincipalController {
                 case 2 -> menuLineaPedido.modificarLineaPedido();
                 case 3 -> menuLineaPedido.eliminarLineaPedido();
                 case 4 -> menuLineaPedido.buscarLineasPedido();
-                case 5 -> menuPedido.generarPedido();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
@@ -125,7 +124,7 @@ public class MenuPrincipalController {
     private void gestionarPedidos() {
         while (menuPedido.getOption() != 0) {
             switch (menuPedido.seleccionarOpcion()) {
-                case 1 -> menuPedido.generarPedido();
+                case 1 -> menuPedido.agregarLineaPedido();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }

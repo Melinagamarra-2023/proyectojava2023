@@ -10,12 +10,15 @@ public class MenuPedido {
     private final MenuLineaPedido menuLineaPedido;
     private final MenuSucursal menuSucursal;
     private final MenuTransportista menuTransportista;
+<<<<<<< Updated upstream
     private final ClienteController clienteController;
     private final PedidoController pedidoController;
     private final LineaPedidoController lineaPedidoController;
     private final SucursalController sucursalController;
     private final TransportistaController transportistaController;
     private final Scanner input;
+=======
+>>>>>>> Stashed changes
     private int option;
 
     public MenuPedido() {
@@ -27,7 +30,10 @@ public class MenuPedido {
         this.lineaPedidoController = new LineaPedidoController();
         this.sucursalController = new SucursalController();
         this.transportistaController = new TransportistaController();
+<<<<<<< Updated upstream
         this.input = new Scanner(System.in);
+=======
+>>>>>>> Stashed changes
         this.option = 99;
     }
 
@@ -49,10 +55,30 @@ public class MenuPedido {
         return option;
     }
 
+<<<<<<< Updated upstream
     public void generarPedido() {
         //
         //se crea un pedido vacío y primero se setea al cliente.
         //
+=======
+    public int seleccionarOpcion() {
+        option = 99;
+        System.out.println("""
+                                
+                ----- MENÚ PRODUCTOS -----
+                Seleccione la opción:
+                1. Agregar un producto.
+                2. Modificar un producto.
+                3. Eliminar un producto.
+                4. Buscar por ID un producto.
+                5. Obtener lista de todos los productos.
+                0. Salir.
+                """);
+        option = input.nextInt();
+        return option;
+    }
+    public void agregarLineaPedido() {
+>>>>>>> Stashed changes
         Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null, null);
         System.out.println("Ingrese el cuit del cliente:");
         String id = input.next();
@@ -75,6 +101,10 @@ public class MenuPedido {
         //se arma el carrito.
         //
         menuLineaPedido.seleccionarOpcion();
+<<<<<<< Updated upstream
+=======
+        //arma el carrito
+>>>>>>> Stashed changes
         do {
             System.out.println("Ingrese los artículos del carrito a añadir al pedido:");
             id = input.next();
@@ -89,9 +119,13 @@ public class MenuPedido {
                 salir = 0;
             }
         } while (salir == 0);
+<<<<<<< Updated upstream
         //
         //se elige origen y destino, adicionalmente se setea al empleado encargado (sucursal origen).
         //
+=======
+        //elige origen y destino
+>>>>>>> Stashed changes
         System.out.println("Seleccione la sucursal de origen.");
         menuSucursal.buscarTodasLasSucursales();
         System.out.println("Ingrese el ID de la sucursal de origen para el pedido:");
@@ -116,4 +150,8 @@ public class MenuPedido {
     public int getOption() {
         return option;
     }
+    public int getOption() {
+        return option;
+    }
+
 }
