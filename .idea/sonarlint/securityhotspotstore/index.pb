@@ -67,8 +67,6 @@ k
 ;src/main/java/org/example/repository/ClienteRepository.java,2\7\2784b57604b6a9f10b29ca5bb0c0b82baed779b8
 l
 <src/main/java/org/example/repository/EmpleadoRepository.java,5\1\515a6d753ef63fc356213470aca52e8a5cfeb96d
-_
-/src/main/java/org/example/view/MenuCliente.java,6\6\66df81076dccb733d6698b5ad2080a616f7da66e
 q
 Asrc/main/java/org/example/controller/TransportistaController.java,d\d\dd1ff27b80085c9f75a24db30d62c9cee785ae43
 o

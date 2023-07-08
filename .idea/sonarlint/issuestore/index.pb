@@ -73,8 +73,6 @@ l
 <src/main/java/org/example/controller/ProductoController.java,3\0\308e556021a04ebb5f4d2779ccd1dec1544aa736
 o
 ?src/main/java/org/example/controller/LineaPedidoController.java,2\c\2ce6ce1e3741633ca740dfd0cb95d9b1966442ad
-_
-/src/main/java/org/example/view/MenuCliente.java,6\6\66df81076dccb733d6698b5ad2080a616f7da66e
 l
 <src/main/java/org/example/controller/SucursalController.java,8\0\80a730999f00a271629e74711dc35d3bf6f0e046
 f
