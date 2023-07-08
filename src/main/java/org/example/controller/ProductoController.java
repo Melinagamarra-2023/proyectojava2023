@@ -5,7 +5,7 @@ import org.example.service.ProductoService;
 
 import java.util.List;
 
-public class ProductoController {
+public class ProductoController implements CRUD<Producto> {
     private final ProductoService productoService;
 
     public ProductoController() {
@@ -24,8 +24,8 @@ public class ProductoController {
         return productoService.findOne(id);
     }
 
-    public void update(Producto prod) {
-        productoService.update(prod);
+    public Producto update(Producto prod) {
+        return productoService.update(prod);
     }
 
     public void delete(String id) {

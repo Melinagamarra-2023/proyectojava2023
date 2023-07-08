@@ -32,7 +32,7 @@ public class MenuPrincipalController {
                 case 5 -> gestionarProductos();
                 case 6 -> gestionarLineaPedido();
                 case 7 -> gestionarPedidos();
-                default -> System.out.println("Opcion invalida.");
+                default -> menuPrincipal.invalido();
             }
         }
     }

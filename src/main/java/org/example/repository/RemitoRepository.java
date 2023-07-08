@@ -13,8 +13,7 @@ public class RemitoRepository {
 
     private final List<Remito> remitos;
     private final EmpleadoRepository empleadoRepository;
-
-    int codigo = 0;
+    private int codigo = 0;
 
     public RemitoRepository() {
         this.empleadoRepository = new EmpleadoRepository();

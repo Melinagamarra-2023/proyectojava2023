@@ -29,8 +29,7 @@ public class SucursalController implements CRUD<Sucursal> {
 
     @Override
     public Sucursal update(Sucursal sucursal) {
-        sucursalService.update(sucursal);
-        return null;
+        return sucursalService.update(sucursal);
     }
 
     @Override
