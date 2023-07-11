@@ -48,14 +48,38 @@ public class MenuPedido {
         return option;
     }
 
-    public void generarPedido() {
-        Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null);
-        System.out.println("Ingrese el cuit del cliente:");
-        String id = input.next();
-        nuevoPedido.setCliente(clienteController.findOne(id));
-        int salir = 1;
-        menuLineaPedido.seleccionarOpcion();
-        do {
+
+        Scanner input = new Scanner(System.in);
+    }
+
+
+
+
+        public int seleccionarOpcion () {
+            option = 99;
+            System.out.println("""
+                                    
+                    ----- MENÚ PRODUCTOS -----
+                    Seleccione la opción:
+                    1. Agregar un producto.
+                    2. Modificar un producto.
+                    3. Eliminar un producto.
+                    4. Buscar por ID un producto.
+                    5. Obtener lista de todos los productos.
+                    0. Salir.
+                    """);
+            option = input.nextInt();
+            return option;
+        }
+
+        public void generarPedido() {
+          Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null);
+          System.out.println("Ingrese el cuit del cliente:");
+          String id = input.next();
+          nuevoPedido.setCliente(clienteController.findOne(id));
+          int salir = 1;
+          menuLineaPedido.seleccionarOpcion();
+          do {
         //arma el carrito (varias LineaPedido)
             System.out.println("Ingrese los artículos del carrito a añadir al pedido:");
             id = input.next();
@@ -69,26 +93,26 @@ public class MenuPedido {
             if (resp.contains("n")) {
                 salir = 0;
             }
-        } while (salir == 0);
-        //elige origen y destino
-        System.out.println("Seleccione la sucursal de origen.");
-        menuSucursal.buscarTodasLasSucursales();
-        System.out.println("Ingrese el ID de la sucursal de origen para el pedido:");
-        String idOrigen = input.next();
-        pedidoController.setSectorOrigen(nuevoPedido, idOrigen);
-        System.out.println("Ingrese el ID de la surcusal de destino para el pedido:");
-        String idDestino = input.next();
-        pedidoController.setSectorDestino(nuevoPedido, idDestino);
-        //seleccionar transportista
-        System.out.println("Seleccione el transporte que desea para su envio:");
-        menuTransportista.buscarTransportistasPorTipo();
-        System.out.println("Ingrese el ID del transportista elegido:");
-        id = input.next();
-        pedidoController.createRemito(null, null, null, null, null, null);
-    }
+          } while (salir == 0);
+          //elige origen y destino
+          System.out.println("Seleccione la sucursal de origen.");
+          menuSucursal.buscarTodasLasSucursales();
+          System.out.println("Ingrese el ID de la sucursal de origen para el pedido:");
+          String idOrigen = input.next();
+          pedidoController.setSectorOrigen(nuevoPedido, idOrigen);
+          System.out.println("Ingrese el ID de la surcusal de destino para el pedido:");
+          String idDestino = input.next();
+          pedidoController.setSectorDestino(nuevoPedido, idDestino);
+          //seleccionar transportista
+          System.out.println("Seleccione el transporte que desea para su envio:");
+          menuTransportista.buscarTransportistasPorTipo();
+          System.out.println("Ingrese el ID del transportista elegido:");
+          id = input.next();
+          pedidoController.createRemito(null, null, null, null, null, null);
+        }
 
-    public int getOption() {
-        return option;
-    }
+        public int getOption() {
+          return option;
+        }
 
 }
