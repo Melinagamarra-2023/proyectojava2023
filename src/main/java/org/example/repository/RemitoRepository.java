@@ -1,28 +1,24 @@
 package org.example.repository;
 
-import org.example.model.Pedido;
-import org.example.model.Remito;
-import org.example.model.Sucursal;
-import org.example.model.Transportista;
+import org.example.model.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RemitoRepository {
 
     private final List<Remito> remitos;
-    private final EmpleadoRepository empleadoRepository;
-    private int codigo = 0;
+    private int codigo;
 
     public RemitoRepository() {
-        this.empleadoRepository = new EmpleadoRepository();
         this.remitos = new ArrayList<>();
+        this.codigo = 0;
     }
 
-    public void create(Pedido pedido, Sucursal origen, Sucursal destino, Transportista transportista) {
+    public void create(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
         codigo++;
-        Remito remito = new Remito(String.valueOf(codigo), LocalDate.EPOCH, pedido, empleadoRepository.findOne(origen.getSucId() + "01"), empleadoRepository.findOne(destino.getSucId() + "01"), transportista);
+        Remito remito = new Remito(String.valueOf(codigo), LocalDateTime.now(), pedido, origen, emisor, destino, receptor, transportista);
         remitos.add(remito);
     }
 

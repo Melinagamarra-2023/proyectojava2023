@@ -1,6 +1,6 @@
 package org.example.view;
 
-import org.example.controller.LineaPedidoController;
+import org.example.controller.PedidoController;
 import org.example.controller.ProductoController;
 import org.example.model.LineaPedido;
 
@@ -8,14 +8,14 @@ import java.util.Scanner;
 
 public class MenuLineaPedido {
 
-    private final LineaPedidoController lineaPedidoController;
+    private final PedidoController pedidoController;
     private final MenuProducto menuProducto;
     private final ProductoController productoController;
     private final Scanner input;
     private int option;
 
     public MenuLineaPedido() {
-        this.lineaPedidoController = new LineaPedidoController();
+        this.pedidoController = new PedidoController();
         this.menuProducto = new MenuProducto();
         this.productoController = new ProductoController();
         this.input = new Scanner(System.in);
@@ -34,6 +34,7 @@ public class MenuLineaPedido {
                 3. Eliminar linea pedido.
                 4. Mostrar lineas de pedido creadas.
                 5. Generar Pedido.
+                6. Calificar un provedor.
                 0. Cancelar.
                 """);
         option = input.nextInt();
@@ -67,12 +68,12 @@ public class MenuLineaPedido {
         System.out.print("Determine la cantidad que desea de este producto: ");
         int cantidad = input.nextInt();
         lineaPedido.setCantidad(cantidad);
-        lineaPedidoController.create(lineaPedido);
+        pedidoController.createLP(lineaPedido);
     }
 
     public void buscarLineasPedido() {
         System.out.println("\n");
-        for (LineaPedido lp : lineaPedidoController.findAll()) {
+        for (LineaPedido lp : pedidoController.findAllLP()) {
             System.out.println("LineaPedido N°" + lp.getCodigo() +
                     " Producto: " + lp.getProducto().getNombre() +
                     " Cantidad: " + lp.getCantidad() + ";");
@@ -83,7 +84,7 @@ public class MenuLineaPedido {
     public void modificarLineaPedido() {
         System.out.print("Ingrese el id de la linea pedido a modificar: ");
         String codigo = input.next();
-        LineaPedido lineaPedidoModificar = lineaPedidoController.findOne(codigo);
+        LineaPedido lineaPedidoModificar = pedidoController.findOneLP(codigo);
         while (lineaPedidoModificar == null) {
             System.out.println("Este codigo no existe, intentelo de nuevo. (0 para cancelar)");
             System.out.print("ID: ");
@@ -92,22 +93,22 @@ public class MenuLineaPedido {
                 System.out.println("Operación cancelada.");
                 seleccionarOpcion();
             } else {
-                lineaPedidoModificar = lineaPedidoController.findOne(codigo);
+                lineaPedidoModificar = pedidoController.findOneLP(codigo);
             }
         }
         System.out.print("Determine la cantidad que desea de este producto: ");
         int cantidad = input.nextInt();
         lineaPedidoModificar.setCantidad(cantidad);
-        lineaPedidoController.update(lineaPedidoModificar);
+        pedidoController.updateLP(lineaPedidoModificar);
         System.out.println("Linea pedido modificada con exito.");
     }
 
     public void eliminarLineaPedido() {
         System.out.print("Ingrese el id de la linea pedido a eliminar: ");
         String codigo = input.next();
-        LineaPedido lineaPedidoEliminar = lineaPedidoController.findOne(codigo);
+        LineaPedido lineaPedidoEliminar = pedidoController.findOneLP(codigo);
         if (lineaPedidoEliminar != null) {
-            lineaPedidoController.delete(lineaPedidoEliminar.getCodigo());
+            pedidoController.delete(lineaPedidoEliminar.getCodigo());
         } else {
             System.out.println("Esta linea pedido no existe.");
         }
@@ -116,22 +117,10 @@ public class MenuLineaPedido {
     public void calificarProveedor() {
         System.out.print("Ingrese el id de la linea pedido: ");
         String codigo = input.next();
-        if (lineaPedidoController.findOne(codigo) != null) {
+        if (pedidoController.findOne(codigo) != null) {
             System.out.println("Ingrese una calificación, del 1 al 5 para este proveedor: ");
             int star = input.nextInt();
-            lineaPedidoController.calificarProveedor(lineaPedidoController.findOne(codigo), star);
-        } else {
-            System.out.println("Esta linea pedido no existe.");
-        }
-    }
-
-    public void calificarTransportista() {
-        System.out.print("Ingrese el id de la linea pedido: ");
-        String codigo = input.next();
-        if (lineaPedidoController.findOne(codigo) != null) {
-            System.out.println("Ingrese una calificación, del 1 al 5 para este proveedor: ");
-            int star = input.nextInt();
-            lineaPedidoController.calificarTransportista(lineaPedidoController.findOne(codigo), star);
+            pedidoController.calificarProveedor(pedidoController.findOneLP(codigo), star);
         } else {
             System.out.println("Esta linea pedido no existe.");
         }

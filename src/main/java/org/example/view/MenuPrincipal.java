@@ -23,6 +23,7 @@ public class MenuPrincipal {
                 4. Gestion de transportistas.
                 5. Gestión de productos.
                 6. Gestión de lineas de pedido.
+                7. Gestión de pedidos.
                 0. Salir""");
         option = input.nextInt();
         return option;

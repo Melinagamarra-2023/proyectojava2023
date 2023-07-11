@@ -4,16 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class Remito {
     private String codigo;
-    private LocalDate emision;
+    private LocalDateTime emision;
     private Pedido detalle;
+    private Sucursal origen;
     private Empleado empleadoEmisor;
+    private Sucursal destino;
     private Empleado empleadoReceptor;
     private Transportista encargado;
 }
