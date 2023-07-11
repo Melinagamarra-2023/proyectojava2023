@@ -16,4 +16,5 @@ public class SeguimientoPedido {
     private Double latitud;
     private Double longitud;
     private Pedido pedido;
+    private Sector estado;
 }

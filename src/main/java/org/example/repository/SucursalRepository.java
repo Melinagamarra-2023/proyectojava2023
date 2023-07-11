@@ -15,23 +15,6 @@ public class SucursalRepository implements CRUD<Sucursal> {
         this.upload();
     }
 
-    public void upload() {
-
-        Sucursal sucursalA = new Sucursal("7392AB", 40.7128, -74.0060, "NuevaYork", "America del Norte", true);
-        Sucursal sucursalB = new Sucursal("1234CD", 37.7749, -122.4194, "San Francisco", "America del Norte", true);
-        //Sucursal sucursalC = new Sucursal("5678EF", 51.5074, -0.1278, "London", "Europe", true);
-        //Sucursal sucursalD = new Sucursal("9012GH", -33.8688, 151.2093, "Sydney", "Australia", true);
-        //Sucursal sucursalE = new Sucursal("3456IJ", 35.6895, 139.6917, "Tokyo", "Asia", true);
-        //Sucursal sucursalF = new Sucursal("7890KL", -23.5505, -46.6333, "Sao Paulo", "South America", true);
-
-        sucursales.add(sucursalA);
-        sucursales.add(sucursalB);
-        //sucursales.add(sucursalC);
-        //sucursales.add(sucursalD);
-        //sucursales.add(sucursalF);
-        //sucursales.add(sucursalE);
-    }
-
     @Override
     public Sucursal findOne(String sucId) {
         for (Sucursal sucu : sucursales) {
@@ -71,6 +54,22 @@ public class SucursalRepository implements CRUD<Sucursal> {
         return null;
     }
 
+    public void upload() {
+
+        Sucursal sucursalA = new Sucursal("7392AB", 40.7128, -74.0060, "NuevaYork", "America del Norte", true);
+        Sucursal sucursalB = new Sucursal("1234CD", 37.7749, -122.4194, "San Francisco", "America del Norte", true);
+        Sucursal sucursalC = new Sucursal("5678EF", 51.5074, -0.1278, "London", "Europe", true);
+        Sucursal sucursalD = new Sucursal("9012GH", -33.8688, 151.2093, "Sydney", "Australia", true);
+        Sucursal sucursalE = new Sucursal("3456IJ", 35.6895, 139.6917, "Tokyo", "Asia", true);
+        Sucursal sucursalF = new Sucursal("7890KL", -23.5505, -46.6333, "Sao Paulo", "South America", true);
+
+        sucursales.add(sucursalA);
+        sucursales.add(sucursalB);
+        sucursales.add(sucursalC);
+        sucursales.add(sucursalD);
+        sucursales.add(sucursalF);
+        sucursales.add(sucursalE);
+    }
 
 }
 

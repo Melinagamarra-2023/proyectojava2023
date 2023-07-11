@@ -12,11 +12,10 @@ import java.util.List;
 
 public class Pedido {
     private String pedidoId;
-    private Sector sectorOrigen;
-    private Sector sectorDestino;
+    private Sucursal sucursalOrigen;
+    private Sucursal sucursalDestino;
     private List<SeguimientoPedido> seguimientoPedido;
     private List<LineaPedido> detalle;
     private Cliente cliente;
-    private Estado estado;
     private Empleado encargado;
 }

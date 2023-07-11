@@ -4,6 +4,7 @@ import org.example.model.*;
 import org.example.repository.PedidoRepository;
 import org.example.repository.RemitoRepository;
 import org.example.repository.SectorRepository;
+import org.example.repository.SucursalRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,19 +14,20 @@ import java.util.List;
 public class PedidoService implements CRUD<Pedido> {
     private final PedidoRepository pedidoRepository;
     private final SectorRepository sectorRepository;
+    private final SucursalRepository sucursalRepository;
     private final RemitoRepository remitoRepository;
 
     public PedidoService() {
         this.pedidoRepository = new PedidoRepository();
         this.sectorRepository = new SectorRepository();
+        this.sucursalRepository = new SucursalRepository();
         this.remitoRepository = new RemitoRepository();
     }
 
     @Override
     public void create(Pedido pedido) {
-
         if (pedidoRepository.findOne(pedido.getPedidoId()) == null) {
-            SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(),LocalDateTime.now(),23.89,23.99,pedido);
+            SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(),23.89,23.99, pedido, null);
             pedido.getSeguimientoPedido().add(nuevoSeguimiento);
             pedidoRepository.create(pedido);
         }
@@ -64,15 +66,15 @@ public class PedidoService implements CRUD<Pedido> {
     }
 
     public void setSectorOrigen(Pedido pedido, String id) {
-        pedidoRepository.setSectorOrigen(pedido, sectorRepository.findOne(id));
+        pedidoRepository.setSectorOrigen(pedido, sucursalRepository.findOne(id));
     }
 
     public void setSectorDestino(Pedido pedido, String id) {
-        pedidoRepository.setSectorDestino(pedido, sectorRepository.findOne(id));
+        pedidoRepository.setSectorDestino(pedido, sucursalRepository.findOne(id));
     }
 
-    public void createRemito(Pedido pedido, Sucursal origen, Sucursal destino, Transportista transportista) {
-        remitoRepository.create(pedido, origen, destino, transportista);
+    public void createRemito(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
+        remitoRepository.create(pedido, origen, emisor, destino, receptor, transportista);
     }
 
 }

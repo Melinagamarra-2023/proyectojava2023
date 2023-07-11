@@ -143,11 +143,6 @@ public class MenuCliente {
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +
                     ", Teléfono: " + cl.getTelefono() + " ");
-            if (cl.getHabilitado()) {
-                System.out.print("Estado: Habilitado\n");
-            } else {
-                System.out.print("Estado: Inhabilitado\n");
-            }
         }
         System.out.println("\n");
     }

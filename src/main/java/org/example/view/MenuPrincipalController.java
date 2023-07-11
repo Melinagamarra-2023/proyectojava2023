@@ -1,6 +1,9 @@
 package org.example.view;
 
+import org.example.repository.SectorRepository;
+
 public class MenuPrincipalController {
+
     private final MenuPrincipal menuPrincipal;
     private final MenuCliente menuCliente;
     private final MenuSucursal menuSucursal;
@@ -73,6 +76,7 @@ public class MenuPrincipalController {
                 case 3 -> menuSucursal.deshablitarSucursal();
                 case 4 -> menuSucursal.buscarSucursalPorCodigo();
                 case 5 -> menuSucursal.buscarTodasLasSucursales();
+                case 6 -> menuSucursal.imprimirSectores();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
@@ -115,6 +119,8 @@ public class MenuPrincipalController {
                 case 2 -> menuLineaPedido.modificarLineaPedido();
                 case 3 -> menuLineaPedido.eliminarLineaPedido();
                 case 4 -> menuLineaPedido.buscarLineasPedido();
+                case 5 -> menuPedido.generarPedido();
+                case 6 -> menuLineaPedido.calificarProveedor();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
@@ -124,7 +130,7 @@ public class MenuPrincipalController {
     private void gestionarPedidos() {
         while (menuPedido.getOption() != 0) {
             switch (menuPedido.seleccionarOpcion()) {
-                case 1 -> menuPedido.agregarLineaPedido();
+                case 1 -> menuPedido.generarPedido();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }

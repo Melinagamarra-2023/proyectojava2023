@@ -42,7 +42,7 @@ public class PedidoRepository implements CRUD<Pedido> {
     public void delete(String id) {
         for (Pedido pedido : pedidos) {
             if (pedido.getPedidoId().equals(id)) {
-                pedido.setEstado(null);
+                pedido.setSeguimientoPedido(null);
             }
         }
     }
@@ -58,16 +58,15 @@ public class PedidoRepository implements CRUD<Pedido> {
 
     @Override
     public void upload() {
-        Pedido prueba = new Pedido(null, null, null, null, null, null, null, null);
+        Pedido prueba = new Pedido(null, null, null, null, null, null, null);
         pedidos.add(prueba);
     }
 
-    public void setSectorOrigen(Pedido pedido, Sector sector) {
-        pedido.setSectorOrigen(sector);
-        pedido.setEncargado(empleadoRepository.findOne(sector.getSucursal().getSucId() + "01"));
+    public void setSectorOrigen(Pedido pedido, Sucursal sucursal) {
+        pedido.setSucursalOrigen(sucursal);
     }
 
-    public void setSectorDestino(Pedido pedido, Sector sector) {
-        pedido.setSectorDestino(sector);
+    public void setSectorDestino(Pedido pedido, Sucursal sucursal) {
+        pedido.setSucursalDestino(sucursal);
     }
 }
