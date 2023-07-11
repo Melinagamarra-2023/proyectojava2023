@@ -17,14 +17,11 @@ public class MenuPedido {
     private final LineaPedidoController lineaPedidoController;
     private final SucursalController sucursalController;
 
-    private final TransportistaController transportistaController;
+
     private final Scanner input;
 
     private int option;
 
-    private final MenuLineaPedido menuLineaPedido;
-    private final MenuSucursal menuSucursal;
-    private final MenuTransportista menuTransportista;
 
     public MenuPedido() {
         this.clienteController = new ClienteController();
@@ -37,57 +34,55 @@ public class MenuPedido {
         this.transportistaController = new TransportistaController();
         this.input = new Scanner(System.in);
         this.option = 99;
-        Scanner input = new Scanner(System.in);  
+        Scanner input = new Scanner(System.in);
     }
 
-    
-    public void generarPedido() {
-        //
-        //se crea un pedido vacío y primero se setea al cliente.
-        //
 
-    public int seleccionarOpcion() {
-        option = 99;
-        System.out.println("""
-                                
-                ----- MENÚ PRODUCTOS -----
-                Seleccione la opción:
-                1. Agregar un producto.
-                2. Modificar un producto.
-                3. Eliminar un producto.
-                4. Buscar por ID un producto.
-                5. Obtener lista de todos los productos.
-                0. Salir.
-                """);
-        option = input.nextInt();
-        return option;
-    }
-    public void agregarLineaPedido() {
-        Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null, null);
-        System.out.println("Ingrese el cuit del cliente:");
-        String id = input.next();
-        nuevoPedido.setCliente(clienteController.findOne(id));
-        int salir = 1;
-        menuLineaPedido.seleccionarOpcion();
-        do {
-        //arma el carrito
-            System.out.println("Ingrese los artículos del carrito a añadir al pedido:");
-            id = input.next();
-            if (lineaPedidoController.findOne(id) != null) {
-                pedidoController.agregarLineaPedido(nuevoPedido, lineaPedidoController.findOne(id));
-            } else {
-                System.out.println("Ingrese una línea de pedido válida.");
-            }
-            System.out.println("¿Desea añadir una línea de pedido nueva? (s/n)");
-            String resp = input.next();
-            if (resp.contains("n")) {
-                salir = 0;
-            }
-        } while (salir == 0);
-        //
-        //se elige origen y destino, adicionalmente se setea al empleado encargado (sucursal origen).
-        //
+
+
+        public int seleccionarOpcion () {
+            option = 99;
+            System.out.println("""
+                                    
+                    ----- MENÚ PRODUCTOS -----
+                    Seleccione la opción:
+                    1. Agregar un producto.
+                    2. Modificar un producto.
+                    3. Eliminar un producto.
+                    4. Buscar por ID un producto.
+                    5. Obtener lista de todos los productos.
+                    0. Salir.
+                    """);
+            option = input.nextInt();
+            return option;
         }
+
+        public void agregarLineaPedido () {
+            Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null, null);
+            System.out.println("Ingrese el cuit del cliente:");
+            String id = input.next();
+            nuevoPedido.setCliente(clienteController.findOne(id));
+            int salir = 1;
+            menuLineaPedido.seleccionarOpcion();
+            do {
+                //arma el carrito
+                System.out.println("Ingrese los artículos del carrito a añadir al pedido:");
+                id = input.next();
+                if (lineaPedidoController.findOne(id) != null) {
+                    pedidoController.agregarLineaPedido(nuevoPedido, lineaPedidoController.findOne(id));
+                } else {
+                    System.out.println("Ingrese una línea de pedido válida.");
+                }
+                System.out.println("¿Desea añadir una línea de pedido nueva? (s/n)");
+                String resp = input.next();
+                if (resp.contains("n")) {
+                    salir = 0;
+                }
+            } while (salir == 0);
+            //
+            //se elige origen y destino, adicionalmente se setea al empleado encargado (sucursal origen).
+            //
+
         //elige origen y destino
         System.out.println("Seleccione la sucursal de origen.");
         menuSucursal.buscarTodasLasSucursales();
@@ -103,6 +98,10 @@ public class MenuPedido {
         System.out.println("Ingrese el ID del transportista elegido:");
         id = input.next();
     }
+
+
+
+
     public int getOption() {
         return option;
     }
