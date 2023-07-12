@@ -61,7 +61,7 @@ public class PedidoController implements CRUD<Pedido> {
         return lineaPedidoService.findOne(id);
     }
 
-    public LineaPedido updateLP(LineaPedido lineaPedido) {
+    public LineaPedido updateLP(LineaPedido lineaPedido) { //solucionar warning
         return lineaPedidoService.update(lineaPedido);
     }
 

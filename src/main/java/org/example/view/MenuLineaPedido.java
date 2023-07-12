@@ -108,7 +108,8 @@ public class MenuLineaPedido {
         String codigo = input.next();
         LineaPedido lineaPedidoEliminar = pedidoController.findOneLP(codigo);
         if (lineaPedidoEliminar != null) {
-            pedidoController.delete(lineaPedidoEliminar.getCodigo());
+            pedidoController.deleteLP(codigo);
+            System.out.println("La linea pedido " + lineaPedidoEliminar.getCodigo() + "Ha sido eliminada.");
         } else {
             System.out.println("Esta linea pedido no existe.");
         }

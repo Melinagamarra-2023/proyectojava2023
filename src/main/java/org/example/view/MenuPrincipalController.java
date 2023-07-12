@@ -76,7 +76,7 @@ public class MenuPrincipalController {
                 case 3 -> menuSucursal.deshablitarSucursal();
                 case 4 -> menuSucursal.buscarSucursalPorCodigo();
                 case 5 -> menuSucursal.buscarTodasLasSucursales();
-                case 6 -> menuSucursal.imprimirSectores();
+                //case 6 -> menuSucursal.imprimirSectores(); ??
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
