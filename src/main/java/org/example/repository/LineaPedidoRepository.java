@@ -39,8 +39,7 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
     @Override
     public LineaPedido update(LineaPedido lineaPedido) {
         if (findOne(lineaPedido.getCodigo()) != null) {
-            findOne(lineaPedido.getCodigo()).setCantidad(lineaPedido.getCantidad()); //cambiado
-        //lineaPedido.setCantidad(lineaPedido.getCantidad());
+            findOne(lineaPedido.getCodigo()).setCantidad(lineaPedido.getCantidad());
         }
         return null;
     }

@@ -39,8 +39,7 @@ public class MenuProducto {
         System.out.println("\nProporcione los datos para el nuevo producto: ");
         System.out.print("Id: ");
         String id = input.next();
-        Producto productoExiste = productoController.findOne(id);
-        while (productoExiste != null) {
+        while (existeProducto(id)) {
             System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
             System.out.print("ID: ");
             id = input.next();
@@ -48,7 +47,7 @@ public class MenuProducto {
                 System.out.println("Operación cancelada.");
                 seleccionarOpcion();
             } else {
-                productoExiste = productoController.findOne(id);
+                existeProducto(id);
             }
         }
         System.out.print("Nombre: ");
@@ -66,12 +65,15 @@ public class MenuProducto {
         Double peso = input.nextDouble();
         Producto nuevoProducto = new Producto(id, nombre, descripcion, ancho, alto, profundidad, peso, null, null, true);
         System.out.println("Proporcione el cuit del proveedor del producto: ");
-        String cuit = input.next();
-        productoController.setProveedor(nuevoProducto, cuit);
-        this.setCategoria(nuevoProducto);
-        productoController.create(nuevoProducto);
-        System.out.println("Producto: " + nuevoProducto.getNombre() + " Creado con éxito");
-
+        String cuitProveedor = input.next();
+        if (cuitProveedor != null) {
+            productoController.setProveedor(nuevoProducto, cuitProveedor);
+            this.setCategoria(nuevoProducto);
+            productoController.create(nuevoProducto);
+            System.out.println("Producto: " + nuevoProducto.getNombre() + " Creado con éxito");
+        } else {
+            System.out.println("Ingrese un cuit que exista.");
+        }
     }
 
     public void modificarProducto() {
@@ -109,11 +111,15 @@ public class MenuProducto {
         productoModificar.setProfundidad(profundidadModificar);
         productoModificar.setPeso(pesoModificar);
         System.out.println("Proporcione el cuit del proveedor del producto: ");
-        String cuit = input.next();
-        productoController.setProveedor(productoModificar, cuit);
-        this.setCategoria(productoModificar);
-        productoController.update(productoModificar);
-        System.out.println("Producto: " + productoModificar.getId() + " Modificado con éxito.");
+        String cuitProveedor = input.next();
+        if (productoController.findOnePr(cuitProveedor) != null) {
+            productoController.setProveedor(productoModificar, cuitProveedor);
+            this.setCategoria(productoModificar);
+            productoController.update(productoModificar);
+            System.out.println("Producto: " + productoModificar.getId() + " Modificado con éxito.");
+        } else {
+            System.out.println("Proporcione un cuit que exista.");
+        }
     }
 
     public void eliminarProducto() {
@@ -133,21 +139,7 @@ public class MenuProducto {
         String idBuscado = input.next();
         Producto productoBuscado = productoController.findOne(idBuscado);
         if (productoBuscado != null) {
-            System.out.print("El ID proporcionado corresponde al producto: " +
-                    ", ID: " + productoBuscado.getId() +
-                    ", Nombre: " + productoBuscado.getNombre() +
-                    ", Descripcion: " + productoBuscado.getDescripcion() +
-                    ", Ancho: " + productoBuscado.getAncho() +
-                    ", Alto: " + productoBuscado.getAlto() +
-                    ", Profundidad: " + productoBuscado.getProfundidad() +
-                    ", Peso: " + productoBuscado.getPeso() +
-                    ", Categoria: " + productoBuscado.getCategoria().getDescripcion() +
-                    ", Proveedor: " + productoBuscado.getProveedor().getNombre());
-            if (productoBuscado.getHabilitado()) {
-                System.out.print("Habilitado\n");
-            } else {
-                System.out.print("Inhabilitado\n");
-            }
+            mostrarInformacionProducto(productoBuscado);
         } else {
             System.out.println("El ID proporcionado no corresponde a ningún producto.");
         }
@@ -155,17 +147,8 @@ public class MenuProducto {
 
     public void buscarTodosLosProductos() {
         System.out.println("\n");
-        for (Producto prod : productoController.findAll()) {
-            System.out.println("Producto: " + prod.getNombre() +
-                    ", ID: " + prod.getId() +
-                    ", Nombre: " + prod.getNombre() +
-                    ", Descripcion: " + prod.getDescripcion() +
-                    ", Ancho: " + prod.getAncho() +
-                    ", Alto: " + prod.getAlto() +
-                    ", Profundidad: " + prod.getProfundidad() +
-                    ", Peso: " + prod.getPeso() +
-                    ", Categoria: " + prod.getCategoria().getDescripcion() +
-                    ", Proveedor: " + prod.getProveedor().getNombre());
+        for (Producto producto : productoController.findAll()) {
+            mostrarInformacionProducto(producto);
         }
         System.out.println("\n");
     }
@@ -181,6 +164,26 @@ public class MenuProducto {
                 """);
         int opc = input.nextInt();
         productoController.setCategoria(prod, opc);
+    }
+
+    private boolean existeProducto(String id) {
+        return productoController.findOne(id) != null;
+    }
+
+    private void mostrarInformacionProducto(Producto producto) {
+        String estado = producto.getHabilitado() ? "Habilitado" : "Deshabilitado";
+        //utilicé el operador ternario (?:) para mostrar el estado del producto de manera más concisa.
+        System.out.println("Producto: " + producto.getNombre() +
+                ", ID: " + producto.getId() +
+                ", Nombre: " + producto.getNombre() +
+                ", Descripcion: " + producto.getDescripcion() +
+                ", Ancho: " + producto.getAncho() +
+                ", Alto: " + producto.getAlto() +
+                ", Profundidad: " + producto.getProfundidad() +
+                ", Peso: " + producto.getPeso() +
+                ", Categoria: " + producto.getCategoria().getDescripcion() +
+                ", Proveedor: " + producto.getProveedor().getNombre() +
+                ", Estado: " + estado);
     }
 
     public int getOption() {
