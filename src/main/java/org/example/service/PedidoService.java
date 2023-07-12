@@ -27,7 +27,7 @@ public class PedidoService implements CRUD<Pedido> {
     @Override
     public void create(Pedido pedido) {
         if (pedidoRepository.findOne(pedido.getPedidoId()) == null) {
-            SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(),23.89,23.99, pedido, null);
+            SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(),23.89,23.99, pedido,null);
             pedido.getSeguimientoPedido().add(nuevoSeguimiento);
             pedidoRepository.create(pedido);
         }

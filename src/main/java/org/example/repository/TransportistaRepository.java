@@ -1,5 +1,7 @@
 package org.example.repository;
+
 import org.example.model.Transportista;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,17 +35,19 @@ public class TransportistaRepository implements CRUD<Transportista> {
 
     @Override
     public void delete(String cuit) {
-            findOne(cuit).setHabilitado(false);
+        findOne(cuit).setHabilitado(false);
     }
 
     @Override
     public Transportista update(Transportista trActualizado) {
-        findOne(trActualizado.getCuit()).setNombre(trActualizado.getNombre());
-        findOne(trActualizado.getCuit()).setHabilitado(trActualizado.getHabilitado());
-        findOne(trActualizado.getCuit()).setTerrestre(trActualizado.getTerrestre());
-        findOne(trActualizado.getCuit()).setMaritimo(trActualizado.getMaritimo());
-        findOne(trActualizado.getCuit()).setAereo(trActualizado.getAereo());
-        return trActualizado;
+        if (findOne(trActualizado.getCuit()) != null) {
+            findOne(trActualizado.getCuit()).setNombre(trActualizado.getNombre());
+            findOne(trActualizado.getCuit()).setHabilitado(trActualizado.getHabilitado());
+            findOne(trActualizado.getCuit()).setTerrestre(trActualizado.getTerrestre());
+            findOne(trActualizado.getCuit()).setMaritimo(trActualizado.getMaritimo());
+            findOne(trActualizado.getCuit()).setAereo(trActualizado.getAereo());
+        }
+        return null;
     }
 
     @Override
