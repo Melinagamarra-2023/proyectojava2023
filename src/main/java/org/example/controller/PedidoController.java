@@ -57,6 +57,10 @@ public class PedidoController implements CRUD<Pedido> {
         pedidoService.createRemito(pedido, origen, emisor, destino, receptor, transportista);
     }
 
+    public Empleado setEmpleado(String idSucursal) {
+        return pedidoService.setEmpleado(idSucursal);
+    }
+
     public LineaPedido findOneLP(String id) {
         return lineaPedidoService.findOne(id);
     }

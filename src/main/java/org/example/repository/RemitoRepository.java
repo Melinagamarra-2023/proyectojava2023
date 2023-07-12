@@ -9,10 +9,14 @@ import java.util.List;
 public class RemitoRepository {
 
     private final List<Remito> remitos;
+    private final EmpleadoRepository empleadoRepository;
+    private final SucursalRepository sucursalRepository;
     private int codigo;
 
     public RemitoRepository() {
         this.remitos = new ArrayList<>();
+        this.empleadoRepository = new EmpleadoRepository();
+        this.sucursalRepository = new SucursalRepository();
         this.codigo = 0;
     }
 
@@ -20,6 +24,15 @@ public class RemitoRepository {
         codigo++;
         Remito remito = new Remito(String.valueOf(codigo), LocalDateTime.now(), pedido, origen, emisor, destino, receptor, transportista);
         remitos.add(remito);
+    }
+
+    public Empleado setEmpleado(String idSucursal) {
+        for (Empleado empleado : empleadoRepository.findAll()) {
+            if (empleado.getSucursal().equals(sucursalRepository.findOne(idSucursal))) {
+                return empleado;
+            }
+        }
+        return null;
     }
 
     public Remito findOne(String id) {

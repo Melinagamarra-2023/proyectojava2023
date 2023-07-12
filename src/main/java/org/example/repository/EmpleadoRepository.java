@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.model.Empleado;
+import org.example.model.Sucursal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,22 @@ public class EmpleadoRepository {
         return null;
     }
 
+    public List<Empleado> findAll() {
+        return empleados;
+    }
+
     private void upload() {
-
-        Empleado empleado01 = new Empleado("carlitos", sucursalRepository.findOne("7392AB"), "7392AB01");
-        Empleado empleado02 = new Empleado("carlita", sucursalRepository.findOne("1234CD"), "1234CD01");
-
-        empleados.add(empleado01);
-        empleados.add(empleado02);
+        int codigo= 0;
+        for (Sucursal sc : sucursalRepository.findAll()) {
+            codigo++;
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
+            codigo++;
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
+            codigo++;
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
+            codigo++;
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
+        }
     }
   
 }
