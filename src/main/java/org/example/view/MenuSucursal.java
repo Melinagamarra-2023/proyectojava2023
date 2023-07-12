@@ -2,7 +2,9 @@ package org.example.view;
 
 import org.example.controller.SucursalController;
 
+import org.example.model.Empleado;
 import org.example.model.Sucursal;
+import org.example.repository.EmpleadoRepository;
 
 import java.util.Scanner;
 

@@ -22,7 +22,6 @@ public class MenuLineaPedido {
         this.option = 99;
     }
 
-
     public int seleccionarOpcion() {
         option = 99;
         System.out.println("""

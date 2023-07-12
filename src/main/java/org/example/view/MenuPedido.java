@@ -2,7 +2,6 @@ package org.example.view;
 
 import org.example.controller.*;
 import org.example.model.Pedido;
-import org.example.model.Remito;
 
 
 import java.util.Scanner;
@@ -35,13 +34,12 @@ public class MenuPedido {
         option = 99;
         System.out.println("""
                                 
-                ----- MENÚ PRODUCTOS -----
+                ----- MENÚ PEDIDOS -----
                 Seleccione la opción:
-                1. Agregar un producto.
-                2. Modificar un producto.
-                3. Eliminar un producto.
-                4. Buscar por ID un producto.
-                5. Obtener lista de todos los productos.
+                1. Generar un pedido.
+                2. Cancelar un pedido.
+                3. Buscar por ID un pedido.
+                4. Obtener lista de todos los pedidos.
                 0. Salir.
                 """);
         option = input.nextInt();
@@ -75,6 +73,7 @@ public class MenuPedido {
         menuSucursal.buscarTodasLasSucursales();
         System.out.println("Ingrese el ID de la sucursal de origen para el pedido:");
         String idOrigen = input.next();
+        nuevoPedido.setEncargado(pedidoController.setEmpleado(idOrigen));
         pedidoController.setSectorOrigen(nuevoPedido, idOrigen);
         System.out.println("Ingrese el ID de la surcusal de destino para el pedido:");
         String idDestino = input.next();
@@ -84,7 +83,8 @@ public class MenuPedido {
         menuTransportista.buscarTransportistasPorTipo();
         System.out.println("Ingrese el ID del transportista elegido:");
         id = input.next();
-        pedidoController.createRemito(null, null, null, null, null, null);
+        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(id));
+        //pedido creado.
     }
 
     public int getOption() {

@@ -77,4 +77,7 @@ public class PedidoService implements CRUD<Pedido> {
         remitoRepository.create(pedido, origen, emisor, destino, receptor, transportista);
     }
 
+    public Empleado setEmpleado(String idSucursal) {
+        return remitoRepository.setEmpleado(idSucursal);
+    }
 }
