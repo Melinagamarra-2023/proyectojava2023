@@ -15,5 +15,4 @@ public class Cliente {
     private String correo;
     private String telefono;
     private Boolean habilitado;
-
 }

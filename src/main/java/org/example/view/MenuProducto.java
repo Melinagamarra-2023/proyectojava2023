@@ -50,19 +50,12 @@ public class MenuProducto {
                 existeProducto(id);
             }
         }
-        System.out.print("Nombre: ");
-        String nombre = input.next();
-        System.out.print("Descripcion: ");
-        String descripcion = input.next();
-        input.nextLine();
-        System.out.print("Ancho: ");
-        Double ancho = input.nextDouble();
-        System.out.print("Alto: ");
-        Double alto = input.nextDouble();
-        System.out.print("Profundidad: ");
-        Double profundidad = input.nextDouble();
-        System.out.print("Peso: ");
-        Double peso = input.nextDouble();
+        String nombre = solicitarEntrada("Nombre: "); input.nextLine();
+        String descripcion = solicitarEntrada("Descripcion: "); input.nextLine();
+        Double ancho = solicitarEntradaDouble("Ancho: "); input.nextLine();
+        Double alto = solicitarEntradaDouble("Alto: "); input.nextLine();
+        Double profundidad = solicitarEntradaDouble("Profundidad: "); input.nextLine();
+        Double peso = solicitarEntradaDouble("Peso: "); input.nextLine();
         Producto nuevoProducto = new Producto(id, nombre, descripcion, ancho, alto, profundidad, peso, null, null, true);
         System.out.println("Proporcione el cuit del proveedor del producto: ");
         String cuitProveedor = input.next();
@@ -91,19 +84,12 @@ public class MenuProducto {
                 productoModificar = productoController.findOne(idModificar);
             }
         }
-        System.out.println("Ingrese los nuevos datos para este producto:");
-        System.out.print("Nombre: ");
-        String nombreModificar = input.next();
-        System.out.print("Descripcion: ");
-        String descripcionModificar = input.next();
-        System.out.print("Ancho: ");
-        Double anchoModificar = input.nextDouble();
-        System.out.print("Alto: ");
-        Double altoModificar = input.nextDouble();
-        System.out.print("Profundidad: ");
-        Double profundidadModificar = input.nextDouble();
-        System.out.print("Peso: ");
-        Double pesoModificar = input.nextDouble();
+        String nombreModificar = solicitarEntrada("Nombre: "); input.nextLine();
+        String descripcionModificar = solicitarEntrada("Descripcion: "); input.nextLine();
+        Double anchoModificar = solicitarEntradaDouble("Ancho: "); input.nextLine();
+        Double altoModificar = solicitarEntradaDouble("Alto: "); input.nextLine();
+        Double profundidadModificar = solicitarEntradaDouble("Profundidad: "); input.nextLine();
+        Double pesoModificar = solicitarEntradaDouble("Peso: "); input.nextLine();
         productoModificar.setNombre(nombreModificar);
         productoModificar.setDescripcion(descripcionModificar);
         productoModificar.setAncho(anchoModificar);
@@ -152,7 +138,7 @@ public class MenuProducto {
         }
         System.out.println("\n");
     }
-
+    //private
     private void setCategoria(Producto prod) {
         System.out.println("""
                 Seleccione la categoría del producto:
@@ -184,6 +170,21 @@ public class MenuProducto {
                 ", Categoria: " + producto.getCategoria().getDescripcion() +
                 ", Proveedor: " + producto.getProveedor().getNombre() +
                 ", Estado: " + estado);
+    }
+
+    private String solicitarEntrada(String mensaje) {
+        System.out.print(mensaje);
+        return input.next();
+    }
+
+    private double solicitarEntradaDouble(String mensaje) {
+        System.out.print(mensaje);
+        while (!input.hasNextDouble()) {
+            System.out.println("Entrada inválida. Intente nuevamente.");
+            System.out.print(mensaje);
+            input.nextLine(); // Descartar entrada no válida
+        }
+        return input.nextDouble();
     }
 
     public int getOption() {
