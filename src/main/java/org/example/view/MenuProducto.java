@@ -72,40 +72,18 @@ public class MenuProducto {
     public void modificarProducto() {
         System.out.println("\nIngrese el ID del producto a modificar:");
         String idModificar = input.next();
-        Producto productoModificar = productoController.findOne(idModificar);
+        Producto productoModificar = buscarProductoPorId(idModificar);
         while (productoModificar == null) {
-            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
-            System.out.print("ID: ");
+            System.out.println("Este ID no existe, intentelo de nuevo. (0 para cancelar)");
             idModificar = input.next();
             if (idModificar.equals("0")) {
                 System.out.println("Operación cancelada.");
                 seleccionarOpcion();
             } else {
-                productoModificar = productoController.findOne(idModificar);
+                productoModificar = buscarProductoPorId(idModificar);
             }
         }
-        String nombreModificar = solicitarEntrada("Nombre: "); input.nextLine();
-        String descripcionModificar = solicitarEntrada("Descripcion: "); input.nextLine();
-        Double anchoModificar = solicitarEntradaDouble("Ancho: "); input.nextLine();
-        Double altoModificar = solicitarEntradaDouble("Alto: "); input.nextLine();
-        Double profundidadModificar = solicitarEntradaDouble("Profundidad: "); input.nextLine();
-        Double pesoModificar = solicitarEntradaDouble("Peso: "); input.nextLine();
-        productoModificar.setNombre(nombreModificar);
-        productoModificar.setDescripcion(descripcionModificar);
-        productoModificar.setAncho(anchoModificar);
-        productoModificar.setAlto(altoModificar);
-        productoModificar.setProfundidad(profundidadModificar);
-        productoModificar.setPeso(pesoModificar);
-        System.out.println("Proporcione el cuit del proveedor del producto: ");
-        String cuitProveedor = input.next();
-        if (productoController.findOnePr(cuitProveedor) != null) {
-            productoController.setProveedor(productoModificar, cuitProveedor);
-            this.setCategoria(productoModificar);
-            productoController.update(productoModificar);
-            System.out.println("Producto: " + productoModificar.getId() + " Modificado con éxito.");
-        } else {
-            System.out.println("Proporcione un cuit que exista.");
-        }
+        modificarDatosProducto(productoModificar);
     }
 
     public void eliminarProducto() {
@@ -138,6 +116,9 @@ public class MenuProducto {
         }
         System.out.println("\n");
     }
+
+
+
     //private
     private void setCategoria(Producto prod) {
         System.out.println("""
@@ -155,7 +136,9 @@ public class MenuProducto {
     private boolean existeProducto(String id) {
         return productoController.findOne(id) != null;
     }
-
+    private Producto buscarProductoPorId(String id) {
+        return productoController.findOne(id);
+    }
     private void mostrarInformacionProducto(Producto producto) {
         String estado = producto.getHabilitado() ? "Habilitado" : "Deshabilitado";
         //utilicé el operador ternario (?:) para mostrar el estado del producto de manera más concisa.
@@ -187,6 +170,30 @@ public class MenuProducto {
         return input.nextDouble();
     }
 
+    private void modificarDatosProducto(Producto producto) {
+        String nombreModificar = solicitarEntrada("Nombre: "); input.nextLine();
+        String descripcionModificar = solicitarEntrada("Descripcion: "); input.nextLine();
+        double anchoModificar = solicitarEntradaDouble("Ancho: "); input.nextLine();
+        double altoModificar = solicitarEntradaDouble("Alto: "); input.nextLine();
+        double profundidadModificar = solicitarEntradaDouble("Profundidad: "); input.nextLine();
+        double pesoModificar = solicitarEntradaDouble("Peso: "); input.nextLine();
+        producto.setNombre(nombreModificar);
+        producto.setDescripcion(descripcionModificar);
+        producto.setAncho(anchoModificar);
+        producto.setAlto(altoModificar);
+        producto.setProfundidad(profundidadModificar);
+        producto.setPeso(pesoModificar);
+        System.out.println("Proporcione el cuit del proveedor del producto: ");
+        String cuitProveedor = input.next();
+        if (productoController.findOnePr(cuitProveedor) != null) {
+            productoController.setProveedor(producto, cuitProveedor);
+            setCategoria(producto);
+            productoController.update(producto);
+            System.out.println("Producto: " + producto.getId() + " Modificado con éxito.");
+        } else {
+            System.out.println("Proporcione un cuit que  exista.");
+        }
+    }
     public int getOption() {
         return option;
     }
