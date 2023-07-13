@@ -61,6 +61,7 @@ public class MenuCliente {
         String correo = input.next();
         System.out.print("Teléfono: ");
         String telefono = input.next();
+        input.nextLine();
         Cliente nuevoCliente = new Cliente(nombre, apellido, cuit, direccion, correo, telefono, true);
         clienteController.create(nuevoCliente);
         System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");

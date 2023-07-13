@@ -1,6 +1,5 @@
 package org.example.view;
 
-import org.example.repository.SectorRepository;
 
 public class MenuPrincipalController {
 
