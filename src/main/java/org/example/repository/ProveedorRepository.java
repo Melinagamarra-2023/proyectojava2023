@@ -29,7 +29,7 @@ public class ProveedorRepository implements CRUD<Proveedor> {
     }
 
     @Override
-    public void create(Proveedor pr) {
+    public void save(Proveedor pr) {
         proveedores.add(pr);
     }
 

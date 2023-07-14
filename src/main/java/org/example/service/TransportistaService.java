@@ -18,7 +18,7 @@ public class TransportistaService implements CRUD<Transportista> {
     public void create(Transportista nuevotr) {
         Transportista trExiste = transportistaRepository.findOne(nuevotr.getCuit());
         if (trExiste == null) {
-            transportistaRepository.create(nuevotr);
+            transportistaRepository.save(nuevotr);
         }
     }
 

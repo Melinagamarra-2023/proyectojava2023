@@ -17,7 +17,7 @@ public class ProveedorService implements CRUD<Proveedor> {
     public void create(Proveedor nuevoProveedor) {
         Proveedor proveedorExiste = proveedorRepository.findOne(nuevoProveedor.getCuit());
         if (proveedorExiste == null) {
-            proveedorRepository.create(nuevoProveedor);
+            proveedorRepository.save(nuevoProveedor);
         }
     }
 

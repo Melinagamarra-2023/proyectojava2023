@@ -50,18 +50,13 @@ public class MenuProducto {
                 existeProducto(id);
             }
         }
-        String nombre = solicitarEntrada("Nombre: "); input.nextLine();
-        String descripcion = solicitarEntrada("Descripcion: "); input.nextLine();
-        Double ancho = solicitarEntradaDouble("Ancho: "); input.nextLine();
-        Double alto = solicitarEntradaDouble("Alto: "); input.nextLine();
-        Double profundidad = solicitarEntradaDouble("Profundidad: "); input.nextLine();
-        Double peso = solicitarEntradaDouble("Peso: "); input.nextLine();
-        Producto nuevoProducto = new Producto(id, nombre, descripcion, ancho, alto, profundidad, peso, null, null, true);
+        Producto nuevoProducto = new Producto(id, null, null, null, null, null, null, null, null, true);
+        modificarDatosProducto(nuevoProducto);
         System.out.println("Proporcione el cuit del proveedor del producto: ");
         String cuitProveedor = input.next();
         if (cuitProveedor != null) {
             productoController.setProveedor(nuevoProducto, cuitProveedor);
-            this.setCategoria(nuevoProducto);
+            setCategoria(nuevoProducto);
             productoController.create(nuevoProducto);
             System.out.println("Producto: " + nuevoProducto.getNombre() + " Creado con éxito");
         } else {
@@ -72,7 +67,7 @@ public class MenuProducto {
     public void modificarProducto() {
         System.out.println("\nIngrese el ID del producto a modificar:");
         String idModificar = input.next();
-        Producto productoModificar = buscarProductoPorId(idModificar);
+        Producto productoModificar = productoController.findOne(idModificar);
         while (productoModificar == null) {
             System.out.println("Este ID no existe, intentelo de nuevo. (0 para cancelar)");
             idModificar = input.next();
@@ -80,10 +75,11 @@ public class MenuProducto {
                 System.out.println("Operación cancelada.");
                 seleccionarOpcion();
             } else {
-                productoModificar = buscarProductoPorId(idModificar);
+                productoModificar = productoController.findOne(idModificar);
             }
         }
         modificarDatosProducto(productoModificar);
+        System.out.println("Producto modificado con éxito.");
     }
 
     public void eliminarProducto() {
@@ -130,15 +126,17 @@ public class MenuProducto {
                 5. .Gaming.
                 """);
         int opc = input.nextInt();
+        while(opc<1 || opc>5 ) {
+            System.out.println("Ingrese una opción válida.");
+            opc = input.nextInt();
+        }
         productoController.setCategoria(prod, opc);
     }
 
     private boolean existeProducto(String id) {
         return productoController.findOne(id) != null;
     }
-    private Producto buscarProductoPorId(String id) {
-        return productoController.findOne(id);
-    }
+
     private void mostrarInformacionProducto(Producto producto) {
         String estado = producto.getHabilitado() ? "Habilitado" : "Deshabilitado";
         //utilicé el operador ternario (?:) para mostrar el estado del producto de manera más concisa.
@@ -170,6 +168,7 @@ public class MenuProducto {
         return input.nextDouble();
     }
 
+
     private void modificarDatosProducto(Producto producto) {
         String nombreModificar = solicitarEntrada("Nombre: "); input.nextLine();
         String descripcionModificar = solicitarEntrada("Descripcion: "); input.nextLine();
@@ -183,16 +182,6 @@ public class MenuProducto {
         producto.setAlto(altoModificar);
         producto.setProfundidad(profundidadModificar);
         producto.setPeso(pesoModificar);
-        System.out.println("Proporcione el cuit del proveedor del producto: ");
-        String cuitProveedor = input.next();
-        if (productoController.findOnePr(cuitProveedor) != null) {
-            productoController.setProveedor(producto, cuitProveedor);
-            setCategoria(producto);
-            productoController.update(producto);
-            System.out.println("Producto: " + producto.getId() + " Modificado con éxito.");
-        } else {
-            System.out.println("Proporcione un cuit que  exista.");
-        }
     }
     public int getOption() {
         return option;

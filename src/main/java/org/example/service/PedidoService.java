@@ -29,7 +29,7 @@ public class PedidoService implements CRUD<Pedido> {
         if (pedidoRepository.findOne(pedido.getPedidoId()) == null) {
             SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(),23.89,23.99, pedido,null);
             pedido.getSeguimientoPedido().add(nuevoSeguimiento);
-            pedidoRepository.create(pedido);
+            pedidoRepository.save(pedido);
         }
     }
 
@@ -43,10 +43,11 @@ public class PedidoService implements CRUD<Pedido> {
 
     @Override
     public List<Pedido> findAll() {
+        List<Pedido> resultado = new ArrayList<>();
         if (pedidoRepository.findAll() != null) {
             return pedidoRepository.findAll();
         }
-        return new ArrayList<>();
+        return resultado;
     }
 
     @Override

@@ -34,7 +34,7 @@ public class PedidoRepository implements CRUD<Pedido> {
     }
 
     @Override
-    public void create(Pedido pedido) {
+    public void save(Pedido pedido) {
         pedidos.add(pedido);
     }
 

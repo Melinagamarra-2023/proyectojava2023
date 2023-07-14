@@ -16,7 +16,7 @@ public class SucursalService implements CRUD<Sucursal>{
     public void create(Sucursal sucursal) {
         Sucursal sucursalexistente = sucursalRepository.findOne(sucursal.getSucId());
         if (sucursalexistente == null) {
-            sucursalRepository.create(sucursal);
+            sucursalRepository.save(sucursal);
         }
     }
     @Override

@@ -29,7 +29,7 @@ public class TransportistaRepository implements CRUD<Transportista> {
     }
 
     @Override
-    public void create(Transportista transportista) {
+    public void save(Transportista transportista) {
         transportistas.add(transportista);
     }
 

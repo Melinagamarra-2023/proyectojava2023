@@ -31,7 +31,7 @@ public class SucursalRepository implements CRUD<Sucursal> {
     }
 
     @Override
-    public void create(Sucursal sucursal) {
+    public void save(Sucursal sucursal) {
         sucursales.add(sucursal);
     }
 
