@@ -16,7 +16,7 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
     @Override
     public void create(LineaPedido lineaPedido) {
         if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) == null) {
-            lineaPedidoRepository.create(lineaPedido);
+            lineaPedidoRepository.save(lineaPedido);
         }
     }
 

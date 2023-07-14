@@ -18,7 +18,7 @@ public class ProductoService implements CRUD<Producto> {
     public void create(Producto nuevoProducto) {
         Producto productoExiste = productoRepository.findOne(nuevoProducto.getId());
         if (productoExiste == null) {
-            productoRepository.create(nuevoProducto);
+            productoRepository.save(nuevoProducto);
         }
     }
 

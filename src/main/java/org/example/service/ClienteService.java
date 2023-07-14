@@ -17,7 +17,7 @@ public class ClienteService implements CRUD<Cliente> {
     public void create(Cliente nuevoCliente) {
         Cliente clienteExiste = clienteRepository.findOne(nuevoCliente.getCuit());
         if (clienteExiste == null) {
-            clienteRepository.create(nuevoCliente);
+            clienteRepository.save(nuevoCliente);
         }
     }
 

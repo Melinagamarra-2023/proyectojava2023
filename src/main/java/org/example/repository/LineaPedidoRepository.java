@@ -15,7 +15,7 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
     }
 
     @Override
-    public void create(LineaPedido lineaPedido) {
+    public void save(LineaPedido lineaPedido) {
         codigo++;
         lineaPedido.setCodigo(String.valueOf(codigo));
         lineaPedidos.add(lineaPedido);

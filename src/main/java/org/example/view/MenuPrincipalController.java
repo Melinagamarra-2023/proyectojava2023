@@ -130,6 +130,7 @@ public class MenuPrincipalController {
         while (menuPedido.getOption() != 0) {
             switch (menuPedido.seleccionarOpcion()) {
                 case 1 -> menuPedido.generarPedido();
+                case 2 -> menuPedido.mostrarTodosLosPedidos();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }

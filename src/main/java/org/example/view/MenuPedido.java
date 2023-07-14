@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.controller.*;
+import org.example.model.LineaPedido;
 import org.example.model.Pedido;
 
 
@@ -52,12 +53,12 @@ public class MenuPedido {
         String id = input.next();
         nuevoPedido.setCliente(clienteController.findOne(id));
         int salir = 1;
-        menuLineaPedido.seleccionarOpcion();
         do {
             //arma el carrito (varias LineaPedido)
-            System.out.println("Ingrese los artículos del carrito a añadir al pedido:");
+            System.out.println("Ingrese el id de la linea de pedido a añadir:");
             id = input.next();
-            if (pedidoController.findOneLP(id) != null) {
+            LineaPedido nuevaLineaPedido = pedidoController.findOneLP(id);
+            if (nuevaLineaPedido != null) {
                 pedidoController.agregarLineaPedido(nuevoPedido, pedidoController.findOneLP(id));
             } else {
                 System.out.println("Ingrese una línea de pedido válida.");
@@ -67,7 +68,7 @@ public class MenuPedido {
             if (resp.contains("n")) {
                 salir = 0;
             }
-        } while (salir == 0);
+        } while (salir != 0);
         //elige origen y destino
         System.out.println("Seleccione la sucursal de origen.");
         menuSucursal.buscarTodasLasSucursales();
@@ -85,6 +86,16 @@ public class MenuPedido {
         id = input.next();
         pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(id));
         //pedido creado.
+    }
+    public void mostrarTodosLosPedidos() {
+        for (Pedido pe : pedidoController.findAll()) {
+            System.out.println("--------------------");
+            System.out.println("Los pedidos registrados son: "
+                    + "Cliente: " + pe.getCliente()
+                    + "SucursalOrigen: " + pe.getSucursalOrigen()
+                    + "SucursalDestino: " + pe.getSucursalDestino());
+        }
+
     }
 
     public int getOption() {
