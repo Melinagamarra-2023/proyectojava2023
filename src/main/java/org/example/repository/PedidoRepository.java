@@ -15,6 +15,7 @@ public class PedidoRepository implements CRUD<Pedido> {
     public PedidoRepository() {
         this.empleadoRepository = new EmpleadoRepository();
         this.pedidos = new ArrayList<>();
+        this.upload();
     }
 
 
@@ -58,7 +59,7 @@ public class PedidoRepository implements CRUD<Pedido> {
 
     @Override
     public void upload() {
-        Pedido prueba = new Pedido(null, null, null, null, null, null, null);
+        Pedido prueba = new Pedido("01", null, null, null, null, null, null);
         pedidos.add(prueba);
     }
 

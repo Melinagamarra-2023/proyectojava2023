@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.Categoria;
 import org.example.model.Producto;
 import org.example.repository.ProductoRepository;
 
@@ -66,5 +67,9 @@ public class ProductoService implements CRUD<Producto> {
 
     public void setProveedor(Producto pro, String id) {
         productoRepository.setProveedor(pro, id);
+    }
+
+    public List<Producto> findByCategoria(String categoria) {
+        return productoRepository.findByCategoria(categoria);
     }
 }

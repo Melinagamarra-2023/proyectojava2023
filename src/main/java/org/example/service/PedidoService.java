@@ -43,11 +43,7 @@ public class PedidoService implements CRUD<Pedido> {
 
     @Override
     public List<Pedido> findAll() {
-        List<Pedido> resultado = new ArrayList<>();
-        if (pedidoRepository.findAll() != null) {
-            return pedidoRepository.findAll();
-        }
-        return resultado;
+       return pedidoRepository.findAll();
     }
 
     @Override

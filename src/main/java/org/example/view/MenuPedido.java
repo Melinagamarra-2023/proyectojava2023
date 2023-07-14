@@ -68,7 +68,7 @@ public class MenuPedido {
             if (resp.contains("n")) {
                 salir = 0;
             }
-        } while (salir != 0);
+         }while (salir != 0);
         //elige origen y destino
         System.out.println("Seleccione la sucursal de origen.");
         menuSucursal.buscarTodasLasSucursales();

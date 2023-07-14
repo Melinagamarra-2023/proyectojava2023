@@ -84,7 +84,15 @@ public class ProductoRepository implements CRUD<Producto> {
             producto.setCategoria(categoriaProductoE);
         }
     }
-
+    public List<Producto> findByCategoria(String categoria) {
+        List<Producto> productosEncontrados = new ArrayList<>();
+        for (Producto producto : productos) {
+            if (producto.getCategoria().getDescripcion().equals(categoria) && producto.getHabilitado()) {
+                productosEncontrados.add(producto);
+            }
+        }
+        return productosEncontrados;
+    }
     public void setProveedor(Producto pro, String id) {
         pro.setProveedor(proveedorRepository.findOne(id));
     }
@@ -93,13 +101,13 @@ public class ProductoRepository implements CRUD<Producto> {
     public void upload() {
 
         Producto producto1 = new Producto("0001", "Dell XPS", "potente portátil para trabajo y entretenimiento.", 40., 7., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0001"), true);
-        Producto producto2 = new Producto("0002", "Lenovo Yoga", "versátil portátil con pantalla táctil.", 40., 7., 30., 2500., categoriaProductoB, this.proveedorRepository.findOne("0002"), true);
-        Producto producto3 = new Producto("0003", "HP Pavilion", "portátil elegante y potente.", 40., 7., 30., 2500., categoriaProductoC, this.proveedorRepository.findOne("0003"), true);
-        Producto producto4 = new Producto("0004", "Acer Predator", "portátil gaming de alto rendimiento.", 35., 6., 28., 2200., categoriaProductoE, this.proveedorRepository.findOne("0004"), true);
-        Producto producto5 = new Producto("0005", "Asus ZenBook", "portátil ultradelgado y ligero.", 32., 5., 26., 1800., categoriaProductoD, this.proveedorRepository.findOne("0005"), true);
-        Producto producto6 = new Producto("0006", "Dell Inspiron", "portátil asequible para uso diario.", 38., 70., 30., 2500., categoriaProductoD, this.proveedorRepository.findOne("0006"), true);
-        Producto producto7 = new Producto("0007", "HP Envy", "portátil elegante y potente.", 36., 6., 29., 2300., categoriaProductoD, this.proveedorRepository.findOne("0007"), true);
-        Producto producto8 = new Producto("0008", "Lenovo ThinkPad", "portátil empresarial confiable.", 33., 5., 27., 1900., categoriaProductoD, this.proveedorRepository.findOne("0008"), true);
+        Producto producto2 = new Producto("0002", "Lenovo Yoga", "versátil portátil con pantalla táctil.", 40., 7., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0002"), true);
+        Producto producto3 = new Producto("0003", "HP Pavilion", "portátil elegante y potente.", 40., 7., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0003"), true);
+        Producto producto4 = new Producto("0004", "Acer Predator", "portátil gaming de alto rendimiento.", 35., 6., 28., 2200., categoriaProductoA, this.proveedorRepository.findOne("0004"), true);
+        Producto producto5 = new Producto("0005", "Asus ZenBook", "portátil ultradelgado y ligero.", 32., 5., 26., 1800., categoriaProductoA, this.proveedorRepository.findOne("0005"), true);
+        Producto producto6 = new Producto("0006", "Dell Inspiron", "portátil asequible para uso diario.", 38., 70., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0006"), true);
+        Producto producto7 = new Producto("0007", "HP Envy", "portátil elegante y potente.", 36., 6., 29., 2300., categoriaProductoA, this.proveedorRepository.findOne("0007"), true);
+        Producto producto8 = new Producto("0008", "Lenovo ThinkPad", "portátil empresarial confiable.", 33., 5., 27., 1900., categoriaProductoA, this.proveedorRepository.findOne("0008"), true);
         Producto producto9 = new Producto("0009", "Acer Swift", "portátil ultradelgado y ligero.", 39., 7., 31., 2600., categoriaProductoD, this.proveedorRepository.findOne("0009"), true);
 
 

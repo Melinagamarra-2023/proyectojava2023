@@ -104,7 +104,8 @@ public class MenuPrincipalController {
                 case 2 -> menuProducto.modificarProducto();
                 case 3 -> menuProducto.eliminarProducto();
                 case 4 -> menuProducto.buscarProductoPorId();
-                case 5 -> menuProducto.buscarTodosLosProductos();
+                case 6 -> menuProducto.buscarTodosLosProductos();
+                case 7 -> menuProducto.buscarPorCategoria();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
@@ -120,6 +121,7 @@ public class MenuPrincipalController {
                 case 4 -> menuLineaPedido.buscarLineasPedido();
                 case 5 -> menuPedido.generarPedido();
                 case 6 -> menuLineaPedido.calificarProveedor();
+                case 7 -> menuPedido.mostrarTodosLosPedidos();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
