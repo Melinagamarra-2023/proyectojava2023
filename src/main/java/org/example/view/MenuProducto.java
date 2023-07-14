@@ -4,6 +4,7 @@ import org.example.controller.ProductoController;
 import org.example.model.Producto;
 
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuProducto {
@@ -28,7 +29,9 @@ public class MenuProducto {
                 2. Modificar un producto.
                 3. Eliminar un producto.
                 4. Buscar por ID un producto.
-                5. Obtener lista de todos los productos.
+                5. Buscar producto por categoría.
+                6. Obtener lista de todos los productos.
+                7. Buscar producto por categoría.
                 0. Salir.
                 """);
         option = input.nextInt();
@@ -113,9 +116,13 @@ public class MenuProducto {
         System.out.println("\n");
     }
 
+    public void buscarPorCategoria() {
+        seleccionarCategoria();
+    }
 
 
     //private
+
     private void setCategoria(Producto prod) {
         System.out.println("""
                 Seleccione la categoría del producto:
@@ -168,7 +175,6 @@ public class MenuProducto {
         return input.nextDouble();
     }
 
-
     private void modificarDatosProducto(Producto producto) {
         String nombreModificar = solicitarEntrada("Nombre: "); input.nextLine();
         String descripcionModificar = solicitarEntrada("Descripcion: "); input.nextLine();
@@ -182,6 +188,48 @@ public class MenuProducto {
         producto.setAlto(altoModificar);
         producto.setProfundidad(profundidadModificar);
         producto.setPeso(pesoModificar);
+    }
+
+
+
+    private void seleccionarCategoria() {
+        System.out.println("\nSeleccione la categoría del producto que desea buscar:");
+        System.out.println("1. Electrónica");
+        System.out.println("2. Hogar");
+        System.out.println("3. Oficina");
+        System.out.println("4. Jardín");
+        System.out.println("5. Gaming");
+        int opcionCategoria = input.nextInt();
+        String categoriaBuscada = "";
+        switch (opcionCategoria) {
+            case 1:
+                categoriaBuscada = "Electrónica";
+                break;
+            case 2:
+                categoriaBuscada = "Hogar";
+                break;
+            case 3:
+                categoriaBuscada = "Oficina";
+                break;
+            case 4:
+                categoriaBuscada = "Jardín";
+                break;
+            case 5:
+                categoriaBuscada = "Gaming";
+                break;
+            default:
+                System.out.println("Opción inválida.");
+                return;
+        }
+        List<Producto> productosEncontrados = productoController.buscarPorCategoria(categoriaBuscada);
+        if (productosEncontrados.size() > 0) {
+            System.out.println("\nProductos encontrados:");
+            for (Producto producto : productosEncontrados) {
+                mostrarInformacionProducto(producto);
+            }
+        } else {
+            System.out.println("No se encontraron productos en la categoría proporcionada.");
+        }
     }
     public int getOption() {
         return option;

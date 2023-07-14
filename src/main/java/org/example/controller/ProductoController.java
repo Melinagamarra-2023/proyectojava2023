@@ -70,4 +70,8 @@ public class ProductoController implements CRUD<Producto> {
         productoService.setProveedor(pro, id);
     }
 
+    public List<Producto> buscarPorCategoria(String categoria) {
+        return productoService.findByCategoria(categoria);
+    }
+
 }
