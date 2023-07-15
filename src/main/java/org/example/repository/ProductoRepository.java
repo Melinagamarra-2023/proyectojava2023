@@ -84,6 +84,7 @@ public class ProductoRepository implements CRUD<Producto> {
             producto.setCategoria(categoriaProductoE);
         }
     }
+
     public List<Producto> findByCategoria(String categoria) {
         List<Producto> productosEncontrados = new ArrayList<>();
         for (Producto producto : productos) {
@@ -93,6 +94,17 @@ public class ProductoRepository implements CRUD<Producto> {
         }
         return productosEncontrados;
     }
+
+    public List<Producto> findByNombre(String nombre) {
+        List<Producto> productoEncontrado = new ArrayList<>();
+        for (Producto producto : productos) {
+            if (producto.getNombre().startsWith(nombre) && producto.getHabilitado()) {
+                productoEncontrado.add(producto);
+            }
+        }
+        return productoEncontrado;
+    }
+
     public void setProveedor(Producto pro, String id) {
         pro.setProveedor(proveedorRepository.findOne(id));
     }

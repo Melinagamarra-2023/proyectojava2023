@@ -74,4 +74,8 @@ public class ProductoController implements CRUD<Producto> {
         return productoService.findByCategoria(categoria);
     }
 
+    public List<Producto> buscarPorNombre(String nombre) {
+        return productoService.findByNombre(nombre);
+    }
+
 }

@@ -29,8 +29,9 @@ public class MenuProducto {
                 2. Modificar un producto.
                 3. Eliminar un producto.
                 4. Buscar por ID un producto.
-                5. Buscar producto por categoría.
-                6. Obtener lista de todos los productos.
+                5. Buscar productos por categoría.
+                6. Buscar productos por nombre.
+                7. Obtener lista de todos los productos.
                 0. Salir.
                 """);
         option = input.nextInt();
@@ -41,7 +42,7 @@ public class MenuProducto {
         System.out.println("\nProporcione los datos para el nuevo producto: ");
         System.out.print("Id: ");
         String id = input.next();
-        while (existeProducto(id)) {
+        while (this.existeProducto(id)) {
             System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
             System.out.print("ID: ");
             id = input.next();
@@ -49,7 +50,7 @@ public class MenuProducto {
                 System.out.println("Operación cancelada.");
                 seleccionarOpcion();
             } else {
-                existeProducto(id);
+                this.existeProducto(id);
             }
         }
         Producto nuevoProducto = new Producto(id, null, null, null, null, null, null, null, null, true);
@@ -101,7 +102,7 @@ public class MenuProducto {
         String idBuscado = input.next();
         Producto productoBuscado = productoController.findOne(idBuscado);
         if (productoBuscado != null) {
-            mostrarInformacionProducto(productoBuscado);
+            this.mostrarInformacionProducto(productoBuscado);
         } else {
             System.out.println("El ID proporcionado no corresponde a ningún producto.");
         }
@@ -110,18 +111,19 @@ public class MenuProducto {
     public void buscarTodosLosProductos() {
         System.out.println("\n");
         for (Producto producto : productoController.findAll()) {
-            mostrarInformacionProducto(producto);
+            this.mostrarInformacionProducto(producto);
         }
         System.out.println("\n");
     }
 
     public void buscarPorCategoria() {
-        seleccionarCategoria();
+        this.seleccionarCategoria();
+    }
+    public void buscarPorNombre() {
+        this.buscarProductoPorNombre();
     }
 
-
     //private
-
     private void setCategoria(Producto prod) {
         System.out.println("""
                 Seleccione la categoría del producto:
@@ -221,6 +223,20 @@ public class MenuProducto {
             }
         } else {
             System.out.println("No se encontraron productos en la categoría proporcionada.");
+        }
+    }
+
+    private void buscarProductoPorNombre() {
+        System.out.println("\nIngrese el nombre del producto que desea buscar:");
+        String nombreBuscado = input.next();
+        List<Producto> productosEncontrados = productoController.buscarPorNombre(nombreBuscado);
+        if (!(productosEncontrados.isEmpty())) {
+            System.out.println("\nProductos encontrados:");
+            for (Producto producto : productosEncontrados) {
+                mostrarInformacionProducto(producto);
+            }
+        } else {
+            System.out.println("No se encontraron productos con el nombre proporcionado.");
         }
     }
 

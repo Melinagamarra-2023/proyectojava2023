@@ -72,4 +72,9 @@ public class ProductoService implements CRUD<Producto> {
     public List<Producto> findByCategoria(String categoria) {
         return productoRepository.findByCategoria(categoria);
     }
+
+    public List<Producto> findByNombre(String nombre) {
+        return productoRepository.findByNombre(nombre);
+    }
+
 }
