@@ -109,6 +109,7 @@ public class MenuPedido {
         }
         this.cancelar(id);
         pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(id));
+        pedidoController.create(nuevoPedido);
         System.out.println("Pedido creado con éxito.");
     }
 

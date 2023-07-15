@@ -35,71 +35,11 @@ public class MenuCliente {
     }
 
     public void crearNuevoCliente() {
-        System.out.println("\nProporcione los datos para la nueva cuenta: ");
-        System.out.print("Cuit: ");
-        String cuit = input.next();
-        Cliente clienteExistente = clienteController.findOne(cuit);
-        while (clienteExistente != null) {
-            System.out.println("Este CUIT ya existe, intentelo de nuevo. (0 para cancelar)");
-            System.out.print("Cuit: ");
-            cuit = input.next();
-            if (cuit.equals("0")) {
-                System.out.println("Operación cancelada.");
-                seleccionarOpcion();
-            } else {
-                clienteExistente = clienteController.findOne(cuit);
-            }
-        }
-        System.out.print("Nombre: ");
-        String nombre = input.next();
-        System.out.print("Apellido: ");
-        String apellido = input.next();
-        System.out.print("Dirección: ");
-        String direccion = input.next();
-        input.nextLine();
-        System.out.print("Correo: ");
-        String correo = input.next();
-        System.out.print("Teléfono: ");
-        String telefono = input.next();
-        input.nextLine();
-        Cliente nuevoCliente = new Cliente(nombre, apellido, cuit, direccion, correo, telefono, true);
-        clienteController.create(nuevoCliente);
-        System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
+        this.crearCliente();
     }
 
     public void modificarCliente() {
-        System.out.println("\nIngrese el CUIT del cliente a modificar:");
-        String cuitModificar = input.next();
-        Cliente clienteModificar = clienteController.findOne(cuitModificar);
-        while (clienteModificar == null) {
-            System.out.println("Este CUIT no existe, intentelo de nuevo. (0 para cancelar)");
-            System.out.print("Cuit: ");
-            cuitModificar = input.next();
-            if (cuitModificar.equals("0")) {
-                System.out.println("Operación cancelada.");
-                seleccionarOpcion();
-            } else {
-                clienteModificar = clienteController.findOne(cuitModificar);
-            }
-        }
-        System.out.println("Ingrese los nuevos datos para este cliente:");
-        System.out.print("Nombre: ");
-        String nombreModificar = input.next();
-        System.out.print("Apellido: ");
-        String apellidoModificar = input.next();
-        System.out.print("Dirección: ");
-        String direccionModificar = input.next();
-        System.out.print("Correo: ");
-        String correoModificar = input.next();
-        System.out.print("Teléfono: ");
-        String telefonoModificar = input.next();
-        clienteModificar.setNombre(nombreModificar);
-        clienteModificar.setApellido(apellidoModificar);
-        clienteModificar.setDireccion(direccionModificar);
-        clienteModificar.setCorreo(correoModificar);
-        clienteModificar.setTelefono(telefonoModificar);
-        clienteController.update(clienteModificar);
-        System.out.println("Cuenta: " + clienteModificar.getCuit() + " Modificada con éxito.");
+        this.modificateCliente();
     }
 
     public void eliminarCliente() {
@@ -148,7 +88,75 @@ public class MenuCliente {
         System.out.println("\n");
     }
 
+
+    private void crearCliente() {
+        System.out.println("\nProporcione los datos para la nueva cuenta: ");
+        System.out.print("Cuit: ");
+        String cuit = input.next();
+        while (existeCliente(cuit)) {
+            System.out.println("Este CUIT ya existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("Cuit: ");
+            cuit = input.next();
+            if (cuit.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                existeCliente(cuit);
+            }
+        }
+        Cliente nuevoCliente = new Cliente(null, null, cuit, null, null, null, true);
+        this.modificarDatosCliente(nuevoCliente);
+        clienteController.create(nuevoCliente);
+        System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
+    }
+
+    private void modificateCliente() {
+        System.out.println("\nIngrese el CUIT del cliente a modificar:");
+        String cuitModificar = input.next();
+        Cliente clienteModificar = clienteController.findOne(cuitModificar);
+        while (clienteModificar == null) {
+            System.out.println("Este CUIT no existe, intentelo de nuevo. (0 para cancelar)");
+            System.out.print("Cuit: ");
+            cuitModificar = input.next();
+            if (cuitModificar.equals("0")) {
+                System.out.println("Operación cancelada.");
+                seleccionarOpcion();
+            } else {
+                clienteModificar = clienteController.findOne(cuitModificar);
+            }
+        }
+        System.out.println("Ingrese los nuevos datos para este cliente:");
+        modificarDatosCliente(clienteModificar);
+        clienteController.update(clienteModificar);
+        System.out.println("Cuenta: " + clienteModificar.getCuit() + " Modificada con éxito.");
+    }
+
+    private boolean existeCliente(String cuit) {
+        return clienteController.findOne(cuit) != null;
+    }
+
+
+    private void modificarDatosCliente(Cliente cliente) {
+        input.nextLine();
+        System.out.print("Nombre: ");
+        String nombreModificar = input.nextLine();
+        System.out.print("Apellido: ");
+        String apellidoModificar = input.nextLine();
+        System.out.print("Dirección: ");
+        String direccionModificar = input.nextLine();
+        System.out.print("Correo: ");
+        String correoModificar = input.nextLine();
+        System.out.print("Teléfono: ");
+        String telefonoModificar = input.nextLine();
+        cliente.setNombre(nombreModificar);
+        cliente.setApellido(apellidoModificar);
+        cliente.setDireccion(direccionModificar);
+        cliente.setCorreo(correoModificar);
+        cliente.setTelefono(telefonoModificar);
+    }
+
     public int getOption() {
         return option;
     }
+
 }
