@@ -46,7 +46,7 @@ public class MenuTransportista {
             id = input.next();
             if (id.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 transportistaExiste = transportistaController.findOne(id);
             }
@@ -71,7 +71,7 @@ public class MenuTransportista {
             cuitModificar = input.next();
             if (cuitModificar.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 transportistaModificar = transportistaController.findOne(cuitModificar);
             }
@@ -186,20 +186,13 @@ public class MenuTransportista {
         if (tr.getTerrestre()) {
             System.out.print("terrestre");
         }
-        if (tr.getTerrestre() && tr.getMaritimo()) {
-            System.out.print(", ");
-        }
         if (tr.getMaritimo()) {
-            System.out.print("marítimo");
+            System.out.print(tr.getTerrestre() ? ", marítimo" : "marítimo");
         }
-        if (tr.getAereo() && !(tr.getTerrestre() || tr.getMaritimo())) {
-            System.out.print("Aéreo.");
-        } else if (!(tr.getAereo())) {
-            System.out.print(".");
-        } else {
-            System.out.print(", Aéreo.");
+        if (tr.getAereo()) {
+            System.out.print((tr.getTerrestre() || tr.getMaritimo()) ? ", Aéreo" : "Aéreo");
         }
-        System.out.print("\n");
+        System.out.print(".\n");
     }
 
 
