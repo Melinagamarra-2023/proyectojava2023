@@ -1,5 +1,6 @@
 package org.example.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +12,7 @@ public class LineaPedido {
     private String codigo;
     private Integer cantidad;
     private Producto producto;
+    private Boolean habilitado;
+    private Boolean pedido;
     private int calificaProveedor;
 }

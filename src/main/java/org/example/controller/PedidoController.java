@@ -41,8 +41,8 @@ public class PedidoController implements CRUD<Pedido> {
         pedidoService.delete(id);
     }
 
-    public void agregarLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
-        pedidoService.agregarLineaPedido(pedido, lineaPedido);
+    public void agregarLineaPedido(Pedido pedido, String id) {
+        pedidoService.agregarLineaPedido(pedido, id);
     }
 
     public void setSucursalOrigen(Pedido pedido, String id) {

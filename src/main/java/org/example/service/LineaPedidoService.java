@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.model.LineaPedido;
 import org.example.repository.LineaPedidoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LineaPedidoService implements CRUD<LineaPedido> {
@@ -30,7 +31,13 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
 
     @Override
     public List<LineaPedido> findAll() {
-        return lineaPedidoRepository.findAll();
+        List<LineaPedido> respuesta = new ArrayList<>();
+        for (LineaPedido lp : lineaPedidoRepository.findAll()) {
+            if (lp.getPedido() && lp.getHabilitado()) {
+                respuesta.add(lp);
+            }
+        }
+        return respuesta;
     }
 
     @Override

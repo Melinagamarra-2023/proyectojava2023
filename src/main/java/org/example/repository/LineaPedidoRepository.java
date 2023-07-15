@@ -50,15 +50,19 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
 
     @Override
     public void delete(String id) {
-        findOne(id).setCodigo(null);
+        findOne(id).setHabilitado(false);
     }
 
     @Override
     public void upload() {
         for (Producto producto : productoRepository.findAll()) {
             codigo++;
-            lineaPedidos.add(new LineaPedido(String.valueOf(codigo), 2, producto, (codigo>5 ? codigo : codigo-4)));
+            lineaPedidos.add(new LineaPedido(String.valueOf(codigo), 2, producto, true, true, (codigo > 5 ? codigo : codigo - 4)));
         }
+    }
+
+    public void agregado(LineaPedido lineaPedido) {
+        lineaPedido.setPedido(false);
     }
 
     public void calificarProveedor(LineaPedido lineaPedido, int star) {

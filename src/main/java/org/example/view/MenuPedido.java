@@ -50,9 +50,10 @@ public class MenuPedido {
         Pedido nuevoPedido = new Pedido("0", null, null, new ArrayList<>(), new ArrayList<>(), null, null);
         System.out.println("Ingrese el cuit del cliente:");
         String id = input.next();
-        while (clienteController.findOne(id) == null) {
+        while (clienteController.findOne(id) == null && !(id.equals("0"))) {
             id = this.verification();
         }
+        this.cancelar(id);
         nuevoPedido.setCliente(clienteController.findOne(id));
         this.armarCarrito(nuevoPedido);
     }
@@ -61,12 +62,12 @@ public class MenuPedido {
         while (option != 0) {
             System.out.println("Ingrese el id de la linea de pedido a añadir:");
             String id = input.next();
-            while (pedidoController.findOneLP(id) == null || id.equals("0")) {
+            while ((pedidoController.findOneLP(id) == null && !(id.equals("0")))) {
                 id = this.verification();
             }
             this.cancelar(id);
-            pedidoController.agregarLineaPedido(nuevoPedido, pedidoController.findOneLP(id));
-            System.out.println("Artículo agregado correctamente al pedido.");
+            pedidoController.agregarLineaPedido(nuevoPedido, id);
+            System.out.println("Artículo " + pedidoController.findOneLP(id).getProducto().getNombre() + " agregado correctamente al pedido.");
             System.out.println("¿Desea añadir una línea de pedido nueva? (s/n)");
             String resp = input.next();
             if (resp.contains("n")) {
@@ -82,7 +83,7 @@ public class MenuPedido {
         menuSucursal.buscarTodasLasSucursales();
         System.out.print("Ingrese el ID de la sucursal de origen: ");
         String idOrigen = input.next();
-        while (sucursalController.findOne(idOrigen) == null) {
+        while (sucursalController.findOne(idOrigen) == null && !(idOrigen.equals("0"))) {
             idOrigen = this.verification();
         }
         this.cancelar(idOrigen);
@@ -90,7 +91,7 @@ public class MenuPedido {
         pedidoController.setSucursalOrigen(nuevoPedido, idOrigen);
         System.out.print("Ingrese el ID de la sucursal de destino: ");
         String idDestino = input.next();
-        while (sucursalController.findOne(idDestino) == null) {
+        while (sucursalController.findOne(idDestino) == null && !(idOrigen.equals("0"))) {
             idDestino = this.verification();
         }
         this.cancelar(idDestino);
@@ -103,7 +104,7 @@ public class MenuPedido {
         menuTransportista.buscarTransportistasPorTipo();
         System.out.println("Ingrese el ID del transportista elegido:");
         String id = input.next();
-        while (transportistaController.findOne(id) == null) {
+        while (transportistaController.findOne(id) == null && !(id.equals("0"))) {
             this.verification();
         }
         this.cancelar(id);

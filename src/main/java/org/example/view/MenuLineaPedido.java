@@ -66,7 +66,7 @@ public class MenuLineaPedido {
     private void generarLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
-        LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), 0);
+        LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), true, true, 0);
         System.out.print("Determine la cantidad que desea de este producto: ");
         int cantidad = input.nextInt();
         lineaPedido.setCantidad(cantidad);
@@ -76,9 +76,9 @@ public class MenuLineaPedido {
     public void buscarLineasPedido() {
         System.out.println("\n");
         for (LineaPedido lp : pedidoController.findAllLP()) {
-            System.out.println("LineaPedido N°" + lp.getCodigo() +
-                    " Producto: " + lp.getProducto().getNombre() +
-                    ", Cantidad: " + lp.getCantidad() + ";");
+                System.out.println("LineaPedido N°" + lp.getCodigo() +
+                        " Producto: " + lp.getProducto().getNombre() +
+                        ", Cantidad: " + lp.getCantidad() + ";");
         }
         System.out.println("\n");
     }

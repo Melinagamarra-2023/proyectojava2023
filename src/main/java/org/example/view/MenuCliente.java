@@ -139,7 +139,7 @@ public class MenuCliente {
     public void buscarTodosLosClientes() {
         System.out.println("\n");
         for (Cliente cl : clienteController.findAll()) {
-            System.out.print("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
+            System.out.println("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
                     ", CUIT: " + cl.getCuit() +
                     ", Correo: " + cl.getCorreo() +
                     ", Dirección: " + cl.getDireccion() +

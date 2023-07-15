@@ -1,25 +1,21 @@
 package org.example.service;
 
 import org.example.model.*;
-import org.example.repository.PedidoRepository;
-import org.example.repository.RemitoRepository;
-import org.example.repository.SectorRepository;
-import org.example.repository.SucursalRepository;
+import org.example.repository.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoService implements CRUD<Pedido> {
     private final PedidoRepository pedidoRepository;
-    private final SectorRepository sectorRepository;
+    private final LineaPedidoRepository lineaPedidoRepository;
     private final SucursalRepository sucursalRepository;
     private final RemitoRepository remitoRepository;
 
     public PedidoService() {
         this.pedidoRepository = new PedidoRepository();
-        this.sectorRepository = new SectorRepository();
+        this.lineaPedidoRepository = new LineaPedidoRepository();
         this.sucursalRepository = new SucursalRepository();
         this.remitoRepository = new RemitoRepository();
     }
@@ -58,8 +54,11 @@ public class PedidoService implements CRUD<Pedido> {
         }
     }
 
-    public void agregarLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
-        pedidoRepository.agregarLineaPedido(pedido, lineaPedido);
+    public void agregarLineaPedido(Pedido pedido, String id) {
+        if (lineaPedidoRepository.findOne(id) != null) {
+            lineaPedidoRepository.agregado(lineaPedidoRepository.findOne(id));
+        }
+        pedidoRepository.agregarLineaPedido(pedido, lineaPedidoRepository.findOne(id));
     }
 
     public void setSectorOrigen(Pedido pedido, String id) {
