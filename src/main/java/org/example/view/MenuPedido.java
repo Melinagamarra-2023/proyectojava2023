@@ -112,6 +112,18 @@ public class MenuPedido {
         System.out.println("Pedido creado con éxito.");
     }
 
+    public Pedido mostrarPedidoPorId() {
+        System.out.println("----------------------");
+        System.out.println("Ingrese el id del pedido que desea buscar: ");
+        String id = input.next();
+        Pedido pedidoBuscado = pedidoController.findOne(id);
+        if (pedidoBuscado != null && pedidoBuscado.getPedidoId().equals(id)) {
+            return pedidoBuscado;
+        }
+        System.out.println("no existe ningun pedido asociado al Id proporcionado");
+        return null;
+    }
+
     public void mostrarTodosLosPedidos() {
         System.out.println("-----------------------------");
         System.out.println("Los pedidos registrados son: ");
