@@ -56,12 +56,12 @@ public class SucursalRepository implements CRUD<Sucursal> {
 
     public void upload() {
 
-        Sucursal sucursalA = new Sucursal("7392AB", 40.7128, -74.0060, "NuevaYork", "America del Norte", true);
-        Sucursal sucursalB = new Sucursal("1234CD", 37.7749, -122.4194, "San Francisco", "America del Norte", true);
-        Sucursal sucursalC = new Sucursal("5678EF", 51.5074, -0.1278, "London", "Europe", true);
-        Sucursal sucursalD = new Sucursal("9012GH", -33.8688, 151.2093, "Sydney", "Australia", true);
-        Sucursal sucursalE = new Sucursal("3456IJ", 35.6895, 139.6917, "Tokyo", "Asia", true);
-        Sucursal sucursalF = new Sucursal("7890KL", -23.5505, -46.6333, "Sao Paulo", "South America", true);
+        Sucursal sucursalA = new Sucursal("7392", 40.7128, -74.0060, "NuevaYork", "America del Norte", true);
+        Sucursal sucursalB = new Sucursal("1234", 37.7749, -122.4194, "San Francisco", "America del Norte", true);
+        Sucursal sucursalC = new Sucursal("5678", 51.5074, -0.1278, "London", "Europe", true);
+        Sucursal sucursalD = new Sucursal("9012", -33.8688, 151.2093, "Sydney", "Australia", true);
+        Sucursal sucursalE = new Sucursal("3456", 35.6895, 139.6917, "Tokyo", "Asia", true);
+        Sucursal sucursalF = new Sucursal("7890", -23.5505, -46.6333, "Sao Paulo", "South America", true);
 
         sucursales.add(sucursalA);
         sucursales.add(sucursalB);

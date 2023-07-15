@@ -9,13 +9,13 @@ public class MenuTransportista {
 
     private final TransportistaController transportistaController;
     private final Scanner input;
+    private int option;
 
     public MenuTransportista() {
         this.transportistaController = new TransportistaController();
         this.input = new Scanner(System.in);
+        this.option = 99;
     }
-
-    private int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;

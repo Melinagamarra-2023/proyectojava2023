@@ -1,15 +1,14 @@
 package org.example.view;
 
 import org.example.controller.*;
-import org.example.model.LineaPedido;
 import org.example.model.Pedido;
 
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuPedido {
 
-    private final MenuLineaPedido menuLineaPedido;
     private final MenuSucursal menuSucursal;
     private final MenuTransportista menuTransportista;
     private final ClienteController clienteController;
@@ -23,7 +22,6 @@ public class MenuPedido {
         this.clienteController = new ClienteController();
         this.pedidoController = new PedidoController();
         this.sucursalController = new SucursalController();
-        this.menuLineaPedido = new MenuLineaPedido();
         this.menuSucursal = new MenuSucursal();
         this.menuTransportista = new MenuTransportista();
         this.transportistaController = new TransportistaController();
@@ -37,10 +35,11 @@ public class MenuPedido {
                                 
                 ----- MENÚ PEDIDOS -----
                 Seleccione la opción:
-                1. Generar un pedido.
-                2. Cancelar un pedido.
-                3. Buscar por ID un pedido.
-                4. Obtener lista de todos los pedidos.
+                1. Gestionar linea pedido.
+                2. Generar un pedido
+                3. Cancelar un pedido.
+                4. Buscar pedido por ID.
+                5. Obtener lista de todos los pedidos.
                 0. Salir.
                 """);
         option = input.nextInt();
@@ -48,58 +47,98 @@ public class MenuPedido {
     }
 
     public void generarPedido() {
-        Pedido nuevoPedido = new Pedido("0", null, null, null, null, null, null);
+        Pedido nuevoPedido = new Pedido("0", null, null, new ArrayList<>(), new ArrayList<>(), null, null);
         System.out.println("Ingrese el cuit del cliente:");
         String id = input.next();
+        while (clienteController.findOne(id) == null) {
+            id = this.verification();
+        }
         nuevoPedido.setCliente(clienteController.findOne(id));
-        int salir = 1;
-        do {
-            //arma el carrito (varias LineaPedido)
+        this.armarCarrito(nuevoPedido);
+    }
+
+    private void armarCarrito(Pedido nuevoPedido) {
+        while (option != 0) {
             System.out.println("Ingrese el id de la linea de pedido a añadir:");
-            id = input.next();
-            LineaPedido nuevaLineaPedido = pedidoController.findOneLP(id);
-            if (nuevaLineaPedido != null) {
-                pedidoController.agregarLineaPedido(nuevoPedido, pedidoController.findOneLP(id));
-            } else {
-                System.out.println("Ingrese una línea de pedido válida.");
+            String id = input.next();
+            while (pedidoController.findOneLP(id) == null || id.equals("0")) {
+                id = this.verification();
             }
+            this.cancelar(id);
+            pedidoController.agregarLineaPedido(nuevoPedido, pedidoController.findOneLP(id));
+            System.out.println("Artículo agregado correctamente al pedido.");
             System.out.println("¿Desea añadir una línea de pedido nueva? (s/n)");
             String resp = input.next();
             if (resp.contains("n")) {
-                salir = 0;
+                option = 0;
             }
-         }while (salir != 0);
-        //elige origen y destino
-        System.out.println("Seleccione la sucursal de origen.");
+        }
+        option = 99;
+        this.seleccionarSucursales(nuevoPedido);
+    }
+
+    private void seleccionarSucursales(Pedido nuevoPedido) {
+        System.out.println("Seleccione las sucursales de origen y destino para el pedido.");
         menuSucursal.buscarTodasLasSucursales();
-        System.out.println("Ingrese el ID de la sucursal de origen para el pedido:");
+        System.out.print("Ingrese el ID de la sucursal de origen: ");
         String idOrigen = input.next();
+        while (sucursalController.findOne(idOrigen) == null) {
+            idOrigen = this.verification();
+        }
+        this.cancelar(idOrigen);
         nuevoPedido.setEncargado(pedidoController.setEmpleado(idOrigen));
-        pedidoController.setSectorOrigen(nuevoPedido, idOrigen);
-        System.out.println("Ingrese el ID de la surcusal de destino para el pedido:");
+        pedidoController.setSucursalOrigen(nuevoPedido, idOrigen);
+        System.out.print("Ingrese el ID de la sucursal de destino: ");
         String idDestino = input.next();
-        pedidoController.setSectorDestino(nuevoPedido, idDestino);
-        //seleccionar transportista
-        System.out.println("Seleccione el transporte que desea para su envio:");
+        while (sucursalController.findOne(idDestino) == null) {
+            idDestino = this.verification();
+        }
+        this.cancelar(idDestino);
+        pedidoController.setSucursalDestino(nuevoPedido, idDestino);
+        this.seleccionarTransportista(nuevoPedido, idOrigen, idDestino);
+    }
+
+    private void seleccionarTransportista(Pedido nuevoPedido, String idOrigen, String idDestino) {
+        System.out.println("Seleccione el transporte que desea para su envío:");
         menuTransportista.buscarTransportistasPorTipo();
         System.out.println("Ingrese el ID del transportista elegido:");
-        id = input.next();
-        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(id));
-        //pedido creado.
-    }
-    public void mostrarTodosLosPedidos() {
-        for (Pedido pe : pedidoController.findAll()) {
-            System.out.println("--------------------");
-            System.out.println("Los pedidos registrados son: "
-                    + "Cliente: " + pe.getCliente()
-                    + "SucursalOrigen: " + pe.getSucursalOrigen()
-                    + "SucursalDestino: " + pe.getSucursalDestino());
+        String id = input.next();
+        while (transportistaController.findOne(id) == null) {
+            this.verification();
         }
+        this.cancelar(id);
+        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(id));
+        System.out.println("Pedido creado con éxito.");
+    }
 
+    public void mostrarTodosLosPedidos() {
+        System.out.println("-----------------------------");
+        System.out.println("Los pedidos registrados son: ");
+        for (Pedido pe : pedidoController.findAll()) {
+            System.out.println("Pedido N°" + pe.getPedidoId() +
+                    " de Cliente: " + pe.getCliente().getApellido() + " " + pe.getCliente().getCuit() +
+                    ", Sucursal Origen: " + pe.getSucursalOrigen().getSucId() +
+                    "(" + pe.getSucursalOrigen().getContinente() + ")" +
+                    ", Sucursal Destino: " + pe.getSucursalDestino().getSucId() +
+                    "(" + pe.getSucursalDestino().getContinente() + ")" + ";");
+        }
     }
 
     public int getOption() {
         return option;
+    }
+
+    private String verification() {
+        System.out.println("El id ingresado no existe, intente nuevamente. (0 para cancelar)");
+        System.out.print("ID: ");
+        return input.next();
+    }
+
+    private void cancelar(String respuesta) {
+        if (respuesta.equals("0")) {
+            System.out.println("Operación cancelada.");
+            seleccionarOpcion();
+        }
     }
 
 }

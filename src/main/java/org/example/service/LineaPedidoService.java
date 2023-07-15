@@ -54,9 +54,4 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
         }
     }
 
-    public void calificarTransportista(LineaPedido lineaPedido, int star) {
-        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) != null) {
-            lineaPedidoRepository.calificarTransportista(lineaPedido, star);
-        }
-    }
 }

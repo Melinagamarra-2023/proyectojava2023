@@ -41,29 +41,32 @@ public class MenuLineaPedido {
     }
 
     public void seleccionarProductos() {
-        System.out.println("""
+        option = 99;
+        while (option != 0) {
+            System.out.println("""
+                
                 Seleccione la opción:
                 1. Mostrar todos los productos.
                 2. Buscar productos por nombre.
-                3. Buscar productos por categoria.
-                4. Crear linea pedido.
+                3. Buscar productos por categoría.
+                4. Añadir articulo a linea pedido.
                 0. Cancelar.
                 """);
-        int opc = input.nextInt();
-        switch (opc) {
-            case 1 -> menuProducto.buscarTodosLosProductos();
-            case 2 -> menuProducto.buscarProductoPorId(); //CAMBIAR...
-            case 3 -> menuProducto.buscarProductoPorId(); //CAMBIAR CASO DUPLICADO...
-            case 4 -> generarLineaPedido();
-            default -> System.out.println("Ingrese una opción correcta.");
+            option = input.nextInt();
+            switch (option) {
+                case 1 -> menuProducto.buscarTodosLosProductos();
+                case 2 -> menuProducto.buscarProductoPorId(); //CAMBIAR...
+                case 3 -> menuProducto.buscarPorCategoria(); //CAMBIAR CASO DUPLICADO...
+                case 4 -> generarLineaPedido();
+                default -> System.out.println("Ingrese una opción correcta.");
+            }
         }
     }
-
 
     private void generarLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
-        LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), 0, 0);
+        LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), 0);
         System.out.print("Determine la cantidad que desea de este producto: ");
         int cantidad = input.nextInt();
         lineaPedido.setCantidad(cantidad);
@@ -75,7 +78,7 @@ public class MenuLineaPedido {
         for (LineaPedido lp : pedidoController.findAllLP()) {
             System.out.println("LineaPedido N°" + lp.getCodigo() +
                     " Producto: " + lp.getProducto().getNombre() +
-                    " Cantidad: " + lp.getCantidad() + ";");
+                    ", Cantidad: " + lp.getCantidad() + ";");
         }
         System.out.println("\n");
     }
@@ -125,7 +128,6 @@ public class MenuLineaPedido {
             System.out.println("Esta linea pedido no existe.");
         }
     }
-
 
     public int getOption() {
         return option;

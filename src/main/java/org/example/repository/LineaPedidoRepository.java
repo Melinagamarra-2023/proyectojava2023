@@ -1,17 +1,21 @@
 package org.example.repository;
 
 import org.example.model.LineaPedido;
+import org.example.model.Producto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LineaPedidoRepository implements CRUD<LineaPedido> {
 
+    private final ProductoRepository productoRepository;
     private final List<LineaPedido> lineaPedidos;
     private int codigo = 0;
 
     public LineaPedidoRepository() {
+        this.productoRepository = new ProductoRepository();
         this.lineaPedidos = new ArrayList<>();
+        this.upload();
     }
 
     @Override
@@ -51,15 +55,14 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
 
     @Override
     public void upload() {
-        LineaPedido prueba = new LineaPedido(null, null, null, 0, 0);
-        lineaPedidos.add(prueba);
+        for (Producto producto : productoRepository.findAll()) {
+            codigo++;
+            lineaPedidos.add(new LineaPedido(String.valueOf(codigo), 2, producto, (codigo>5 ? codigo : codigo-4)));
+        }
     }
 
     public void calificarProveedor(LineaPedido lineaPedido, int star) {
         lineaPedido.setCalificaProveedor(star);
     }
 
-    public void calificarTransportista(LineaPedido lineaPedido, int star) {
-        lineaPedido.setCalificaTransportista(star);
-    }
 }

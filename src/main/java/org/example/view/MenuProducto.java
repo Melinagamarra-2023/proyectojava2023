@@ -31,7 +31,6 @@ public class MenuProducto {
                 4. Buscar por ID un producto.
                 5. Buscar producto por categoría.
                 6. Obtener lista de todos los productos.
-                7. Buscar producto por categoría.
                 0. Salir.
                 """);
         option = input.nextInt();
@@ -133,7 +132,7 @@ public class MenuProducto {
                 5. .Gaming.
                 """);
         int opc = input.nextInt();
-        while(opc<1 || opc>5 ) {
+        while (opc < 1 || opc > 5) {
             System.out.println("Ingrese una opción válida.");
             opc = input.nextInt();
         }
@@ -176,12 +175,18 @@ public class MenuProducto {
     }
 
     private void modificarDatosProducto(Producto producto) {
-        String nombreModificar = solicitarEntrada("Nombre: "); input.nextLine();
-        String descripcionModificar = solicitarEntrada("Descripcion: "); input.nextLine();
-        double anchoModificar = solicitarEntradaDouble("Ancho: "); input.nextLine();
-        double altoModificar = solicitarEntradaDouble("Alto: "); input.nextLine();
-        double profundidadModificar = solicitarEntradaDouble("Profundidad: "); input.nextLine();
-        double pesoModificar = solicitarEntradaDouble("Peso: "); input.nextLine();
+        String nombreModificar = solicitarEntrada("Nombre: ");
+        input.nextLine();
+        String descripcionModificar = solicitarEntrada("Descripcion: ");
+        input.nextLine();
+        double anchoModificar = solicitarEntradaDouble("Ancho: ");
+        input.nextLine();
+        double altoModificar = solicitarEntradaDouble("Alto: ");
+        input.nextLine();
+        double profundidadModificar = solicitarEntradaDouble("Profundidad: ");
+        input.nextLine();
+        double pesoModificar = solicitarEntradaDouble("Peso: ");
+        input.nextLine();
         producto.setNombre(nombreModificar);
         producto.setDescripcion(descripcionModificar);
         producto.setAncho(anchoModificar);
@@ -189,7 +194,6 @@ public class MenuProducto {
         producto.setProfundidad(profundidadModificar);
         producto.setPeso(pesoModificar);
     }
-
 
 
     private void seleccionarCategoria() {
@@ -202,27 +206,15 @@ public class MenuProducto {
         int opcionCategoria = input.nextInt();
         String categoriaBuscada = "";
         switch (opcionCategoria) {
-            case 1:
-                categoriaBuscada = "Electrónica";
-                break;
-            case 2:
-                categoriaBuscada = "Hogar";
-                break;
-            case 3:
-                categoriaBuscada = "Oficina";
-                break;
-            case 4:
-                categoriaBuscada = "Jardín";
-                break;
-            case 5:
-                categoriaBuscada = "Gaming";
-                break;
-            default:
-                System.out.println("Opción inválida.");
-                return;
+            case 1 -> categoriaBuscada = "Electrónica";
+            case 2 -> categoriaBuscada = "Hogar";
+            case 3 -> categoriaBuscada = "Oficina";
+            case 4 -> categoriaBuscada = "Jardín";
+            case 5 -> categoriaBuscada = "Gaming";
+            default -> System.out.println("Opción inválida.");
         }
         List<Producto> productosEncontrados = productoController.buscarPorCategoria(categoriaBuscada);
-        if (productosEncontrados.size() > 0) {
+        if (!(productosEncontrados.isEmpty())) {
             System.out.println("\nProductos encontrados:");
             for (Producto producto : productosEncontrados) {
                 mostrarInformacionProducto(producto);
@@ -231,6 +223,7 @@ public class MenuProducto {
             System.out.println("No se encontraron productos en la categoría proporcionada.");
         }
     }
+
     public int getOption() {
         return option;
     }

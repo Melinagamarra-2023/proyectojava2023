@@ -11,6 +11,7 @@ public class MenuPrincipalController {
     private final MenuProducto menuProducto;
     private final MenuLineaPedido menuLineaPedido;
     private final MenuPedido menuPedido;
+    private int option;
 
     public MenuPrincipalController() {
         this.menuPrincipal = new MenuPrincipal();
@@ -21,26 +22,27 @@ public class MenuPrincipalController {
         this.menuProducto = new MenuProducto();
         this.menuLineaPedido = new MenuLineaPedido();
         this.menuPedido = new MenuPedido();
+        this.option = 99;
         this.seleccionarOpcion();
     }
 
     private void seleccionarOpcion() {
-        while (menuPrincipal.getOption() != 0) {
+        while (option != 0) {
             switch (menuPrincipal.seleccionarModulo()) {
                 case 1 -> gestionarClientes();
                 case 2 -> gestionarProveedor();
                 case 3 -> gestionarSucursales();
                 case 4 -> gestionarTransportista();
-                case 5 -> gestionarProductos();
-                case 6 -> gestionarLineaPedido();
-                case 7 -> gestionarPedidos();
+                case 5 -> gestionarPedidos();
+                case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
+            option = menuPrincipal.getOption();
         }
     }
 
     private void gestionarClientes() {
-        while (menuCliente.getOption() != 0) {
+        while (option != 0) {
             switch (menuCliente.seleccionarOpcion()) {
                 case 1 -> menuCliente.crearNuevoCliente();
                 case 2 -> menuCliente.modificarCliente();
@@ -50,40 +52,59 @@ public class MenuPrincipalController {
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
+            option = menuCliente.getOption();
         }
     }
 
     private void gestionarProveedor() {
-        while (menuProveedor.getOption() != 0) {
+        while (option != 0) {
             switch (menuProveedor.seleccionarOpcion()) {
                 case 1 -> menuProveedor.crearProveedor();
                 case 2 -> menuProveedor.modificarProveedor();
-                case 3 -> menuProveedor.eliminarProveerdor();
-                case 4 -> menuProveedor.buscarProveedorPorCuit();
-                case 5 -> menuProveedor.buscarProveedores();
+                case 3 -> gestionarProductos();
+                case 4 -> menuProveedor.eliminarProveerdor();
+                case 5 -> menuProveedor.buscarProveedorPorCuit();
+                case 6 -> menuProveedor.buscarProveedores();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
+            option = menuProveedor.getOption();
+        }
+    }
+
+    private void gestionarProductos() {
+        while (option != 0) {
+            switch (menuProducto.seleccionarOpcion()) {
+                case 1 -> menuProducto.crearProducto();
+                case 2 -> menuProducto.modificarProducto();
+                case 3 -> menuProducto.eliminarProducto();
+                case 4 -> menuProducto.buscarProductoPorId();
+                case 5 -> menuProducto.buscarPorCategoria();
+                case 6 -> menuProducto.buscarTodosLosProductos();
+                case 0 -> menuPrincipal.regresar();
+                default -> menuPrincipal.invalido();
+            }
+            option = menuProducto.getOption();
         }
     }
 
     private void gestionarSucursales() {
-        while (menuSucursal.getOption() != 0) {
+        while (option != 0) {
             switch (menuSucursal.seleccionarOpcion()) {
                 case 1 -> menuSucursal.agregarUnaSucursal();
                 case 2 -> menuSucursal.modificarSucursal();
                 case 3 -> menuSucursal.deshablitarSucursal();
                 case 4 -> menuSucursal.buscarSucursalPorCodigo();
                 case 5 -> menuSucursal.buscarTodasLasSucursales();
-                //case 6 -> menuSucursal.imprimirSectores(); ??
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
+            option = menuSucursal.getOption();
         }
     }
 
     private void gestionarTransportista() {
-        while (menuTransportista.getOption() != 0) {
+        while (option != 0) {
             switch (menuTransportista.seleccionarOpcion()) {
                 case 1 -> menuTransportista.agregarTransportista();
                 case 2 -> menuTransportista.modificarTransportista();
@@ -94,50 +115,39 @@ public class MenuPrincipalController {
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
+            option = menuTransportista.getOption();
         }
     }
 
-    private void gestionarProductos() {
-        while (menuProducto.getOption() != 0) {
-            switch (menuProducto.seleccionarOpcion()) {
-                case 1 -> menuProducto.crearProducto();
-                case 2 -> menuProducto.modificarProducto();
-                case 3 -> menuProducto.eliminarProducto();
-                case 4 -> menuProducto.buscarProductoPorId();
-                case 6 -> menuProducto.buscarTodosLosProductos();
-                case 7 -> menuProducto.buscarPorCategoria();
+    private void gestionarPedidos() {
+        while (option != 0) {
+            switch (menuPedido.seleccionarOpcion()) {
+                case 1 -> gestionarLineaPedido();
+                case 2 -> menuPedido.generarPedido();
+                case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
+            option = menuPedido.getOption();
         }
     }
 
     private void gestionarLineaPedido() {
-        while (menuLineaPedido.getOption() != 0) {
+        while (option != 0) {
             switch (menuLineaPedido.seleccionarOpcion()) {
                 case 1 -> menuLineaPedido.seleccionarProductos();
                 case 2 -> menuLineaPedido.modificarLineaPedido();
                 case 3 -> menuLineaPedido.eliminarLineaPedido();
                 case 4 -> menuLineaPedido.buscarLineasPedido();
-                case 5 -> menuPedido.generarPedido();
                 case 6 -> menuLineaPedido.calificarProveedor();
                 case 7 -> menuPedido.mostrarTodosLosPedidos();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
+            option = menuLineaPedido.getOption();
         }
     }
 
-    private void gestionarPedidos() {
-        while (menuPedido.getOption() != 0) {
-            switch (menuPedido.seleccionarOpcion()) {
-                case 1 -> menuPedido.generarPedido();
-                case 2 -> menuPedido.mostrarTodosLosPedidos();
-                case 0 -> menuPrincipal.regresar();
-                default -> menuPrincipal.invalido();
-            }
-        }
-    }
 }
 
 

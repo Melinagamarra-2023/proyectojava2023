@@ -2,9 +2,7 @@ package org.example.view;
 
 import org.example.controller.SucursalController;
 
-import org.example.model.Empleado;
 import org.example.model.Sucursal;
-import org.example.repository.EmpleadoRepository;
 
 import java.util.Scanner;
 
@@ -12,13 +10,13 @@ public class MenuSucursal {
 
     private final SucursalController sucursalController;
     private final Scanner input;
+    private int option;
 
     public MenuSucursal() {
         this.sucursalController = new SucursalController();
         this.input = new Scanner(System.in);
+        this.option = 99;
     }
-
-    private int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;

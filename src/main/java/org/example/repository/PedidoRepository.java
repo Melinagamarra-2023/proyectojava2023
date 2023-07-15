@@ -9,12 +9,18 @@ import java.util.List;
 
 public class PedidoRepository implements CRUD<Pedido> {
 
+    private final SucursalRepository sucursalRepository;
     private final EmpleadoRepository empleadoRepository;
+    private final ClienteRepository clienteRepository;
     private final List<Pedido> pedidos;
+    int codigo;
 
     public PedidoRepository() {
+        this.sucursalRepository = new SucursalRepository();
         this.empleadoRepository = new EmpleadoRepository();
+        this.clienteRepository = new ClienteRepository();
         this.pedidos = new ArrayList<>();
+        this.codigo = 0;
         this.upload();
     }
 
@@ -36,6 +42,8 @@ public class PedidoRepository implements CRUD<Pedido> {
 
     @Override
     public void save(Pedido pedido) {
+        codigo++;
+        pedido.setPedidoId(String.valueOf(codigo));
         pedidos.add(pedido);
     }
 
@@ -59,7 +67,7 @@ public class PedidoRepository implements CRUD<Pedido> {
 
     @Override
     public void upload() {
-        Pedido prueba = new Pedido("01", null, null, null, null, null, null);
+        Pedido prueba = new Pedido("01", sucursalRepository.findOne("1234"), sucursalRepository.findOne("7392"), new ArrayList<>(), new ArrayList<>(), clienteRepository.findOne("123456789"), empleadoRepository.findOne("123401"));
         pedidos.add(prueba);
     }
 

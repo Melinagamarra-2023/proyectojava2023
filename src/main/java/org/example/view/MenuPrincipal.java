@@ -8,11 +8,12 @@ public class MenuPrincipal {
     private int option;
 
     public MenuPrincipal() {
-        this.option = 99;
         this.input = new Scanner(System.in);
+        this.option = 99;
     }
 
     public int seleccionarModulo() {
+        option = 99;
         System.out.println("""
                 
                 ------ MENÚ PRINCIPAL ------
@@ -21,9 +22,7 @@ public class MenuPrincipal {
                 2. Gestión de proveedores.
                 3. Gestion de Sucursales.
                 4. Gestion de transportistas.
-                5. Gestión de productos.
-                6. Gestión de lineas de pedido.
-                7. Gestión de pedidos.
+                5. Gestión de pedidos.
                 0. Salir""");
         option = input.nextInt();
         return option;

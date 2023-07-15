@@ -9,13 +9,13 @@ public class MenuProveedor {
 
     private final ProductoController productoController;
     private final Scanner input;
+    private int option;
 
     public MenuProveedor() {
         this.productoController = new ProductoController();
         this.input = new Scanner(System.in);
+        this.option = 99;
     }
-
-    private int option = 99;
 
     public int seleccionarOpcion() {
         option = 99;
@@ -25,9 +25,10 @@ public class MenuProveedor {
                 Seleccione la opción:
                 1. Añadir proveedor.
                 2. Modificar Proveedor.
-                3. Eliminar Proveedor.
-                4. Buscar Proveedor por CUIT.
-                5. Obtener lista de todos los Proveedores.
+                3. Gestionar productos de proveedores.
+                4. Eliminar Proveedor.
+                5. Buscar Proveedor por CUIT.
+                6. Obtener lista de todos los Proveedores.
                 0. Salir.
                 """);
         option = input.nextInt();
