@@ -54,12 +54,12 @@ public class MenuProducto {
             }
         }
         Producto nuevoProducto = new Producto(id, null, null, null, null, null, null, null, null, true);
-        modificarDatosProducto(nuevoProducto);
+        this.modificarDatosProducto(nuevoProducto);
         System.out.println("Proporcione el cuit del proveedor del producto: ");
         String cuitProveedor = input.next();
         if (cuitProveedor != null) {
             productoController.setProveedor(nuevoProducto, cuitProveedor);
-            setCategoria(nuevoProducto);
+            this.setCategoria(nuevoProducto);
             productoController.create(nuevoProducto);
             System.out.println("Producto: " + nuevoProducto.getNombre() + " Creado con éxito");
         } else {
@@ -81,7 +81,7 @@ public class MenuProducto {
                 productoModificar = productoController.findOne(idModificar);
             }
         }
-        modificarDatosProducto(productoModificar);
+        this.modificarDatosProducto(productoModificar);
         System.out.println("Producto modificado con éxito.");
     }
 
@@ -119,6 +119,7 @@ public class MenuProducto {
     public void buscarPorCategoria() {
         this.seleccionarCategoria();
     }
+
     public void buscarPorNombre() {
         this.buscarProductoPorNombre();
     }
@@ -161,34 +162,21 @@ public class MenuProducto {
                 ", Estado: " + estado);
     }
 
-    private String solicitarEntrada(String mensaje) {
-        System.out.print(mensaje);
-        return input.next();
-    }
-
-    private double solicitarEntradaDouble(String mensaje) {
-        System.out.print(mensaje);
-        while (!input.hasNextDouble()) {
-            System.out.println("Entrada inválida. Intente nuevamente.");
-            System.out.print(mensaje);
-            input.nextLine(); // Descartar entrada no válida
-        }
-        return input.nextDouble();
-    }
 
     private void modificarDatosProducto(Producto producto) {
-        String nombreModificar = solicitarEntrada("Nombre: ");
         input.nextLine();
-        String descripcionModificar = solicitarEntrada("Descripcion: ");
-        input.nextLine();
-        double anchoModificar = solicitarEntradaDouble("Ancho: ");
-        input.nextLine();
-        double altoModificar = solicitarEntradaDouble("Alto: ");
-        input.nextLine();
-        double profundidadModificar = solicitarEntradaDouble("Profundidad: ");
-        input.nextLine();
-        double pesoModificar = solicitarEntradaDouble("Peso: ");
-        input.nextLine();
+        System.out.print("Nombre: ");
+        String nombreModificar = input.nextLine();
+        System.out.print("Descripción: ");
+        String descripcionModificar = input.nextLine();
+        System.out.print("Ancho: ");
+        Double anchoModificar = Double.valueOf(input.nextLine());
+        System.out.print("Alto: ");
+        Double altoModificar = Double.valueOf(input.nextLine());
+        System.out.print("Profundidad: ");
+        Double profundidadModificar = Double.valueOf(input.nextLine());
+        System.out.println("Peso: ");
+        Double pesoModificar = Double.valueOf(input.nextLine());
         producto.setNombre(nombreModificar);
         producto.setDescripcion(descripcionModificar);
         producto.setAncho(anchoModificar);
