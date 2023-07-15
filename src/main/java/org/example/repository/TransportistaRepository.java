@@ -41,13 +41,13 @@ public class TransportistaRepository implements CRUD<Transportista> {
     @Override
     public Transportista update(Transportista trActualizado) {
         if (findOne(trActualizado.getCuit()) != null) {
-            findOne(trActualizado.getCuit()).setNombre(trActualizado.getNombre());
-            findOne(trActualizado.getCuit()).setHabilitado(trActualizado.getHabilitado());
-            findOne(trActualizado.getCuit()).setTerrestre(trActualizado.getTerrestre());
-            findOne(trActualizado.getCuit()).setMaritimo(trActualizado.getMaritimo());
-            findOne(trActualizado.getCuit()).setAereo(trActualizado.getAereo());
+            trActualizado.setNombre(trActualizado.getNombre());
+            trActualizado.setHabilitado(trActualizado.getHabilitado());
+            trActualizado.setTerrestre(trActualizado.getTerrestre());
+            trActualizado.setMaritimo(trActualizado.getMaritimo());
+            trActualizado.setAereo(trActualizado.getAereo());
         }
-        return null;
+        return trActualizado;
     }
 
     @Override
