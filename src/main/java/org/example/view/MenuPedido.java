@@ -95,6 +95,7 @@ public class MenuPedido {
             idDestino = this.verification();
         }
         this.cancelar(idDestino);
+        pedidoController.create(nuevoPedido);
         pedidoController.setSucursalDestino(nuevoPedido, idDestino);
         this.seleccionarTransportista(nuevoPedido, idOrigen, idDestino);
     }
@@ -113,17 +114,22 @@ public class MenuPedido {
         System.out.println("Pedido creado con éxito.");
     }
 
-    public Pedido mostrarPedidoPorId() {
+    public void mostrarPedidoPorId() {
         System.out.println("----------------------");
         System.out.println("Ingrese el id del pedido que desea buscar: ");
         String id = input.next();
         Pedido pedidoBuscado = pedidoController.findOne(id);
         if (pedidoBuscado != null && pedidoBuscado.getPedidoId().equals(id)) {
-            return pedidoBuscado;
+            System.out.println("El pedido asociado al ID ingresado es del "
+                    + "Cliente: " + pedidoBuscado.getCliente().getNombre()
+                    + ", SucursalOrigen: " + pedidoBuscado.getSucursalOrigen().getSucId()
+                    + ", SucursaldeDestino: " + pedidoBuscado.getSucursalDestino().getSucId());
+            
+
         }
         System.out.println("no existe ningun pedido asociado al Id proporcionado");
-        return null;
     }
+
     public void mostrarTodosLosPedidos() {
         System.out.println("-----------------------------");
         System.out.println("Los pedidos registrados son: ");
@@ -131,11 +137,29 @@ public class MenuPedido {
             System.out.println("Pedido N°" + pe.getPedidoId() +
                     " de Cliente: " + pe.getCliente().getApellido() + " " + pe.getCliente().getCuit() +
                     ", Sucursal Origen: " + pe.getSucursalOrigen().getSucId() +
-                    "(" + pe.getSucursalOrigen().getContinente() + ")" +
+                    " (" + pe.getSucursalOrigen().getContinente() + ")" +
                     ", Sucursal Destino: " + pe.getSucursalDestino().getSucId() +
-                    "(" + pe.getSucursalDestino().getContinente() + ")" + ";");
+                    " (" + pe.getSucursalDestino().getContinente() + ")" + ";\n");
+        }
+
+    }
+
+    public void cancelarPedido() {
+        System.out.println("--------------------------");
+        System.out.println("Ingrese el ID del pedido que desea borrar");
+        String id = input.next();
+        Pedido pedidoEliminado = pedidoController.findOne(id);
+        if (pedidoEliminado != null) {
+            pedidoController.delete(id);
+            System.out.println("El pedido: \n"
+                    + " ID: " + pedidoEliminado.getPedidoId() +
+                    " ,Cliente:  " + pedidoEliminado.getCliente().getNombre() +
+                    "ha sido eliminada con exito");
+        } else {
+            System.out.println("El Id ingresado proporcionado no esta asociado a ningun pedido");
         }
     }
+
 
     public int getOption() {
         return option;

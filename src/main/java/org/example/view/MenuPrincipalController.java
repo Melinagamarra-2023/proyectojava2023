@@ -125,7 +125,8 @@ public class MenuPrincipalController {
             switch (menuPedido.seleccionarOpcion()) {
                 case 1 -> gestionarLineaPedido();
                 case 2 -> menuPedido.generarPedido();
-                case 3-> menuPedido.mostrarPedidoPorId();
+                case 3-> menuPedido.cancelarPedido();
+                case 4 ->menuPedido.mostrarPedidoPorId();
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
