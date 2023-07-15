@@ -80,7 +80,8 @@ public class MenuPrincipalController {
                 case 3 -> menuProducto.eliminarProducto();
                 case 4 -> menuProducto.buscarProductoPorId();
                 case 5 -> menuProducto.buscarPorCategoria();
-                case 6 -> menuProducto.buscarTodosLosProductos();
+                case 6 -> menuProducto.buscarPorNombre();
+                case 7 -> menuProducto.buscarTodosLosProductos();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
