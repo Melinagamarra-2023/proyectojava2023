@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class PedidoService implements CRUD<Pedido> {
+    private final SectorRepository sectorRepository;
     private final PedidoRepository pedidoRepository;
     private final LineaPedidoRepository lineaPedidoRepository;
     private final SucursalRepository sucursalRepository;
     private final RemitoRepository remitoRepository;
 
     public PedidoService() {
+        this.sectorRepository = new SectorRepository();
         this.pedidoRepository = new PedidoRepository();
         this.lineaPedidoRepository = new LineaPedidoRepository();
         this.sucursalRepository = new SucursalRepository();
@@ -23,9 +25,23 @@ public class PedidoService implements CRUD<Pedido> {
     @Override
     public void create(Pedido pedido) {
         if (pedidoRepository.findOne(pedido.getPedidoId()) == null) {
-            SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(),23.89,23.99, pedido,null);
+            SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(), pedido.getSucursalOrigen().getLatitud(), pedido.getSucursalOrigen().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + "1"));
             pedido.getSeguimientoPedido().add(nuevoSeguimiento);
             pedidoRepository.save(pedido);
+        }
+    }
+
+    public void cambiarSector(Pedido pedido) {
+        String sector = pedido.getSeguimientoPedido().get(pedido.getSeguimientoPedido().size()).getEstado().getSucId();
+        if (pedido.getSeguimientoPedido().size() < 6) {
+            pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(), pedido.getSucursalOrigen().getLatitud(), pedido.getSucursalOrigen().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + String.valueOf(
+                    pedido.getSeguimientoPedido().size() + 1))));
+        } else if (pedido.getSeguimientoPedido().size() == 6) {
+            pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(), pedido.getSucursalOrigen().getLatitud(), pedido.getSucursalOrigen().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + String.valueOf(
+                    pedido.getSeguimientoPedido().size() + 1))));
+        } else {
+            pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDate.now(), LocalDateTime.now(), pedido.getSucursalDestino().getLatitud(), pedido.getSucursalDestino().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalDestino().getSucId() + String.valueOf(
+                    pedido.getSeguimientoPedido().size() + 1))));
         }
     }
 
@@ -39,7 +55,7 @@ public class PedidoService implements CRUD<Pedido> {
 
     @Override
     public List<Pedido> findAll() {
-       return pedidoRepository.findAll();
+        return pedidoRepository.findAll();
     }
 
     @Override

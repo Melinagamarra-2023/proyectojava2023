@@ -46,7 +46,7 @@ public class MenuSucursal {
             sucId = input.next();
             if (sucId.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 sucursalExistente = sucursalController.findOne(sucId);
             }
@@ -75,7 +75,7 @@ public class MenuSucursal {
             sucId = input.next();
             if (sucId.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 sucursalModificar = sucursalController.findOne(sucId);
             }

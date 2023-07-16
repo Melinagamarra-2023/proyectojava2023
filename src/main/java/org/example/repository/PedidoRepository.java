@@ -21,7 +21,6 @@ public class PedidoRepository implements CRUD<Pedido> {
         this.clienteRepository = new ClienteRepository();
         this.pedidos = new ArrayList<>();
         this.codigo = 0;
-        this.upload();
     }
 
 

@@ -91,7 +91,7 @@ public class MenuCliente {
             cuit = input.next();
             if (cuit.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 existeCliente(cuit);
             }
@@ -112,7 +112,7 @@ public class MenuCliente {
             cuitModificar = input.next();
             if (cuitModificar.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 clienteModificar = clienteController.findOne(cuitModificar);
             }
@@ -147,8 +147,6 @@ public class MenuCliente {
         cliente.setTelefono(telefonoModificar);
     }
 
-<<<<<<< Updated upstream
-=======
     public void deleteCliente() {
         System.out.println("\nIngrese el CUIT del cliente a eliminar:");
         String cuitEliminar = input.next();
@@ -161,7 +159,11 @@ public class MenuCliente {
         }
     }
 
->>>>>>> Stashed changes
+    public void buscarCliente() {
+        
+    }
+
+
     public int getOption() {
         return option;
     }

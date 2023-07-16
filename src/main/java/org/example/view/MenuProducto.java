@@ -48,7 +48,7 @@ public class MenuProducto {
             id = input.next();
             if (id.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 this.existeProducto(id);
             }
@@ -76,7 +76,7 @@ public class MenuProducto {
             idModificar = input.next();
             if (idModificar.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 productoModificar = productoController.findOne(idModificar);
             }

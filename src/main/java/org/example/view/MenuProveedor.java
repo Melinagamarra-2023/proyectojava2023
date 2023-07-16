@@ -46,7 +46,7 @@ public class MenuProveedor {
             cuit = input.next();
             if (cuit.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 proveedorExiste = productoController.findOnePr(cuit);
             }
@@ -75,7 +75,7 @@ public class MenuProveedor {
             cuitModificar = input.next();
             if (cuitModificar.equals("0")) {
                 System.out.println("Operación cancelada.");
-                seleccionarOpcion();
+                return;
             } else {
                 proveedorModificar = productoController.findOnePr(cuitModificar);
             }
