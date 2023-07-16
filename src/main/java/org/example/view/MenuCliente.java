@@ -43,15 +43,7 @@ public class MenuCliente {
     }
 
     public void eliminarCliente() {
-        System.out.println("\nIngrese el CUIT del cliente a eliminar:");
-        String cuitEliminar = input.next();
-        Cliente clienteEliminar = clienteController.findOne(cuitEliminar);
-        if (clienteEliminar != null) {
-            clienteController.delete(cuitEliminar);
-            System.out.println("La cuenta del cliente " + clienteEliminar.getApellido() + " ha sido eliminada con éxito.");
-        } else {
-            System.out.println("No se encontró ningún cliente con el CUIT proporcionado.");
-        }
+        this.deleteCliente();
     }
 
     public void buscarClientePorCuit() {
@@ -155,9 +147,22 @@ public class MenuCliente {
         cliente.setTelefono(telefonoModificar);
     }
 
+    public void deleteCliente() {
+        System.out.println("\nIngrese el CUIT del cliente a eliminar:");
+        String cuitEliminar = input.next();
+        Cliente clienteEliminar = clienteController.findOne(cuitEliminar);
+        if (clienteEliminar != null) {
+            clienteController.delete(cuitEliminar);
+            System.out.println("La cuenta del cliente " + clienteEliminar.getApellido() + " ha sido eliminada con éxito.");
+        } else {
+            System.out.println("No se encontró ningún cliente con el CUIT proporcionado.");
+        }
+    }
+
     public void buscarCliente() {
         
     }
+
 
     public int getOption() {
         return option;
