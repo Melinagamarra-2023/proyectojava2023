@@ -159,10 +159,6 @@ public class MenuCliente {
         }
     }
 
-    public void buscarCliente() {
-        
-    }
-
 
     public int getOption() {
         return option;
