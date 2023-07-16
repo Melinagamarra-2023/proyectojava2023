@@ -155,10 +155,6 @@ public class MenuCliente {
         cliente.setTelefono(telefonoModificar);
     }
 
-    public void buscarCliente() {
-        
-    }
-
     public int getOption() {
         return option;
     }
