@@ -35,49 +35,23 @@ public class MenuCliente {
     }
 
     public void crearNuevoCliente() {
-        this.crearCliente();
+        crearCliente();
     }
 
     public void modificarCliente() {
-        this.modificateCliente();
+        modificateCliente();
     }
 
     public void eliminarCliente() {
-        this.deleteCliente();
+        deleteCliente();
     }
 
     public void buscarClientePorCuit() {
-        System.out.println("\nIngrese el CUIT de la cuenta a buscar:");
-        String cuitBuscado = input.next();
-        Cliente clienteBuscado = clienteController.findOne(cuitBuscado);
-        if (clienteBuscado != null) {
-            System.out.print("El cuit proporcionado corresponde al Cliente: " +
-                    clienteBuscado.getApellido() + " " + clienteBuscado.getNombre() +
-                    ", CUIT: " + clienteBuscado.getCuit() +
-                    ", Correo: " + clienteBuscado.getCorreo() +
-                    ", Dirección: " + clienteBuscado.getDireccion() +
-                    ", Teléfono: " + clienteBuscado.getTelefono() +
-                    ", Estado: ");
-            if (clienteBuscado.getHabilitado()) {
-                System.out.print("Habilitado\n");
-            } else {
-                System.out.print("Inhabilitado\n");
-            }
-        } else {
-            System.out.println("El cuit proporcionado no corresponde a ningún cliente.");
-        }
+        buscarUno();
     }
 
     public void buscarTodosLosClientes() {
-        System.out.println("\n");
-        for (Cliente cl : clienteController.findAll()) {
-            System.out.println("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
-                    ", CUIT: " + cl.getCuit() +
-                    ", Correo: " + cl.getCorreo() +
-                    ", Dirección: " + cl.getDireccion() +
-                    ", Teléfono: " + cl.getTelefono() + " ");
-        }
-        System.out.println("\n");
+        this.buscarTodos();
     }
 
 
@@ -102,6 +76,10 @@ public class MenuCliente {
         System.out.println("Cuenta: " + nuevoCliente.getApellido() + " Creada con éxito");
     }
 
+    private boolean existeCliente(String cuit) {
+        return clienteController.findOne(cuit) != null;
+    }
+
     private void modificateCliente() {
         System.out.println("\nIngrese el CUIT del cliente a modificar:");
         String cuitModificar = input.next();
@@ -121,10 +99,6 @@ public class MenuCliente {
         modificarDatosCliente(clienteModificar);
         clienteController.update(clienteModificar);
         System.out.println("Cuenta: " + clienteModificar.getCuit() + " Modificada con éxito.");
-    }
-
-    private boolean existeCliente(String cuit) {
-        return clienteController.findOne(cuit) != null;
     }
 
 
@@ -147,7 +121,7 @@ public class MenuCliente {
         cliente.setTelefono(telefonoModificar);
     }
 
-    public void deleteCliente() {
+    private void deleteCliente() {
         System.out.println("\nIngrese el CUIT del cliente a eliminar:");
         String cuitEliminar = input.next();
         Cliente clienteEliminar = clienteController.findOne(cuitEliminar);
@@ -157,6 +131,40 @@ public class MenuCliente {
         } else {
             System.out.println("No se encontró ningún cliente con el CUIT proporcionado.");
         }
+    }
+
+    private void mostrarInfoCliente(Cliente cliente) {
+        String estado = cliente.getHabilitado() ? "Habilitado" : "Deshabilitado";
+        System.out.print("El cuit proporcionado corresponde al Cliente: " +
+                cliente.getApellido() + " " + cliente.getNombre() +
+                ", CUIT: " + cliente.getCuit() +
+                ", Correo: " + cliente.getCorreo() +
+                ", Dirección: " + cliente.getDireccion() +
+                ", Teléfono: " + cliente.getTelefono() +
+                ", Estado: " + estado);
+    }
+
+    private void buscarUno() {
+        System.out.println("\nIngrese el CUIT de la cuenta a buscar:");
+        String cuitBuscado = input.next();
+        Cliente clienteBuscado = clienteController.findOne(cuitBuscado);
+        if (clienteBuscado != null) {
+            this.mostrarInfoCliente(clienteBuscado);
+        } else {
+            System.out.println("El cuit proporcionado no corresponde a ningún cliente.");
+        }
+    }
+
+    private void buscarTodos() {
+        System.out.println("\n");
+        for (Cliente cl : clienteController.findAll()) {
+            System.out.println("Cliente: " + cl.getApellido() + " " + cl.getNombre() +
+                    ", CUIT: " + cl.getCuit() +
+                    ", Correo: " + cl.getCorreo() +
+                    ", Dirección: " + cl.getDireccion() +
+                    ", Teléfono: " + cl.getTelefono() + " ");
+        }
+        System.out.println("\n");
     }
 
 

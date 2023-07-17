@@ -44,14 +44,14 @@ public class MenuLineaPedido {
         option = 99;
         while (option != 0) {
             System.out.println("""
-                
-                Seleccione la opción:
-                1. Mostrar todos los productos.
-                2. Buscar productos por nombre.
-                3. Buscar productos por categoría.
-                4. Añadir articulo a linea pedido.
-                0. Cancelar.
-                """);
+                                    
+                    Seleccione la opción:
+                    1. Mostrar todos los productos.
+                    2. Buscar productos por nombre.
+                    3. Buscar productos por categoría.
+                    4. Añadir articulo a linea pedido.
+                    0. Cancelar.
+                    """);
             option = input.nextInt();
             switch (option) {
                 case 1 -> menuProducto.buscarTodosLosProductos();
@@ -64,6 +64,26 @@ public class MenuLineaPedido {
     }
 
     private void generarLineaPedido() {
+        crearLineaPedido();
+    }
+
+    public void buscarLineasPedido() {
+        buscarTodos();
+    }
+
+    public void modificarLineaPedido() {
+        modificateLineaPedido();
+    }
+
+    public void eliminarLineaPedido() {
+        deleteLineaPedido();
+    }
+
+    public void calificarProveedor() {
+        calificacion();
+    }
+
+    private void crearLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
         LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), true, true, 0);
@@ -73,17 +93,17 @@ public class MenuLineaPedido {
         pedidoController.createLP(lineaPedido);
     }
 
-    public void buscarLineasPedido() {
+    private void buscarTodos() {
         System.out.println("\n");
         for (LineaPedido lp : pedidoController.findAllLP()) {
-                System.out.println("LineaPedido N°" + lp.getCodigo() +
-                        " Producto: " + lp.getProducto().getNombre() +
-                        ", Cantidad: " + lp.getCantidad() + ";");
+            System.out.println("LineaPedido N°" + lp.getCodigo() +
+                    " Producto: " + lp.getProducto().getNombre() +
+                    ", Cantidad: " + lp.getCantidad() + ";");
         }
         System.out.println("\n");
     }
 
-    public void modificarLineaPedido() {
+    private void modificateLineaPedido() {
         System.out.print("Ingrese el id de la linea pedido a modificar: ");
         String codigo = input.next();
         LineaPedido lineaPedidoModificar = pedidoController.findOneLP(codigo);
@@ -105,7 +125,7 @@ public class MenuLineaPedido {
         System.out.println("Linea pedido modificada con exito.");
     }
 
-    public void eliminarLineaPedido() {
+    private void deleteLineaPedido() {
         System.out.print("Ingrese el id de la linea pedido a eliminar: ");
         String codigo = input.next();
         LineaPedido lineaPedidoEliminar = pedidoController.findOneLP(codigo);
@@ -117,7 +137,7 @@ public class MenuLineaPedido {
         }
     }
 
-    public void calificarProveedor() {
+    private void calificacion() {
         System.out.print("Ingrese el id de la linea pedido: ");
         String codigo = input.next();
         if (pedidoController.findOne(codigo) != null) {
