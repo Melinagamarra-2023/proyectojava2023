@@ -51,7 +51,7 @@ public class MenuCliente {
     }
 
     public void buscarTodosLosClientes() {
-        this.buscarTodos();
+        buscarTodos();
     }
 
 
