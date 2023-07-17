@@ -39,6 +39,52 @@ public class MenuProducto {
     }
 
     public void crearProducto() {
+        generarProducto();
+    }
+
+    public void modificarProducto() {
+        modificateProducto();
+    }
+
+    public void eliminarProducto() {
+        deleteProducto();
+    }
+
+    public void buscarProductoPorId() {
+        buscarUno();
+    }
+
+    public void buscarTodosLosProductos() {
+        buscarTodos();
+    }
+
+    public void buscarPorCategoria() {
+        seleccionarCategoria();
+    }
+
+    public void buscarPorNombre() {
+        buscarProductoPorNombre();
+    }
+
+    //private
+    private void setCategoria(Producto prod) {
+        System.out.println("""
+                Seleccione la categoría del producto:
+                1. .Electrónica.
+                2. .Hogar.
+                3. .Oficina.
+                4. .Jardín.
+                5. .Gaming.
+                """);
+        int opc = input.nextInt();
+        while (opc < 1 || opc > 5) {
+            System.out.println("Ingrese una opción válida.");
+            opc = input.nextInt();
+        }
+        productoController.setCategoria(prod, opc);
+    }
+
+    private void generarProducto() {
         System.out.println("\nProporcione los datos para el nuevo producto: ");
         System.out.print("Id: ");
         String id = input.next();
@@ -65,81 +111,6 @@ public class MenuProducto {
         } else {
             System.out.println("Ingrese un cuit que exista.");
         }
-    }
-
-    public void modificarProducto() {
-        System.out.println("\nIngrese el ID del producto a modificar:");
-        String idModificar = input.next();
-        Producto productoModificar = productoController.findOne(idModificar);
-        while (productoModificar == null) {
-            System.out.println("Este ID no existe, intentelo de nuevo. (0 para cancelar)");
-            idModificar = input.next();
-            if (idModificar.equals("0")) {
-                System.out.println("Operación cancelada.");
-                return;
-            } else {
-                productoModificar = productoController.findOne(idModificar);
-            }
-        }
-        this.modificarDatosProducto(productoModificar);
-        System.out.println("Producto modificado con éxito.");
-    }
-
-    public void eliminarProducto() {
-        System.out.println("\nIngrese el ID del producto a eliminar:");
-        String idEliminar = input.next();
-        Producto productoEliminar = productoController.findOne(idEliminar);
-        if (productoEliminar != null) {
-            productoController.delete(idEliminar);
-            System.out.println("El producto " + productoEliminar.getNombre() + " ha sido eliminado con éxito.");
-        } else {
-            System.out.println("No se encontró ningún producto con el ID proporcionado.");
-        }
-    }
-
-    public void buscarProductoPorId() {
-        System.out.println("\nIngrese el ID del producto que desea buscar:");
-        String idBuscado = input.next();
-        Producto productoBuscado = productoController.findOne(idBuscado);
-        if (productoBuscado != null) {
-            this.mostrarInformacionProducto(productoBuscado);
-        } else {
-            System.out.println("El ID proporcionado no corresponde a ningún producto.");
-        }
-    }
-
-    public void buscarTodosLosProductos() {
-        System.out.println("\n");
-        for (Producto producto : productoController.findAll()) {
-            this.mostrarInformacionProducto(producto);
-        }
-        System.out.println("\n");
-    }
-
-    public void buscarPorCategoria() {
-        this.seleccionarCategoria();
-    }
-
-    public void buscarPorNombre() {
-        this.buscarProductoPorNombre();
-    }
-
-    //private
-    private void setCategoria(Producto prod) {
-        System.out.println("""
-                Seleccione la categoría del producto:
-                1. .Electrónica.
-                2. .Hogar.
-                3. .Oficina.
-                4. .Jardín.
-                5. .Gaming.
-                """);
-        int opc = input.nextInt();
-        while (opc < 1 || opc > 5) {
-            System.out.println("Ingrese una opción válida.");
-            opc = input.nextInt();
-        }
-        productoController.setCategoria(prod, opc);
     }
 
     private boolean existeProducto(String id) {
@@ -185,6 +156,54 @@ public class MenuProducto {
         producto.setPeso(pesoModificar);
     }
 
+    private void modificateProducto() {
+        System.out.println("\nIngrese el ID del producto a modificar:");
+        String idModificar = input.next();
+        Producto productoModificar = productoController.findOne(idModificar);
+        while (productoModificar == null) {
+            System.out.println("Este ID no existe, intentelo de nuevo. (0 para cancelar)");
+            idModificar = input.next();
+            if (idModificar.equals("0")) {
+                System.out.println("Operación cancelada.");
+                return;
+            } else {
+                productoModificar = productoController.findOne(idModificar);
+            }
+        }
+        this.modificarDatosProducto(productoModificar);
+        System.out.println("Producto modificado con éxito.");
+    }
+
+    private void deleteProducto() {
+        System.out.println("\nIngrese el ID del producto a eliminar:");
+        String idEliminar = input.next();
+        Producto productoEliminar = productoController.findOne(idEliminar);
+        if (productoEliminar != null) {
+            productoController.delete(idEliminar);
+            System.out.println("El producto " + productoEliminar.getNombre() + " ha sido eliminado con éxito.");
+        } else {
+            System.out.println("No se encontró ningún producto con el ID proporcionado.");
+        }
+    }
+
+    private void buscarUno() {
+        System.out.println("\nIngrese el ID del producto que desea buscar:");
+        String idBuscado = input.next();
+        Producto productoBuscado = productoController.findOne(idBuscado);
+        if (productoBuscado != null) {
+            this.mostrarInformacionProducto(productoBuscado);
+        } else {
+            System.out.println("El ID proporcionado no corresponde a ningún producto.");
+        }
+    }
+
+    private void buscarTodos() {
+        System.out.println("\n");
+        for (Producto producto : productoController.findAll()) {
+            this.mostrarInformacionProducto(producto);
+        }
+        System.out.println("\n");
+    }
 
     private void seleccionarCategoria() {
         System.out.println("\nSeleccione la categoría del producto que desea buscar:");

@@ -38,7 +38,6 @@ public class ClienteRepository implements CRUD<Cliente> {
         if (findOne(cuit) != null) {
             findOne(cuit).setHabilitado(false);
         }
-
     }
 
     @Override
