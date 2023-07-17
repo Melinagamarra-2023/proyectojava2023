@@ -109,6 +109,7 @@ public class MenuProveedor {
         }
         System.out.println("\n");
     }
+
     private void createProveedor() {
         System.out.println("\nProporcione los datos del nuevo Proveedor: ");
         System.out.print("Cuit: ");
