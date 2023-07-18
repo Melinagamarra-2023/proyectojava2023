@@ -1,6 +1,7 @@
 package org.example.view;
 
 import org.example.controller.PedidoController;
+import org.example.model.Remito;
 import org.example.model.Transportista;
 import org.example.controller.TransportistaController;
 
@@ -32,6 +33,7 @@ public class MenuTransportista {
                 4. Buscar transportista por CUIT.
                 5. Obtener una lista de todos los transportistas.
                 6. Buscar transportistas por tipo de transporte.
+                7. Informar ubicación de transportista.
                 0. Salir.
                 """);
         option = input.nextInt();
@@ -166,24 +168,25 @@ public class MenuTransportista {
         }
     }
 
-    public void ingresarUbicacion() {
-        System.out.println("Ingrese su id: ");
+    public void informarUbicacion() {
+        input.nextLine();
+        System.out.print("Ingrese su id: ");
         String cuit = input.nextLine();
-        transportistaController.findOne(cuit);
-        System.out.println("Ingrese el id del pedido: ");
-        String id = input.nextLine();
-        pedidoController.findOne(id);
-        //if(pedidoController.verRemito(id).getDetalle().) {
-
-       // }
-
+        System.out.print("Ingrese su latitud: ");
+        Double latitud = input.nextDouble();
+        System.out.print("Ingrese su longitud: ");
+        Double longitud = input.nextDouble();
+        for (Remito remito : pedidoController.verRemitosPorTransportista(cuit)) {
+            pedidoController.nuevoTransito(remito.getDetalle(), latitud, longitud);
+        }
     }
+
     private void setTransporte(Transportista tr) {
         System.out.println("""
                 Ingrese los numeros correspondientes a los transportes que utilizara el transportista:
                 1. Terrestre.
-                2. Aéreo.
-                3. Marítimo.""");
+                2. Marítimo.
+                3. Aéreo.""");
         String opc = input.next();
         if (opc.contains("1")) {
             transportistaController.update(tr).setTerrestre(true);

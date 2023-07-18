@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.controller.*;
 import org.example.model.Pedido;
+import org.example.model.SeguimientoPedido;
 
 
 import java.util.ArrayList;
@@ -40,6 +41,8 @@ public class MenuPedido {
                 3. Cancelar un pedido.
                 4. Buscar pedido por ID.
                 5. Obtener lista de todos los pedidos.
+                6. Cambiar estado de un pedido.
+                7. Ver estados de un pedido.
                 0. Salir.
                 """);
         option = input.nextInt();
@@ -149,7 +152,7 @@ public class MenuPedido {
                     ", Sucursal Origen: " + pe.getSucursalOrigen().getSucId() +
                     " (" + pe.getSucursalOrigen().getContinente() + ")" +
                     ", Sucursal Destino: " + pe.getSucursalDestino().getSucId() +
-                    " (" + pe.getSucursalDestino().getContinente() + ")" + ";\n");
+                    " (" + pe.getSucursalDestino().getContinente() + ")" + ";");
         }
 
     }
@@ -163,7 +166,7 @@ public class MenuPedido {
             pedidoController.delete(id);
             System.out.println("El pedido: \n"
                     + " ID: " + pedidoEliminado.getPedidoId() +
-                    " ,Cliente:  " + pedidoEliminado.getCliente().getNombre() +
+                    ", Cliente:  " + pedidoEliminado.getCliente().getNombre() +
                     "ha sido eliminada con exito");
         } else {
             System.out.println("El Id ingresado proporcionado no esta asociado a ningun pedido");
@@ -171,15 +174,44 @@ public class MenuPedido {
     }
 
     public void siguienteEstado() {
-        System.out.println("Ingrese el id del pedido: ");
+        input.nextLine();
+        System.out.print("Ingrese el id del pedido: ");
         String id = input.nextLine();
-        System.out.println("Desea cambiar de estado?");
+        System.out.println("Desea cambiarlo de estado?");
         String resp = input.nextLine();
         if(resp.contains("s")) {
             pedidoController.siguienteEstado(pedidoController.findOne(id));
         }
     }
 
+    public void verEstados() {
+        input.nextLine();
+        System.out.print("Ingrese el id del pedido: ");
+        String id = input.nextLine();
+        while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
+            this.verification();
+        }
+        if (id.equals("0")) {
+            return;
+        }
+        int estados = pedidoController.findOne(id).getSeguimientoPedido().size();
+        String sucursal = (estados < 6 ? "En sucursal de Origen." : "En sucursal de Destino.");
+        for (int i=0; i<estados; i++) {
+            SeguimientoPedido seguimiento = pedidoController.findOne(id).getSeguimientoPedido().get(i);
+            System.out.print((i + 1) + "° estado: " +
+                    seguimiento.getEstado().getNombre() + " " +
+                    seguimiento.getFechaYhora().getDayOfMonth() + "/" +
+                    seguimiento.getFechaYhora().getMonthValue() + " - " +
+                    seguimiento.getFechaYhora().getHour() + ":" +
+                    seguimiento.getFechaYhora().getMinute());
+            if (i > 5 && seguimiento.getEstado().getNombre().equals("En transito")) {
+                System.out.println(" (latitud: " + seguimiento.getLatitud() +
+                        ", longitud: " + seguimiento.getLongitud() + ").");
+            } else {
+                System.out.println(", " + sucursal);
+            }
+        }
+    }
 
     public int getOption() {
         return option;

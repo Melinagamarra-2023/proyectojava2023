@@ -36,7 +36,7 @@ public class SectorRepository {
             sectores.add(new Sector("Completo", sc, sc.getSucId() + "3"));
             sectores.add(new Sector("Esperando despacho", sc, sc.getSucId() + "4"));
             sectores.add(new Sector("Enviado a despacho", sc, sc.getSucId() + "5"));
-            sectores.add(new Sector("Transito", sc, sc.getSucId() + "6"));
+            sectores.add(new Sector("En transito", sc, sc.getSucId() + "6"));
             sectores.add(new Sector("En Sucursal de Destino", sc, sc.getSucId() + "7"));
             sectores.add(new Sector("Entregado", sc, sc.getSucId() + "8"));
             sectores.add(new Sector("Devuelto", sc, sc.getSucId() + "9"));

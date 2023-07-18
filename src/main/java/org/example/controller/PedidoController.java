@@ -60,6 +60,10 @@ public class PedidoController implements CRUD<Pedido> {
        return pedidoService.verRemito(id);
     }
 
+    public List<Remito> verRemitosPorTransportista(String id) {
+        return pedidoService.verRemitosPorTransportista(id);
+    }
+
     public Empleado setEmpleado(String idSucursal) {
         return pedidoService.setEmpleado(idSucursal);
     }
@@ -91,4 +95,9 @@ public class PedidoController implements CRUD<Pedido> {
     public void siguienteEstado(Pedido pedido) {
         pedidoService.siguienteEstado(pedido);
     }
+
+    public void nuevoTransito(Pedido pedido, Double latitud, Double longitud) {
+        pedidoService.nuevoTransito(pedido, latitud, longitud);
+    }
+
 }

@@ -4,9 +4,12 @@ import org.example.model.*;
 import org.example.repository.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PedidoService implements CRUD<Pedido> {
+
+    private final TransportistaService transportistaService;
     private final SectorRepository sectorRepository;
     private final PedidoRepository pedidoRepository;
     private final LineaPedidoRepository lineaPedidoRepository;
@@ -15,6 +18,7 @@ public class PedidoService implements CRUD<Pedido> {
 
 
     public PedidoService() {
+        this.transportistaService = new TransportistaService();
         this.sectorRepository = new SectorRepository();
         this.pedidoRepository = new PedidoRepository();
         this.lineaPedidoRepository = new LineaPedidoRepository();
@@ -28,15 +32,6 @@ public class PedidoService implements CRUD<Pedido> {
             SeguimientoPedido nuevoSeguimiento = new SeguimientoPedido(LocalDateTime.now(), pedido.getSucursalOrigen().getLatitud(), pedido.getSucursalOrigen().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + "1"));
             pedido.getSeguimientoPedido().add(nuevoSeguimiento);
             pedidoRepository.save(pedido);
-        }
-    }
-
-    public void siguienteEstado(Pedido pedido) {
-        int siguiente = pedido.getSeguimientoPedido().size() + 1;
-        if (siguiente < 7) {
-            pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), pedido.getSucursalOrigen().getLatitud(), pedido.getSucursalOrigen().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + siguiente)));
-        } else {
-            pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), pedido.getSucursalDestino().getLatitud(), pedido.getSucursalDestino().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalDestino().getSucId() + siguiente)));
         }
     }
 
@@ -87,7 +82,32 @@ public class PedidoService implements CRUD<Pedido> {
     public Remito verRemito(String id) {
         return remitoRepository.findOne(id);
     }
+
+    public List<Remito> verRemitosPorTransportista(String id) {
+        List<Remito> resultado = new ArrayList<>();
+        for (Remito remito : remitoRepository.findAll()) {
+            if (remito.getEncargado() == transportistaService.findOne(id)) {
+                resultado.add(remito);
+            }
+        }
+        return resultado;
+    }
+
     public Empleado setEmpleado(String idSucursal) {
         return remitoRepository.setEmpleado(idSucursal);
     }
+
+    public void siguienteEstado(Pedido pedido) {
+        int siguiente = pedido.getSeguimientoPedido().size() + 1;
+        if (siguiente < 7) {
+            pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), pedido.getSucursalOrigen().getLatitud(), pedido.getSucursalOrigen().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + siguiente)));
+        } else {
+            pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), pedido.getSucursalDestino().getLatitud(), pedido.getSucursalDestino().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalDestino().getSucId() + siguiente)));
+        }
+    }
+
+    public void nuevoTransito(Pedido pedido, Double latitud, Double longitud) {
+        pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), latitud, longitud, pedido, sectorRepository.findOne(pedido.getSucursalDestino().getSucId() + 6)));
+    }
+
 }

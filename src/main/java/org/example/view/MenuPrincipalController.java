@@ -113,6 +113,7 @@ public class MenuPrincipalController {
                 case 4 -> menuTransportista.buscarPorCuit();
                 case 5 -> menuTransportista.buscarTransportistas();
                 case 6 -> menuTransportista.buscarTransportistasPorTipo();
+                case 7 -> menuTransportista.informarUbicacion();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
@@ -125,9 +126,11 @@ public class MenuPrincipalController {
             switch (menuPedido.seleccionarOpcion()) {
                 case 1 -> gestionarLineaPedido();
                 case 2 -> menuPedido.generarPedido();
-                case 3-> menuPedido.cancelarPedido();
-                case 4 ->menuPedido.mostrarPedidoPorId();
+                case 3 -> menuPedido.cancelarPedido();
+                case 4 -> menuPedido.mostrarPedidoPorId();
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
+                case 6 -> menuPedido.siguienteEstado();
+                case 7 -> menuPedido.verEstados();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }
