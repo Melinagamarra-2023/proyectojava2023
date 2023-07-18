@@ -12,8 +12,8 @@ public class PedidoController implements CRUD<Pedido> {
     private final LineaPedidoService lineaPedidoService;
 
     public PedidoController() {
-        this.pedidoService =  new PedidoService();
-        this.lineaPedidoService= new LineaPedidoService();
+        this.pedidoService = new PedidoService();
+        this.lineaPedidoService = new LineaPedidoService();
     }
 
     @Override
@@ -56,6 +56,9 @@ public class PedidoController implements CRUD<Pedido> {
     public void createRemito(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
         pedidoService.createRemito(pedido, origen, emisor, destino, receptor, transportista);
     }
+    public Remito verRemito(String id) {
+       return pedidoService.verRemito(id);
+    }
 
     public Empleado setEmpleado(String idSucursal) {
         return pedidoService.setEmpleado(idSucursal);
@@ -85,4 +88,7 @@ public class PedidoController implements CRUD<Pedido> {
         lineaPedidoService.calificarProveedor(lineaPedido, star);
     }
 
+    public void siguienteEstado(Pedido pedido) {
+        pedidoService.siguienteEstado(pedido);
+    }
 }

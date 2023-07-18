@@ -1,5 +1,6 @@
 package org.example.view;
 
+import org.example.controller.PedidoController;
 import org.example.model.Transportista;
 import org.example.controller.TransportistaController;
 
@@ -8,11 +9,13 @@ import java.util.Scanner;
 public class MenuTransportista {
 
     private final TransportistaController transportistaController;
+    private final PedidoController pedidoController;
     private final Scanner input;
     private int option;
 
     public MenuTransportista() {
         this.transportistaController = new TransportistaController();
+        this.pedidoController = new PedidoController();
         this.input = new Scanner(System.in);
         this.option = 99;
     }
@@ -163,6 +166,18 @@ public class MenuTransportista {
         }
     }
 
+    public void ingresarUbicacion() {
+        System.out.println("Ingrese su id: ");
+        String cuit = input.nextLine();
+        transportistaController.findOne(cuit);
+        System.out.println("Ingrese el id del pedido: ");
+        String id = input.nextLine();
+        pedidoController.findOne(id);
+        //if(pedidoController.verRemito(id).getDetalle().) {
+
+       // }
+
+    }
     private void setTransporte(Transportista tr) {
         System.out.println("""
                 Ingrese los numeros correspondientes a los transportes que utilizara el transportista:

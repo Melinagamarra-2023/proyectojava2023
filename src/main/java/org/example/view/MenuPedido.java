@@ -170,6 +170,16 @@ public class MenuPedido {
         }
     }
 
+    public void siguienteEstado() {
+        System.out.println("Ingrese el id del pedido: ");
+        String id = input.nextLine();
+        System.out.println("Desea cambiar de estado?");
+        String resp = input.nextLine();
+        if(resp.contains("s")) {
+            pedidoController.siguienteEstado(pedidoController.findOne(id));
+        }
+    }
+
 
     public int getOption() {
         return option;
