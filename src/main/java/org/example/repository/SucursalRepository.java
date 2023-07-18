@@ -70,7 +70,6 @@ public class SucursalRepository implements CRUD<Sucursal> {
         sucursales.add(sucursalF);
         sucursales.add(sucursalE);
     }
-
 }
 
 
