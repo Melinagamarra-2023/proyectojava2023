@@ -225,10 +225,24 @@ public class MenuPedido {
         return input.next();
     }
 
-    public void verRemitos() {
-        for (Remito remito : pedidoController.verRemitos()) {
-            System.out.println(remito.getDetalle().getPedidoId() + ", " + remito.getEncargado().getCuit());
+    public void informarUbicacion() {
+        input.nextLine();
+        System.out.print("Ingrese su id: ");
+        String cuit = input.nextLine();
+        while (transportistaController.findOne(cuit) == null && !(cuit.equals("0"))) {
+            this.verification();
         }
+        if (cuit.equals("0")) {
+            return;
+        }
+        System.out.print("Ingrese su latitud: ");
+        Double latitud = input.nextDouble();
+        System.out.print("Ingrese su longitud: ");
+        Double longitud = input.nextDouble();
+        for (Remito remito : pedidoController.verRemitosPorTransportista(cuit)) {
+            pedidoController.nuevoTransito(remito.getDetalle(), latitud, longitud);
+        }
+        System.out.println(pedidoController.verRemitosPorTransportista(cuit));
     }
 
 }

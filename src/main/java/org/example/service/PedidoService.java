@@ -84,7 +84,7 @@ public class PedidoService implements CRUD<Pedido> {
     public List<Remito> verRemitosPorTransportista(String id) {
         List<Remito> resultado = new ArrayList<>();
         for (Remito remito : remitoRepository.findAll()) {
-            if (remito.getEncargado().getCuit().equals(id)) {
+            if (remito.getTransportista().getCuit().equals(id)) {
                 resultado.add(remito);
             }
         }

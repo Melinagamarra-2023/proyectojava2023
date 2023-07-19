@@ -17,5 +17,5 @@ public class Remito {
     private Empleado empleadoEmisor;
     private Sucursal destino;
     private Empleado empleadoReceptor;
-    private Transportista encargado;
+    private Transportista transportista;
 }
