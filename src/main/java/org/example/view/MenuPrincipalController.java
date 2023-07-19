@@ -131,6 +131,7 @@ public class MenuPrincipalController {
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 6 -> menuPedido.siguienteEstado();
                 case 7 -> menuPedido.verEstados();
+                case 8 -> menuPedido.verRemitos();
                 case 0 -> menuPrincipal.regresar();
                 default -> menuPrincipal.invalido();
             }

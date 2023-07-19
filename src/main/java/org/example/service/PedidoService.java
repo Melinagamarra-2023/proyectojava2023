@@ -9,7 +9,6 @@ import java.util.List;
 
 public class PedidoService implements CRUD<Pedido> {
 
-    private final TransportistaService transportistaService;
     private final SectorRepository sectorRepository;
     private final PedidoRepository pedidoRepository;
     private final LineaPedidoRepository lineaPedidoRepository;
@@ -18,7 +17,6 @@ public class PedidoService implements CRUD<Pedido> {
 
 
     public PedidoService() {
-        this.transportistaService = new TransportistaService();
         this.sectorRepository = new SectorRepository();
         this.pedidoRepository = new PedidoRepository();
         this.lineaPedidoRepository = new LineaPedidoRepository();
@@ -79,14 +77,14 @@ public class PedidoService implements CRUD<Pedido> {
         remitoRepository.create(pedido, origen, emisor, destino, receptor, transportista);
     }
 
-    public Remito verRemito(String id) {
-        return remitoRepository.findOne(id);
+    public List<Remito> verRemitos() {
+        return remitoRepository.findAll();
     }
 
     public List<Remito> verRemitosPorTransportista(String id) {
         List<Remito> resultado = new ArrayList<>();
         for (Remito remito : remitoRepository.findAll()) {
-            if (remito.getEncargado() == transportistaService.findOne(id)) {
+            if (remito.getEncargado().getCuit().equals(id)) {
                 resultado.add(remito);
             }
         }

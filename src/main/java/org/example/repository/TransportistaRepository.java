@@ -52,20 +52,20 @@ public class TransportistaRepository implements CRUD<Transportista> {
 
     @Override
     public void upload() {
-        Transportista tr1 = new Transportista("Alpha", "11111111", "11111", true, true, true, true);
-        Transportista tr2 = new Transportista("Beta", "22222222", "22222", true, true, true, false);
-        Transportista tr3 = new Transportista("Gamma", "33333333", "33333", true, true, false, true);
-        Transportista tr4 = new Transportista("Delta", "33333333", "44444", true, true, false, false);
-        Transportista tr5 = new Transportista("Epsilon", "44444444", "55555", true, true, false, true);
-        Transportista tr6 = new Transportista("Zeta", "55555555", "66666", true, true, true, false);
-        Transportista tr7 = new Transportista("Eta", "66666666", "77777", true, true, true, true);
-        Transportista tr8 = new Transportista("Iota", "77777777", "88888", true, true, true, false);
-        Transportista tr9 = new Transportista("Kappa", "88888888", "99999", true, true, true, true);
-        Transportista tr10 = new Transportista("Lambda", "99999999", "21111", true, true, true, false);
-        Transportista tr11 = new Transportista("Omicron", "21111111", "32222", true, true, false, true);
-        Transportista tr12 = new Transportista("Sigma", "32222222", "43333", true, true, true, false);
-        Transportista tr13 = new Transportista("Ypsilon", "43333333", "54444", true, true, false, false);
-        Transportista tr14 = new Transportista("Omega", "54444444", "65555", true, true, true, true);
+        Transportista tr1 = new Transportista("Alpha", "1111", "11111", true, true, true, true);
+        Transportista tr2 = new Transportista("Beta", "2222", "22222", true, true, true, false);
+        Transportista tr3 = new Transportista("Gamma", "3333", "33333", true, true, false, true);
+        Transportista tr4 = new Transportista("Delta", "4444", "44444", true, true, false, false);
+        Transportista tr5 = new Transportista("Epsilon", "5555", "55555", true, true, false, true);
+        Transportista tr6 = new Transportista("Zeta", "6666", "66666", true, true, true, false);
+        Transportista tr7 = new Transportista("Eta", "7777", "77777", true, true, true, true);
+        Transportista tr8 = new Transportista("Iota", "8888", "88888", true, true, true, false);
+        Transportista tr9 = new Transportista("Kappa", "9999", "99999", true, true, true, true);
+        Transportista tr10 = new Transportista("Lambda", "2111", "21111", true, true, true, false);
+        Transportista tr11 = new Transportista("Omicron", "3222", "32222", true, true, false, true);
+        Transportista tr12 = new Transportista("Sigma", "4333", "43333", true, true, true, false);
+        Transportista tr13 = new Transportista("Ypsilon", "5444", "54444", true, true, false, false);
+        Transportista tr14 = new Transportista("Omega", "6555", "65555", true, true, true, true);
 
         transportistas.add(tr1);
         transportistas.add(tr2);

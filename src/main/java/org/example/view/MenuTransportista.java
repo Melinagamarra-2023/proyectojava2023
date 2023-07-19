@@ -179,6 +179,7 @@ public class MenuTransportista {
         for (Remito remito : pedidoController.verRemitosPorTransportista(cuit)) {
             pedidoController.nuevoTransito(remito.getDetalle(), latitud, longitud);
         }
+        System.out.println(pedidoController.verRemitosPorTransportista(cuit));
     }
 
     private void setTransporte(Transportista tr) {

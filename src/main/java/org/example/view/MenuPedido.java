@@ -2,6 +2,7 @@ package org.example.view;
 
 import org.example.controller.*;
 import org.example.model.Pedido;
+import org.example.model.Remito;
 import org.example.model.SeguimientoPedido;
 
 
@@ -115,14 +116,14 @@ public class MenuPedido {
         System.out.println("Seleccione el transporte que desea para su envío:");
         menuTransportista.buscarTransportistasPorTipo();
         System.out.println("Ingrese el ID del transportista elegido:");
-        String id = input.next();
-        while (transportistaController.findOne(id) == null && !(id.equals("0"))) {
+        String idTransportista = input.next();
+        while (transportistaController.findOne(idTransportista) == null && !(idTransportista.equals("0"))) {
             this.verification();
         }
-        if (id.equals("0")) {
+        if (idTransportista.equals("0")) {
             return;
         }
-        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(id));
+        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(idTransportista));
         pedidoController.create(nuevoPedido);
         System.out.println("Pedido creado con éxito.");
     }
@@ -152,7 +153,7 @@ public class MenuPedido {
                     ", Sucursal Origen: " + pe.getSucursalOrigen().getSucId() +
                     " (" + pe.getSucursalOrigen().getContinente() + ")" +
                     ", Sucursal Destino: " + pe.getSucursalDestino().getSucId() +
-                    " (" + pe.getSucursalDestino().getContinente() + ")" + ";");
+                    " (" + pe.getSucursalDestino().getContinente() + ");");
         }
 
     }
@@ -195,7 +196,6 @@ public class MenuPedido {
             return;
         }
         int estados = pedidoController.findOne(id).getSeguimientoPedido().size();
-        String sucursal = (estados < 6 ? "En sucursal de Origen." : "En sucursal de Destino.");
         for (int i=0; i<estados; i++) {
             SeguimientoPedido seguimiento = pedidoController.findOne(id).getSeguimientoPedido().get(i);
             System.out.print((i + 1) + "° estado: " +
@@ -204,11 +204,13 @@ public class MenuPedido {
                     seguimiento.getFechaYhora().getMonthValue() + " - " +
                     seguimiento.getFechaYhora().getHour() + ":" +
                     seguimiento.getFechaYhora().getMinute());
-            if (i > 5 && seguimiento.getEstado().getNombre().equals("En transito")) {
+            if (i < 5) {
+                System.out.println(", En sucursal Origen.");
+            } else if (seguimiento.getEstado().getNombre().equals("En transito")) {
                 System.out.println(" (latitud: " + seguimiento.getLatitud() +
                         ", longitud: " + seguimiento.getLongitud() + ").");
             } else {
-                System.out.println(", " + sucursal);
+                System.out.println(", En sucursal de Destino.");
             }
         }
     }
@@ -223,5 +225,10 @@ public class MenuPedido {
         return input.next();
     }
 
+    public void verRemitos() {
+        for (Remito remito : pedidoController.verRemitos()) {
+            System.out.println(remito.getDetalle().getPedidoId() + ", " + remito.getEncargado().getCuit());
+        }
+    }
 
 }

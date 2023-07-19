@@ -56,8 +56,8 @@ public class PedidoController implements CRUD<Pedido> {
     public void createRemito(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
         pedidoService.createRemito(pedido, origen, emisor, destino, receptor, transportista);
     }
-    public Remito verRemito(String id) {
-       return pedidoService.verRemito(id);
+    public List<Remito> verRemitos() {
+       return pedidoService.verRemitos();
     }
 
     public List<Remito> verRemitosPorTransportista(String id) {
