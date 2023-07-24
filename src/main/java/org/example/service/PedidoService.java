@@ -46,6 +46,16 @@ public class PedidoService implements CRUD<Pedido> {
         return pedidoRepository.findAll();
     }
 
+    public List<Pedido> buscarPedidosPorCliente(Cliente cliente) {
+        List<Pedido> resultado = new ArrayList<>();
+        for (Pedido pedido : pedidoRepository.findAll()) {
+            if (pedido.getCliente().equals(cliente)) {
+                resultado.add(pedido);
+            }
+        }
+        return resultado;
+    }
+
     @Override
     public Pedido update(Pedido pedido) {
         return null;

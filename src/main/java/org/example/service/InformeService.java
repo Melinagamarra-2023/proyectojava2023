@@ -1,18 +1,28 @@
 package org.example.service;
 
-import org.example.repository.*;
-import org.example.util.CalcularDistancia;
+import org.example.model.Cliente;
 
 public class InformeService {
 
-    private final PedidoRepository pedidoRepository;
-    private final LineaPedidoRepository lineaPedidoRepository;
-    private final SucursalRepository sucursalRepository;
+    private final ClienteService clienteService;
+    private final LineaPedidoService lineaPedidoService;
+    private final PedidoService pedidoService;
+    private final ProductoService productoService;
+    private final ProveedorService proveedorService;
+    private final TransportistaService transportistaService;
 
     public InformeService() {
-        this.pedidoRepository = new PedidoRepository();
-        this.lineaPedidoRepository = new LineaPedidoRepository();
-        this.sucursalRepository = new SucursalRepository();
+        this.clienteService = new ClienteService();
+        this.lineaPedidoService = new LineaPedidoService();
+        this.pedidoService = new PedidoService();
+        this.productoService = new ProductoService();
+        this.proveedorService = new ProveedorService();
+        this.transportistaService = new TransportistaService();
+    }
+
+    public void informeCliente(String id) {
+        Cliente cliente = clienteService.findOne(id);
+        pedidoService.buscarPedidosPorCliente(cliente);
     }
 
 }

@@ -23,7 +23,6 @@ public class MenuLineaPedido {
     }
 
     public int seleccionarOpcion() {
-        option = 99;
         System.out.println("""
                                 
                 --- MENÚ LINEAS DE PEDIDO ---
@@ -41,7 +40,6 @@ public class MenuLineaPedido {
     }
 
     public void seleccionarProductos() {
-        option = 99;
         while (option != 0) {
             System.out.println("""
                                     

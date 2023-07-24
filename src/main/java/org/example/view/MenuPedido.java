@@ -32,7 +32,6 @@ public class MenuPedido {
     }
 
     public int seleccionarOpcion() {
-        option = 99;
         System.out.println("""
                                 
                 ----- MENÚ PEDIDOS -----

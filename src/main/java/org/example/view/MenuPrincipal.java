@@ -13,16 +13,16 @@ public class MenuPrincipal {
     }
 
     public int seleccionarModulo() {
-        option = 99;
         System.out.println("""
                 
                 ------ MENÚ PRINCIPAL ------
                 Seleccione el módulo que desea:
                 1. Gestión de clientes.
                 2. Gestión de proveedores.
-                3. Gestion de Sucursales.
-                4. Gestion de transportistas.
+                3. Gestión de Sucursales.
+                4. Gestión de transportistas.
                 5. Gestión de pedidos.
+                6. Generar informe.
                 0. Salir""");
         option = input.nextInt();
         return option;

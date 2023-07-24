@@ -19,7 +19,6 @@ public class MenuSucursal {
     }
 
     public int seleccionarOpcion() {
-        option = 99;
         System.out.println("""
                                 
                 ----- MENÚ SUCURSALES -----

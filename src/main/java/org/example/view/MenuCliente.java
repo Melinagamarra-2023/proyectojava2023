@@ -18,7 +18,6 @@ public class MenuCliente {
     }
 
     public int seleccionarOpcion() {
-        option = 99;
         System.out.println("""
                                 
                 ------ MENÚ CLIENTES ------

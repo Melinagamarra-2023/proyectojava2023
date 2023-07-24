@@ -20,7 +20,6 @@ public class MenuProducto {
     }
 
     public int seleccionarOpcion() {
-        option = 99;
         System.out.println("""
                                 
                 ----- MENÚ PRODUCTOS -----

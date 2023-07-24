@@ -21,7 +21,6 @@ public class ClienteController implements CRUD<Cliente> {
     @Override
     public List<Cliente> findAll() {
         return clienteService.findAll();
-
     }
 
     @Override
