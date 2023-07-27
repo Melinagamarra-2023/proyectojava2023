@@ -1,6 +1,6 @@
 package org.example.view;
 
-import org.example.controller.ProductoController;
+import org.example.controller.ProveedorController;
 import org.example.model.Proveedor;
 
 import java.util.Scanner;
@@ -8,12 +8,12 @@ import java.util.Scanner;
 public class MenuProveedor {
 
     private final MenuPrincipal menuPrincipal;
-    private final ProductoController productoController;
+    private final ProveedorController proveedorController;
     private final Scanner input;
 
     public MenuProveedor() {
         this.menuPrincipal = new MenuPrincipal();
-        this.productoController = new ProductoController();
+        this.proveedorController = new ProveedorController();
         this.input = new Scanner(System.in);
     }
 
@@ -55,7 +55,7 @@ public class MenuProveedor {
     }
 
     private boolean existeProveedor(String cuit) {
-        return productoController.findOne(cuit) != null;
+        return proveedorController.findOne(cuit) != null;
     }
 
     private void modificarDatosProveedor(Proveedor proveedor) {
@@ -86,20 +86,20 @@ public class MenuProveedor {
     private void buscarUno() {
         System.out.println("Ingrese el CUIT del proveedor a buscar:");
         String cuitBuscado = input.next();
-        while (productoController.findOnePr(cuitBuscado) == null && !(cuitBuscado.equals("0"))) {
+        while (proveedorController.findOneProv(cuitBuscado) == null && !(cuitBuscado.equals("0"))) {
             cuitBuscado = menuPrincipal.verificarExistencia("cuit");
         }
         if (cuitBuscado.equals("0")) {
             return;
         }
-        Proveedor proveedorBuscado = productoController.findOnePr(cuitBuscado);
+        Proveedor proveedorBuscado = proveedorController.findOneProv(cuitBuscado);
         mostrarInfoProveedor(proveedorBuscado);
         String condicion = proveedorBuscado.getHabilitado() ? "Habilitado" : "Deshabilitado";
         System.out.println("condición: " + condicion + ".");
     }
 
     private void buscarTodos() {
-        for (Proveedor pr : productoController.findAllPr()) {
+        for (Proveedor pr : proveedorController.findAllProv()) {
             this.mostrarInfoProveedor(pr);
             System.out.println(".\n");
         }
@@ -109,7 +109,7 @@ public class MenuProveedor {
         System.out.println("\nProporcione los datos del nuevo Proveedor: ");
         System.out.print("Cuit: ");
         String cuit = input.next();
-        while (productoController.findOnePr(cuit) != null && !(cuit.equals("0"))) {
+        while (proveedorController.findOneProv(cuit) != null && !(cuit.equals("0"))) {
             cuit = menuPrincipal.verificarAusencia("cuit");
         }
         if (cuit.equals("0")) {
@@ -117,36 +117,36 @@ public class MenuProveedor {
         }
         Proveedor nuevoProveedor = new Proveedor(null, null, cuit, null, null, true);
         modificarDatosProveedor(nuevoProveedor);
-        productoController.createPr(nuevoProveedor);
+        proveedorController.createProv(nuevoProveedor);
         System.out.println("Proveedor " + nuevoProveedor.getNombre() + " creado con éxito");
     }
 
     private void modificateProveedor() {
         System.out.println("\nIngrese el CUIT del proveedor a modificar:");
         String cuitModificar = input.next();
-        while (productoController.findOnePr(cuitModificar) == null && !(cuitModificar.equals("0"))) {
+        while (proveedorController.findOneProv(cuitModificar) == null && !(cuitModificar.equals("0"))) {
             cuitModificar = menuPrincipal.verificarExistencia("cuit");
         }
         if (cuitModificar.equals("0")) {
             return;
         }
-        Proveedor proveedorModificar = productoController.findOnePr(cuitModificar);
+        Proveedor proveedorModificar = proveedorController.findOneProv(cuitModificar);
         modificarDatosProveedor(proveedorModificar);
-        productoController.updatePr(proveedorModificar);
+        proveedorController.updateProv(proveedorModificar);
         System.out.println("Proveedor " + proveedorModificar.getNombre() + " Mmdificado con éxito.");
     }
 
     private void deleteProveedor() {
         System.out.println("\nIngrese el CUIT del proveedor a eliminar:");
         String cuitEliminar = input.next();
-        while (productoController.findOnePr(cuitEliminar) == null && !(cuitEliminar.equals("0"))) {
+        while (proveedorController.findOneProv(cuitEliminar) == null && !(cuitEliminar.equals("0"))) {
             cuitEliminar = menuPrincipal.verificarExistencia("cuit");
         }
         if (cuitEliminar.equals("0")) {
             return;
         }
-        Proveedor proveedorEliminar = productoController.findOnePr(cuitEliminar);
-        productoController.deletePr(cuitEliminar);
+        Proveedor proveedorEliminar = proveedorController.findOneProv(cuitEliminar);
+        proveedorController.deleteProv(cuitEliminar);
         System.out.println("El proveedor " + proveedorEliminar.getNombre() + " ha sido eliminado con éxito.");
     }
 

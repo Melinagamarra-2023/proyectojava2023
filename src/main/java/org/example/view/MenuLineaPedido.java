@@ -1,7 +1,7 @@
 package org.example.view;
 
 import org.example.controller.PedidoController;
-import org.example.controller.ProductoController;
+import org.example.controller.ProveedorController;
 import org.example.model.LineaPedido;
 
 import java.util.Scanner;
@@ -11,14 +11,14 @@ public class MenuLineaPedido {
     private final MenuPrincipal menuPrincipal;
     private final MenuProducto menuProducto;
     private final PedidoController pedidoController;
-    private final ProductoController productoController;
+    private final ProveedorController proveedorController;
     private final Scanner input;
 
     public MenuLineaPedido() {
         this.menuPrincipal = new MenuPrincipal();
         this.menuProducto = new MenuProducto();
         this.pedidoController = new PedidoController();
-        this.productoController = new ProductoController();
+        this.proveedorController = new ProveedorController();
         this.input = new Scanner(System.in);
     }
 
@@ -84,13 +84,13 @@ public class MenuLineaPedido {
     private void crearLineaPedido() {
         System.out.print("Ingrese el id del producto que desea añadir: ");
         String id = input.next();
-        while (productoController.findOne(id) == null && !(id.equals("0"))) {
+        while (proveedorController.findOne(id) == null && !(id.equals("0"))) {
             id = menuPrincipal.verificarExistencia("id");
         }
         if (id.equals("0")) {
             return;
         }
-        LineaPedido lineaPedido = new LineaPedido(null, 0, productoController.findOne(id), true, true, 0);
+        LineaPedido lineaPedido = new LineaPedido(null, 0, proveedorController.findOne(id), true, true, 0);
         System.out.print("Determine la cantidad que desea de este producto: ");
         int cantidad = input.nextInt();
         lineaPedido.setCantidad(cantidad);

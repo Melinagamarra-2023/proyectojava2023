@@ -11,6 +11,7 @@ public class MenuPrincipalController {
     private final MenuProducto menuProducto;
     private final MenuLineaPedido menuLineaPedido;
     private final MenuPedido menuPedido;
+    private final MenuInformes menuInformes;
     private int option;
 
     public MenuPrincipalController() {
@@ -22,6 +23,7 @@ public class MenuPrincipalController {
         this.menuProducto = new MenuProducto();
         this.menuLineaPedido = new MenuLineaPedido();
         this.menuPedido = new MenuPedido();
+        this.menuInformes = new MenuInformes();
         this.option = 99;
         this.seleccionarOpcion();
     }
@@ -34,6 +36,7 @@ public class MenuPrincipalController {
                 case 3 -> gestionarSucursales();
                 case 4 -> gestionarTransportista();
                 case 5 -> gestionarPedidos();
+                case 6 -> generarInforme();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;
@@ -148,6 +151,7 @@ public class MenuPrincipalController {
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 6 -> menuPedido.siguienteEstado();
                 case 7 -> menuPedido.verEstados();
+                case 8 -> menuPedido.pedidosDeCliente();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;
@@ -167,6 +171,20 @@ public class MenuPrincipalController {
                 case 4 -> menuLineaPedido.buscarLineasPedido();
                 case 6 -> menuLineaPedido.calificarProveedor();
                 case 7 -> menuPedido.mostrarTodosLosPedidos();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
+                default -> menuPrincipal.invalido();
+            }
+        }
+        option = 99;
+    }
+
+    private void generarInforme() {
+        while (option != 0) {
+            switch (menuInformes.seleccionarOpcion()) {
+                case 1 -> menuPedido.informeCliente();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;

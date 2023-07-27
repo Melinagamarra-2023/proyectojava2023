@@ -1,6 +1,6 @@
 package org.example.view;
 
-import org.example.controller.ProductoController;
+import org.example.controller.ProveedorController;
 import org.example.model.Producto;
 
 
@@ -10,12 +10,12 @@ import java.util.Scanner;
 public class MenuProducto {
 
     private final MenuPrincipal menuPrincipal;
-    private final ProductoController productoController;
+    private final ProveedorController proveedorController;
     private final Scanner input;
 
     public MenuProducto() {
         this.menuPrincipal = new MenuPrincipal();
-        this.productoController = new ProductoController();
+        this.proveedorController = new ProveedorController();
         this.input = new Scanner(System.in);
     }
 
@@ -79,14 +79,14 @@ public class MenuProducto {
             System.out.println("Ingrese una opción válida.");
             opc = input.nextInt();
         }
-        productoController.setCategoria(prod, opc);
+        proveedorController.setCategoria(prod, opc);
     }
 
     private void generarProducto() {
         System.out.println("Proporcione los datos para el nuevo producto: ");
         System.out.print("Id: ");
         String id = input.next();
-        while (productoController.findOne(id) == null && !(id.equals("0"))) {
+        while (proveedorController.findOne(id) == null && !(id.equals("0"))) {
             id = menuPrincipal.verificarExistencia("id");
         }
         if (id.equals("0")) {
@@ -97,9 +97,9 @@ public class MenuProducto {
         System.out.println("Proporcione el cuit del proveedor del producto: ");
         String cuitProveedor = input.next();
         if (cuitProveedor != null) {
-            productoController.setProveedor(nuevoProducto, cuitProveedor);
+            proveedorController.setProveedor(nuevoProducto, cuitProveedor);
             this.setCategoria(nuevoProducto);
-            productoController.create(nuevoProducto);
+            proveedorController.create(nuevoProducto);
             System.out.println("Producto: " + nuevoProducto.getNombre() + " Creado con éxito");
         } else {
             System.out.println("Ingrese un cuit que exista.");
@@ -145,13 +145,13 @@ public class MenuProducto {
     private void modificateProducto() {
         System.out.println("Ingrese el ID del producto a modificar:");
         String idModificar = input.next();
-        while (productoController.findOne(idModificar) == null && !(idModificar.equals("0"))) {
+        while (proveedorController.findOne(idModificar) == null && !(idModificar.equals("0"))) {
             idModificar = menuPrincipal.verificarExistencia("id");
         }
         if (idModificar.equals("0")) {
             return;
         }
-        Producto productoModificar = productoController.findOne(idModificar);
+        Producto productoModificar = proveedorController.findOne(idModificar);
         this.modificarDatosProducto(productoModificar);
         System.out.println("Producto " + productoModificar.getNombre() + "modificado con éxito.");
     }
@@ -159,34 +159,34 @@ public class MenuProducto {
     private void deleteProducto() {
         System.out.println("Ingrese el ID del producto a eliminar:");
         String idEliminar = input.next();
-        while (productoController.findOne(idEliminar) == null && !(idEliminar.equals("0"))) {
+        while (proveedorController.findOne(idEliminar) == null && !(idEliminar.equals("0"))) {
             idEliminar = menuPrincipal.verificarExistencia("id");
         }
         if (idEliminar.equals("0")) {
             return;
         }
-        Producto productoEliminar = productoController.findOne(idEliminar);
-        productoController.delete(idEliminar);
+        Producto productoEliminar = proveedorController.findOne(idEliminar);
+        proveedorController.delete(idEliminar);
         System.out.println("El producto " + productoEliminar.getNombre() + " ha sido eliminado con éxito.");
     }
 
     private void buscarUno() {
         System.out.println("\nIngrese el ID del producto que desea buscar:");
         String idBuscado = input.next();
-        while (productoController.findOne(idBuscado) == null && !(idBuscado.equals("0"))) {
+        while (proveedorController.findOne(idBuscado) == null && !(idBuscado.equals("0"))) {
             idBuscado = menuPrincipal.verificarExistencia("id");
         }
         if (idBuscado.equals("0")) {
             return;
         }
-        Producto productoBuscado = productoController.findOne(idBuscado);
+        Producto productoBuscado = proveedorController.findOne(idBuscado);
         this.mostrarInformacionProducto(productoBuscado);
         String estado = (productoBuscado.getHabilitado() ? "Habilitado" : "Deshabilitado");
         System.out.print(", Estado: " + estado + ".");
     }
 
     private void buscarTodos() {
-        for (Producto producto : productoController.findAll()) {
+        for (Producto producto : proveedorController.findAll()) {
             this.mostrarInformacionProducto(producto);
             System.out.print(".\n");
         }
@@ -209,7 +209,7 @@ public class MenuProducto {
             case 5 -> categoriaBuscada = "Gaming";
             default -> System.out.println("Opción inválida.");
         }
-        List<Producto> productosEncontrados = productoController.buscarPorCategoria(categoriaBuscada);
+        List<Producto> productosEncontrados = proveedorController.buscarPorCategoria(categoriaBuscada);
         if (!(productosEncontrados.isEmpty())) {
             System.out.println("Productos encontrados:");
             for (Producto producto : productosEncontrados) {
@@ -224,7 +224,7 @@ public class MenuProducto {
     private void buscarProductoPorNombre() {
         System.out.println("Ingrese el nombre del producto que desea buscar:");
         String nombreBuscado = input.next();
-        List<Producto> productosEncontrados = productoController.buscarPorNombre(nombreBuscado);
+        List<Producto> productosEncontrados = proveedorController.buscarPorNombre(nombreBuscado);
         if (!(productosEncontrados.isEmpty())) {
             System.out.println("Productos encontrados:");
             for (Producto producto : productosEncontrados) {

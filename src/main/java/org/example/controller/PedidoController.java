@@ -31,6 +31,10 @@ public class PedidoController implements CRUD<Pedido> {
         return pedidoService.findOne(id);
     }
 
+    public List<Pedido> buscarPedidosPorCliente(Cliente cliente) {
+        return pedidoService.buscarPedidosPorCliente(cliente);
+    }
+
     @Override
     public Pedido update(Pedido pedido) {
         return pedidoService.update(pedido);
