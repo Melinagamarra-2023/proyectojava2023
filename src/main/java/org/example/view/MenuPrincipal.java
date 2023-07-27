@@ -5,11 +5,9 @@ import java.util.Scanner;
 public class MenuPrincipal {
 
     private final Scanner input;
-    private int option;
 
     public MenuPrincipal() {
         this.input = new Scanner(System.in);
-        this.option = 99;
     }
 
     public int seleccionarModulo() {
@@ -24,8 +22,29 @@ public class MenuPrincipal {
                 5. Gestión de pedidos.
                 6. Generar informe.
                 0. Salir""");
-        option = input.nextInt();
-        return option;
+        return input.nextInt();
+    }
+
+    public String verificarExistencia(String tipo) {
+        input.nextLine();
+        System.out.println("El " + tipo + " ingresado no existe, intente nuevamente. (0 para cancelar)");
+        System.out.print(tipo + ": ");
+        String respuesta = input.nextLine();
+        if (respuesta.equals("0")) {
+            System.out.println("Operación cancelada...");
+        }
+        return respuesta;
+    }
+
+    public String verificarAusencia(String tipo) {
+        input.nextLine();
+        System.out.println("El " + tipo + " ingresado ya existe, intente nuevamente. (0 para cancelar)");
+        System.out.print(tipo + ": ");
+        String respuesta = input.nextLine();
+        if (respuesta.equals("0")) {
+            System.out.println("Operación cancelada...");
+        }
+        return respuesta;
     }
 
     public void invalido(){
@@ -36,7 +55,4 @@ public class MenuPrincipal {
         System.out.println("Regresando al menu...");
     }
 
-    public int getOption(){
-        return option;
-    }
 }

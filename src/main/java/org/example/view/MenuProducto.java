@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 public class MenuProducto {
 
+    private final MenuPrincipal menuPrincipal;
     private final ProductoController productoController;
     private final Scanner input;
-    private int option;
 
     public MenuProducto() {
+        this.menuPrincipal = new MenuPrincipal();
         this.productoController = new ProductoController();
         this.input = new Scanner(System.in);
-        this.option = 99;
     }
 
     public int seleccionarOpcion() {
@@ -33,8 +33,7 @@ public class MenuProducto {
                 7. Obtener lista de todos los productos.
                 0. Salir.
                 """);
-        option = input.nextInt();
-        return option;
+        return input.nextInt();
     }
 
     public void crearProducto() {
@@ -84,19 +83,14 @@ public class MenuProducto {
     }
 
     private void generarProducto() {
-        System.out.println("\nProporcione los datos para el nuevo producto: ");
+        System.out.println("Proporcione los datos para el nuevo producto: ");
         System.out.print("Id: ");
         String id = input.next();
-        while (this.existeProducto(id)) {
-            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
-            System.out.print("ID: ");
-            id = input.next();
-            if (id.equals("0")) {
-                System.out.println("Operación cancelada.");
-                return;
-            } else {
-                this.existeProducto(id);
-            }
+        while (productoController.findOne(id) == null && !(id.equals("0"))) {
+            id = menuPrincipal.verificarExistencia("id");
+        }
+        if (id.equals("0")) {
+            return;
         }
         Producto nuevoProducto = new Producto(id, null, null, null, null, null, null, null, null, true);
         this.modificarDatosProducto(nuevoProducto);
@@ -112,13 +106,7 @@ public class MenuProducto {
         }
     }
 
-    private boolean existeProducto(String id) {
-        return productoController.findOne(id) != null;
-    }
-
     private void mostrarInformacionProducto(Producto producto) {
-        String estado = producto.getHabilitado() ? "Habilitado" : "Deshabilitado";
-        //utilicé el operador ternario (?:) para mostrar el estado del producto de manera más concisa.
         System.out.println("Producto: " + producto.getNombre() +
                 ", ID: " + producto.getId() +
                 ", Nombre: " + producto.getNombre() +
@@ -128,8 +116,7 @@ public class MenuProducto {
                 ", Profundidad: " + producto.getProfundidad() +
                 ", Peso: " + producto.getPeso() +
                 ", Categoria: " + producto.getCategoria().getDescripcion() +
-                ", Proveedor: " + producto.getProveedor().getNombre() +
-                ", Estado: " + estado);
+                ", Proveedor: " + producto.getProveedor().getNombre());
     }
 
 
@@ -156,56 +143,57 @@ public class MenuProducto {
     }
 
     private void modificateProducto() {
-        System.out.println("\nIngrese el ID del producto a modificar:");
+        System.out.println("Ingrese el ID del producto a modificar:");
         String idModificar = input.next();
-        Producto productoModificar = productoController.findOne(idModificar);
-        while (productoModificar == null) {
-            System.out.println("Este ID no existe, intentelo de nuevo. (0 para cancelar)");
-            idModificar = input.next();
-            if (idModificar.equals("0")) {
-                System.out.println("Operación cancelada.");
-                return;
-            } else {
-                productoModificar = productoController.findOne(idModificar);
-            }
+        while (productoController.findOne(idModificar) == null && !(idModificar.equals("0"))) {
+            idModificar = menuPrincipal.verificarExistencia("id");
         }
+        if (idModificar.equals("0")) {
+            return;
+        }
+        Producto productoModificar = productoController.findOne(idModificar);
         this.modificarDatosProducto(productoModificar);
-        System.out.println("Producto modificado con éxito.");
+        System.out.println("Producto " + productoModificar.getNombre() + "modificado con éxito.");
     }
 
     private void deleteProducto() {
-        System.out.println("\nIngrese el ID del producto a eliminar:");
+        System.out.println("Ingrese el ID del producto a eliminar:");
         String idEliminar = input.next();
-        Producto productoEliminar = productoController.findOne(idEliminar);
-        if (productoEliminar != null) {
-            productoController.delete(idEliminar);
-            System.out.println("El producto " + productoEliminar.getNombre() + " ha sido eliminado con éxito.");
-        } else {
-            System.out.println("No se encontró ningún producto con el ID proporcionado.");
+        while (productoController.findOne(idEliminar) == null && !(idEliminar.equals("0"))) {
+            idEliminar = menuPrincipal.verificarExistencia("id");
         }
+        if (idEliminar.equals("0")) {
+            return;
+        }
+        Producto productoEliminar = productoController.findOne(idEliminar);
+        productoController.delete(idEliminar);
+        System.out.println("El producto " + productoEliminar.getNombre() + " ha sido eliminado con éxito.");
     }
 
     private void buscarUno() {
         System.out.println("\nIngrese el ID del producto que desea buscar:");
         String idBuscado = input.next();
-        Producto productoBuscado = productoController.findOne(idBuscado);
-        if (productoBuscado != null) {
-            this.mostrarInformacionProducto(productoBuscado);
-        } else {
-            System.out.println("El ID proporcionado no corresponde a ningún producto.");
+        while (productoController.findOne(idBuscado) == null && !(idBuscado.equals("0"))) {
+            idBuscado = menuPrincipal.verificarExistencia("id");
         }
+        if (idBuscado.equals("0")) {
+            return;
+        }
+        Producto productoBuscado = productoController.findOne(idBuscado);
+        this.mostrarInformacionProducto(productoBuscado);
+        String estado = (productoBuscado.getHabilitado() ? "Habilitado" : "Deshabilitado");
+        System.out.print(", Estado: " + estado + ".");
     }
 
     private void buscarTodos() {
-        System.out.println("\n");
         for (Producto producto : productoController.findAll()) {
             this.mostrarInformacionProducto(producto);
+            System.out.print(".\n");
         }
-        System.out.println("\n");
     }
 
     private void seleccionarCategoria() {
-        System.out.println("\nSeleccione la categoría del producto que desea buscar:");
+        System.out.println("Seleccione la categoría del producto que desea buscar:");
         System.out.println("1. Electrónica");
         System.out.println("2. Hogar");
         System.out.println("3. Oficina");
@@ -223,9 +211,10 @@ public class MenuProducto {
         }
         List<Producto> productosEncontrados = productoController.buscarPorCategoria(categoriaBuscada);
         if (!(productosEncontrados.isEmpty())) {
-            System.out.println("\nProductos encontrados:");
+            System.out.println("Productos encontrados:");
             for (Producto producto : productosEncontrados) {
                 mostrarInformacionProducto(producto);
+                System.out.print(".\n");
             }
         } else {
             System.out.println("No se encontraron productos en la categoría proporcionada.");
@@ -233,22 +222,20 @@ public class MenuProducto {
     }
 
     private void buscarProductoPorNombre() {
-        System.out.println("\nIngrese el nombre del producto que desea buscar:");
+        System.out.println("Ingrese el nombre del producto que desea buscar:");
         String nombreBuscado = input.next();
         List<Producto> productosEncontrados = productoController.buscarPorNombre(nombreBuscado);
         if (!(productosEncontrados.isEmpty())) {
-            System.out.println("\nProductos encontrados:");
+            System.out.println("Productos encontrados:");
             for (Producto producto : productosEncontrados) {
                 mostrarInformacionProducto(producto);
+                System.out.print(".\n");
             }
         } else {
             System.out.println("No se encontraron productos con el nombre proporcionado.");
         }
     }
 
-    public int getOption() {
-        return option;
-    }
 }
 
 
