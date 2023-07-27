@@ -61,6 +61,10 @@ public class ProductoService implements CRUD<Producto> {
         }
     }
 
+    public List<Categoria> verCategorias() {
+        return productoRepository.verCategorias();
+    }
+
     public void setCategoria(Producto pro, int opc) {
         productoRepository.setCategoria(pro, opc);
     }

@@ -8,11 +8,13 @@ import java.util.List;
 
 public class ProductoRepository implements CRUD<Producto> {
     private final List<Producto> productos;
+    private final List<Categoria> categorias;
     private final ProveedorRepository proveedorRepository;
 
     public ProductoRepository() {
         this.proveedorRepository = new ProveedorRepository();
         this.productos = new ArrayList<>();
+        this.categorias = new ArrayList<>();
         this.upload();
     }
 
@@ -63,26 +65,18 @@ public class ProductoRepository implements CRUD<Producto> {
         return productoActualizado;
     }
 
-
-    Categoria categoriaProductoA = new Categoria("Electrónica");
-    Categoria categoriaProductoB = new Categoria("Hogar");
-    Categoria categoriaProductoC = new Categoria("Oficina");
-    Categoria categoriaProductoD = new Categoria("Jardín");
-    Categoria categoriaProductoE = new Categoria("Gaming");
-
-
     public void setCategoria(Producto producto, int opc) {
-        if (opc == 1) {
-            producto.setCategoria(categoriaProductoA);
-        } else if (opc == 2) {
-            producto.setCategoria(categoriaProductoB);
-        } else if (opc == 3) {
-            producto.setCategoria(categoriaProductoC);
-        } else if (opc == 4) {
-            producto.setCategoria(categoriaProductoD);
-        } else if (opc == 5) {
-            producto.setCategoria(categoriaProductoE);
+        switch (opc) {
+            case 1 -> producto.setCategoria(categorias.get(1));
+            case 2 -> producto.setCategoria(categorias.get(2));
+            case 3 -> producto.setCategoria(categorias.get(3));
+            case 4 -> producto.setCategoria(categorias.get(4));
+            case 5 -> producto.setCategoria(categorias.get(5));
         }
+    }
+
+    public List<Categoria> verCategorias() {
+        return categorias;
     }
 
     public List<Producto> findByCategoria(String categoria) {
@@ -112,16 +106,27 @@ public class ProductoRepository implements CRUD<Producto> {
     @Override
     public void upload() {
 
-        Producto producto1 = new Producto("0001", "Dell XPS", "potente portátil para trabajo y entretenimiento.", 40., 7., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0001"), true);
-        Producto producto2 = new Producto("0002", "Lenovo Yoga", "versátil portátil con pantalla táctil.", 40., 7., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0002"), true);
-        Producto producto3 = new Producto("0003", "HP Pavilion", "portátil elegante y potente.", 40., 7., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0003"), true);
-        Producto producto4 = new Producto("0004", "Acer Predator", "portátil gaming de alto rendimiento.", 35., 6., 28., 2200., categoriaProductoA, this.proveedorRepository.findOne("0004"), true);
-        Producto producto5 = new Producto("0005", "Asus ZenBook", "portátil ultradelgado y ligero.", 32., 5., 26., 1800., categoriaProductoA, this.proveedorRepository.findOne("0005"), true);
-        Producto producto6 = new Producto("0006", "Dell Inspiron", "portátil asequible para uso diario.", 38., 70., 30., 2500., categoriaProductoA, this.proveedorRepository.findOne("0006"), true);
-        Producto producto7 = new Producto("0007", "HP Envy", "portátil elegante y potente.", 36., 6., 29., 2300., categoriaProductoA, this.proveedorRepository.findOne("0007"), true);
-        Producto producto8 = new Producto("0008", "Lenovo ThinkPad", "portátil empresarial confiable.", 33., 5., 27., 1900., categoriaProductoA, this.proveedorRepository.findOne("0008"), true);
-        Producto producto9 = new Producto("0009", "Acer Swift", "portátil ultradelgado y ligero.", 39., 7., 31., 2600., categoriaProductoD, this.proveedorRepository.findOne("0009"), true);
+        Categoria categoriaElectronica = new Categoria("Electrónica");
+        Categoria categoriaHogar = new Categoria("Hogar");
+        Categoria categoriaOficina = new Categoria("Oficina");
+        Categoria categoriaJardin = new Categoria("Jardín");
+        Categoria categoriaGaming = new Categoria("Gaming");
 
+        Producto producto1 = new Producto("0001", "Dell XPS", "potente portátil para trabajo y entretenimiento.", 40., 7., 30., 2500., categoriaElectronica, this.proveedorRepository.findOne("0001"), true);
+        Producto producto2 = new Producto("0002", "Lenovo Yoga", "versátil portátil con pantalla táctil.", 40., 7., 30., 2500., categoriaGaming, this.proveedorRepository.findOne("0002"), true);
+        Producto producto3 = new Producto("0003", "HP Pavilion", "portátil elegante y potente.", 40., 7., 30., 2500., categoriaOficina, this.proveedorRepository.findOne("0003"), true);
+        Producto producto4 = new Producto("0004", "Acer Predator", "portátil gaming de alto rendimiento.", 35., 6., 28., 2200., categoriaElectronica, this.proveedorRepository.findOne("0004"), true);
+        Producto producto5 = new Producto("0005", "Asus ZenBook", "portátil ultradelgado y ligero.", 32., 5., 26., 1800., categoriaElectronica, this.proveedorRepository.findOne("0005"), true);
+        Producto producto6 = new Producto("0006", "Dell Inspiron", "portátil asequible para uso diario.", 38., 70., 30., 2500., categoriaOficina, this.proveedorRepository.findOne("0006"), true);
+        Producto producto7 = new Producto("0007", "HP Envy", "portátil elegante y potente.", 36., 6., 29., 2300., categoriaOficina, this.proveedorRepository.findOne("0007"), true);
+        Producto producto8 = new Producto("0008", "Lenovo ThinkPad", "portátil empresarial confiable.", 33., 5., 27., 1900., categoriaGaming, this.proveedorRepository.findOne("0008"), true);
+        Producto producto9 = new Producto("0009", "Acer Swift", "portátil ultradelgado y ligero.", 39., 7., 31., 2600., categoriaGaming, this.proveedorRepository.findOne("0009"), true);
+
+        categorias.add(categoriaElectronica);
+        categorias.add(categoriaHogar);
+        categorias.add(categoriaOficina);
+        categorias.add(categoriaJardin);
+        categorias.add(categoriaGaming);
 
         productos.add(producto1);
         productos.add(producto2);

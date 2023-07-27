@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.model.Categoria;
 import org.example.model.Producto;
 import org.example.model.Proveedor;
 import org.example.service.ProductoService;
@@ -7,11 +8,11 @@ import org.example.service.ProveedorService;
 
 import java.util.List;
 
-public class ProductoController implements CRUD<Producto> {
+public class ProveedorController implements CRUD<Producto> {
     private final ProductoService productoService;
     private final ProveedorService proveedorService;
 
-    public ProductoController() {
+    public ProveedorController() {
         this.productoService = new ProductoService();
         this.proveedorService = new ProveedorService();
     }
@@ -46,28 +47,32 @@ public class ProductoController implements CRUD<Producto> {
     }
 
     //Proveedores
-    public void createPr(Proveedor nuevoProveedor) {
+    public void createProv(Proveedor nuevoProveedor) {
         proveedorService.create(nuevoProveedor);
     }
 
-    public List<Proveedor> findAllPr() {
+    public List<Proveedor> findAllProv() {
         return proveedorService.findAll();
     }
 
-    public Proveedor findOnePr(String cuit) {
+    public Proveedor findOneProv(String cuit) {
         return proveedorService.findOne(cuit);
     }
 
-    public Proveedor updatePr(Proveedor pr) { //solucionar warning
+    public Proveedor updateProv(Proveedor pr) { //solucionar warning
         return proveedorService.update(pr);
     }
 
-    public void deletePr(String cuit) {
+    public void deleteProv(String cuit) {
         proveedorService.delete(cuit);
     }
 
     public void setProveedor(Producto pro, String id) {
         productoService.setProveedor(pro, id);
+    }
+
+    public List<Categoria> verCategorias() {
+        return productoService.verCategorias();
     }
 
     public List<Producto> buscarPorCategoria(String categoria) {

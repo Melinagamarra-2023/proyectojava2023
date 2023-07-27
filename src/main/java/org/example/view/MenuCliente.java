@@ -132,7 +132,7 @@ public class MenuCliente {
         }
     }
 
-    private void mostrarInfoCliente(Cliente cliente) {
+    public void mostrarInfoCliente(Cliente cliente) {
         String estado = cliente.getHabilitado() ? "Habilitado" : "Deshabilitado";
         System.out.print("El cuit proporcionado corresponde al Cliente: " +
                 cliente.getApellido() + " " + cliente.getNombre() +
