@@ -34,10 +34,12 @@ public class MenuPrincipalController {
                 case 3 -> gestionarSucursales();
                 case 4 -> gestionarTransportista();
                 case 5 -> gestionarPedidos();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuPrincipal.getOption();
         }
     }
 
@@ -49,11 +51,14 @@ public class MenuPrincipalController {
                 case 3 -> menuCliente.eliminarCliente();
                 case 4 -> menuCliente.buscarClientePorCuit();
                 case 5 -> menuCliente.buscarTodosLosClientes();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuCliente.getOption();
         }
+        option = 99;
     }
 
     private void gestionarProveedor() {
@@ -65,11 +70,14 @@ public class MenuPrincipalController {
                 case 4 -> menuProveedor.eliminarProveerdor();
                 case 5 -> menuProveedor.buscarProveedorPorCuit();
                 case 6 -> menuProveedor.buscarProveedores();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuProveedor.getOption();
         }
+        option = 99;
     }
 
     private void gestionarProductos() {
@@ -82,11 +90,14 @@ public class MenuPrincipalController {
                 case 5 -> menuProducto.buscarPorCategoria();
                 case 6 -> menuProducto.buscarPorNombre();
                 case 7 -> menuProducto.buscarTodosLosProductos();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuProducto.getOption();
         }
+        option = 99;
     }
 
     private void gestionarSucursales() {
@@ -97,11 +108,14 @@ public class MenuPrincipalController {
                 case 3 -> menuSucursal.deshablitarSucursal();
                 case 4 -> menuSucursal.buscarSucursalPorCodigo();
                 case 5 -> menuSucursal.buscarTodasLasSucursales();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuSucursal.getOption();
         }
+        option = 99;
     }
 
     private void gestionarTransportista() {
@@ -114,11 +128,14 @@ public class MenuPrincipalController {
                 case 5 -> menuTransportista.buscarTransportistas();
                 case 6 -> menuTransportista.buscarTransportistasPorTipo();
                 case 7 -> menuPedido.informarUbicacion();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuTransportista.getOption();
         }
+        option = 99;
     }
 
     private void gestionarPedidos() {
@@ -131,11 +148,14 @@ public class MenuPrincipalController {
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 6 -> menuPedido.siguienteEstado();
                 case 7 -> menuPedido.verEstados();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuPedido.getOption();
         }
+        option = 99;
     }
 
     private void gestionarLineaPedido() {
@@ -147,11 +167,14 @@ public class MenuPrincipalController {
                 case 4 -> menuLineaPedido.buscarLineasPedido();
                 case 6 -> menuLineaPedido.calificarProveedor();
                 case 7 -> menuPedido.mostrarTodosLosPedidos();
-                case 0 -> menuPrincipal.regresar();
+                case 0 -> {
+                    menuPrincipal.regresar();
+                    option = 0;
+                }
                 default -> menuPrincipal.invalido();
             }
-            option = menuLineaPedido.getOption();
         }
+        option = 99;
     }
 
 }
