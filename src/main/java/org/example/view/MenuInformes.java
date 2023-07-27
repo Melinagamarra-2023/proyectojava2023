@@ -1,25 +1,12 @@
 package org.example.view;
 
-import org.example.controller.*;
-import org.example.model.*;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class MenuInformes {
 
-    private final MenuPrincipal menuPrincipal;
-    private final MenuCliente menuCliente;
-    private final MenuPedido menuPedido;
-    private final ClienteController clienteController;
     private final Scanner input;
 
     public MenuInformes() {
-        this.menuPrincipal = new MenuPrincipal();
-        this.menuCliente = new MenuCliente();
-        this.menuPedido = new MenuPedido();
-        this.clienteController = new ClienteController();
         this.input = new Scanner(System.in);
     }
 
