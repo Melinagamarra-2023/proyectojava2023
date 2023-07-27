@@ -3,7 +3,6 @@ package org.example.view;
 import org.example.controller.*;
 import org.example.model.*;
 
-import javax.swing.event.CaretListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +14,6 @@ public class MenuInformes {
     private final MenuPedido menuPedido;
     private final ClienteController clienteController;
     private final Scanner input;
-    private int option;
 
     public MenuInformes() {
         this.menuPrincipal = new MenuPrincipal();
@@ -23,7 +21,6 @@ public class MenuInformes {
         this.menuPedido = new MenuPedido();
         this.clienteController = new ClienteController();
         this.input = new Scanner(System.in);
-        this.option = 99;
     }
 
 
@@ -37,8 +34,7 @@ public class MenuInformes {
                 4. Informes de pedidos.
                 0. Salir.
                 """);
-        option = input.nextInt();
-        return option;
+        return input.nextInt();
     }
 
 }

@@ -8,14 +8,14 @@ import java.util.Scanner;
 
 public class MenuSucursal {
 
+    private final MenuPrincipal menuPrincipal;
     private final SucursalController sucursalController;
     private final Scanner input;
-    private int option;
 
     public MenuSucursal() {
+        this.menuPrincipal = new MenuPrincipal();
         this.sucursalController = new SucursalController();
         this.input = new Scanner(System.in);
-        this.option = 99;
     }
 
     public int seleccionarOpcion() {
@@ -30,25 +30,18 @@ public class MenuSucursal {
                 5. Obtener lista de todos las Sucursales.
                 0. Salir.
                 """);
-        option = input.nextInt();
-        return option;
+        return input.nextInt();
     }
 
     public void agregarUnaSucursal() {
-        System.out.println("\nporfavor escriba los datos de la sucursal");
-        System.out.println("sucId: ");
+        System.out.println("Por favor escriba los datos de la sucursal");
+        System.out.print("sucId: ");
         String sucId = input.next();
-        Sucursal sucursalExistente = sucursalController.findOne(sucId);
-        while (sucursalExistente != null) {
-            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
-            System.out.print("ID: ");
-            sucId = input.next();
-            if (sucId.equals("0")) {
-                System.out.println("Operación cancelada.");
-                return;
-            } else {
-                sucursalExistente = sucursalController.findOne(sucId);
-            }
+        while (sucursalController.findOne(sucId) != null && !(sucId.equals("0"))) {
+            sucId = menuPrincipal.verificarAusencia("id");
+        }
+        if (sucId.equals("0")) {
+            return;
         }
         System.out.println("Latitud: ");
         Double latitud = input.nextDouble();
@@ -60,25 +53,20 @@ public class MenuSucursal {
         String continente = input.next();
         Sucursal nuevaSucursal = new Sucursal(sucId, longitud, latitud, dirrecion, continente, true);
         sucursalController.create(nuevaSucursal);
-        System.out.println("La Sucursal: " + nuevaSucursal.getSucId() + "ha sido añadida con exito");
+        System.out.println("La sucursal " + nuevaSucursal.getSucId() + "ha sido añadida con exito");
 
     }
 
     public void modificarSucursal() {
-        System.out.println("\nIngrese el Codigo de la Sucursal a modificar:");
-        String sucId = input.next();
-        Sucursal sucursalModificar = sucursalController.findOne(sucId);
-        while (sucursalModificar == null) {
-            System.out.println("Este ID ya existe, intentelo de nuevo. (0 para cancelar)");
-            System.out.print("ID: ");
-            sucId = input.next();
-            if (sucId.equals("0")) {
-                System.out.println("Operación cancelada.");
-                return;
-            } else {
-                sucursalModificar = sucursalController.findOne(sucId);
-            }
+        System.out.println("Ingrese el Codigo de la Sucursal a modificar:");
+        String sucIdModificar = input.next();
+        while (sucursalController.findOne(sucIdModificar) == null && !(sucIdModificar.equals("0"))) {
+            sucIdModificar = menuPrincipal.verificarExistencia("id");
         }
+        if (sucIdModificar.equals("0")) {
+            return;
+        }
+        Sucursal sucursalModificar = sucursalController.findOne(sucIdModificar);
         System.out.println("Ingrese los nuevos datos de la sucursal");
         System.out.print("Latitud: ");
         Double latitudModificar = input.nextDouble();
@@ -96,52 +84,51 @@ public class MenuSucursal {
     }
 
     public void deshablitarSucursal() {
-        System.out.println("\nIngrese el Codido de la sucursal a eliminar:");
+        System.out.println("Ingrese el Codido de la sucursal a eliminar:");
         String sucIdEliminar = input.next();
-        Sucursal sucursalEliminar = sucursalController.findOne(sucIdEliminar);
-        if (sucursalEliminar != null) {
-            sucursalController.delete(sucIdEliminar);
-            System.out.println("La sucursal " + sucursalEliminar.getSucId() + " ha sido eliminada con éxito.");
-        } else {
-            System.out.println("No se encontró ninguna sucursal con el codigo proporcionado.");
+        while (sucursalController.findOne(sucIdEliminar) == null && !(sucIdEliminar.equals("0"))) {
+            sucIdEliminar = menuPrincipal.verificarExistencia("id");
         }
+        if (sucIdEliminar.equals("0")) {
+            return;
+        }
+        Sucursal sucursalEliminar = sucursalController.findOne(sucIdEliminar);
+        sucursalController.delete(sucIdEliminar);
+        System.out.println("La sucursal " + sucursalEliminar.getSucId() + " ha sido eliminada con éxito.");
     }
 
     public void buscarSucursalPorCodigo() {
-        System.out.println("\nIngrese el Codigo de la sucursal a buscar:");
+        System.out.println("Ingrese el código de la sucursal a buscar: ");
         String sucIdBuscado = input.next();
+        while (sucursalController.findOne(sucIdBuscado) == null && !(sucIdBuscado.equals("0"))) {
+            sucIdBuscado = menuPrincipal.verificarExistencia("id");
+        }
+        if (sucIdBuscado.equals("0")) {
+            return;
+        }
         Sucursal sucursalBuscado = sucursalController.findOne(sucIdBuscado);
-        if (sucursalBuscado != null) {
-            System.out.print("El Codigo proporcionado corresponde a la sucursal: " +
-                    sucursalBuscado.getSucId() +
-                    ",Direccion: " + sucursalBuscado.getDireccion() +
-                    ", Continente: " + sucursalBuscado.getContinente() +
-                    ", latitud:  " + sucursalBuscado.getLatitud() +
-                    ", longitud: " + sucursalBuscado.getLongitud() +
-                    ", Estado: ");
-            if (sucursalBuscado.getHabilitado()) {
-                System.out.print("Habilitado\n");
-            } else {
-                System.out.print("Inhabilitado\n");
-            }
+        System.out.print("El Codigo proporcionado corresponde a la sucursal: " +
+                sucursalBuscado.getSucId() +
+                ",Direccion: " + sucursalBuscado.getDireccion() +
+                ", Continente: " + sucursalBuscado.getContinente() +
+                ", latitud:  " + sucursalBuscado.getLatitud() +
+                ", longitud: " + sucursalBuscado.getLongitud() +
+                ", Estado: ");
+        if (sucursalBuscado.getHabilitado()) {
+            System.out.print("Habilitado.");
         } else {
-            System.out.println("El Codigo proporcionado no pertenece a ninguna sucursal.");
+            System.out.print("Inhabilitado.");
         }
     }
 
     public void buscarTodasLasSucursales() {
-        System.out.println("\n");
         for (Sucursal sucu : sucursalController.findAll()) {
             System.out.println("Sucursal: " + sucu.getSucId() +
                     ", Direccion: " + sucu.getDireccion() +
                     ", Continente: " + sucu.getContinente() +
                     ", Latitud: " + sucu.getLatitud() +
-                    ", Longitud " + sucu.getLongitud() + ";");
+                    ", Longitud " + sucu.getLongitud() + ".");
         }
-        System.out.println("\n");
     }
 
-    public int getOption() {
-        return option;
-    }
 }
