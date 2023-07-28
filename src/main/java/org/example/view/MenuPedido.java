@@ -3,8 +3,6 @@ package org.example.view;
 import org.example.controller.*;
 import org.example.model.*;
 
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -180,7 +178,7 @@ public class MenuPedido {
         String id = input.nextLine();
         System.out.println("Desea cambiarlo de estado?");
         String resp = input.nextLine();
-        if(resp.contains("s")) {
+        if (resp.contains("s")) {
             pedidoController.siguienteEstado(pedidoController.findOne(id));
         }
     }
@@ -196,7 +194,7 @@ public class MenuPedido {
             return;
         }
         int estados = pedidoController.findOne(id).getSeguimientoPedido().size();
-        for (int i=0; i<estados; i++) {
+        for (int i = 0; i < estados; i++) {
             SeguimientoPedido seguimiento = pedidoController.findOne(id).getSeguimientoPedido().get(i);
             System.out.print((i + 1) + "° estado: " +
                     seguimiento.getEstado().getNombre() + " " +
@@ -215,12 +213,7 @@ public class MenuPedido {
         }
     }
 
-    public void pedidosDeCliente() {
-        String cuit = input.next();
-        System.out.println(pedidoController.buscarPedidosPorCliente(clienteController.findOne(cuit)));;
-    }
-
-    public void informeCliente() {
+    public void informeClientes() {
         input.nextLine();
         System.out.println("La aplicación posee " + clienteController.findAll().size() + " clientes registrados.");
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
@@ -244,7 +237,7 @@ public class MenuPedido {
 
     public void obtenerPromediosDeCliente(String cuit) {
         List<Pedido> pedidosDeCliente = pedidoController.buscarPedidosPorCliente(clienteController.findOne(cuit));
-        System.out.println("Este cliente ha realizado " + pedidosDeCliente.size() + " pedidos.");
+        System.out.print("Este cliente ha realizado " + pedidosDeCliente.size() + " pedidos,");
         if (pedidosDeCliente.isEmpty()) {
             return;
         }
@@ -259,18 +252,52 @@ public class MenuPedido {
         for (Categoria categoria : categorias) {
             double cantidad = 0;
             for (Producto producto : productosDeCliente) {
-                if (producto.getCategoria().equals(categoria)) {
+                if (producto.getCategoria().getDescripcion().equals(categoria.getDescripcion())) {
                     cantidad++;
                 }
             }
             promedios.add(cantidad);
         }
-        System.out.println("Preferencias de este cliente: ");
-        for (int i=0; i<promedios.size(); i++) {
-            double promedio = promedios.get(i)*100%productosDeCliente.size();
+        System.out.println(" con las siguientes preferencias: ");
+        for (int i = 0; i < promedios.size(); i++) {
+            double promedio = (promedios.get(i) * 100) / productosDeCliente.size();
             System.out.println(categorias.get(i).getDescripcion() + ": " + promedio + "%.");
         }
-        //al realizar el promedio devuelve unicamente 0 en todas las categorias.
+    }
+
+    public void informeProveedores() {
+        input.nextLine();
+        System.out.println("La aplicación posee " + proveedorController.findAll().size() + " proveedores registrados.");
+        System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
+        String respuesta = input.nextLine();
+        if (respuesta.contains("s")) {
+            System.out.print("Ingrese el cuit del proveedor: ");
+            String cuit = input.nextLine();
+            while (proveedorController.findOneProv(cuit) == null && !(cuit.equals("0"))) {
+                cuit = menuPrincipal.verificarExistencia("cuit");
+            }
+            if (cuit.equals("0")) {
+                return;
+            }
+            Proveedor proveedor = proveedorController.findOneProv(cuit);
+            String estado = (proveedor.getHabilitado() ? "Habilitado." : "Inhabilitado.");
+            System.out.println("Cliente: " + proveedor.getNombre() +
+                    ", teléfono: " + proveedor.getTelefono() + ", estado: " + estado);
+            this.obtenerPromediosDeProveedores(proveedor.getCuit());
+        }
+    }
+
+    public void obtenerPromediosDeProveedores(String cuit) {
+        List<LineaPedido> pedidosDeProveedor = pedidoController.buscarPorProveedor(cuit);
+        System.out.print("Este proveedor ha recibido " + pedidosDeProveedor.size() + " pedidos,");
+        if (pedidosDeProveedor.isEmpty()) {
+            return;
+        }
+        int promedio = 0;
+        for (LineaPedido lineaPedido : pedidosDeProveedor) {
+            promedio=promedio + lineaPedido.getCalificaProveedor();
+        }
+        System.out.println(" con el siguiente promedio: " + (promedio / pedidosDeProveedor.size()));
     }
 
     public void informarUbicacion() {
