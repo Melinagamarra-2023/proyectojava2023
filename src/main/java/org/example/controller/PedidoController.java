@@ -60,8 +60,9 @@ public class PedidoController implements CRUD<Pedido> {
     public void createRemito(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
         pedidoService.createRemito(pedido, origen, emisor, destino, receptor, transportista);
     }
+
     public List<Remito> verRemitos() {
-       return pedidoService.verRemitos();
+        return pedidoService.verRemitos();
     }
 
     public List<Remito> verRemitosPorTransportista(String id) {
@@ -86,6 +87,10 @@ public class PedidoController implements CRUD<Pedido> {
 
     public List<LineaPedido> findAllLP() {
         return lineaPedidoService.findAll();
+    }
+
+    public List<LineaPedido> buscarPorProveedor(String cuit) {
+        return lineaPedidoService.buscarPorProveedor(cuit);
     }
 
     public void deleteLP(String id) {

@@ -26,7 +26,7 @@ public class MenuPrincipal {
     }
 
     public String verificarExistencia(String tipo) {
-        System.out.println("El " + tipo + "ingresado no existe, intente nuevamente. (0 para cancelar)");
+        System.out.println("El " + tipo + " ingresado no existe, intente nuevamente. (0 para cancelar)");
         System.out.print("ID: ");
         String respuesta = input.next();
         if (respuesta.equals("0")) {
@@ -36,7 +36,7 @@ public class MenuPrincipal {
     }
 
     public String verificarAusencia(String tipo) {
-        System.out.println("El " + tipo + "ingresado ya existe, intente nuevamente. (0 para cancelar)");
+        System.out.println("El " + tipo + " ingresado ya existe, intente nuevamente. (0 para cancelar)");
         System.out.print("ID: ");
         String respuesta = input.next();
         if (respuesta.equals("0")) {

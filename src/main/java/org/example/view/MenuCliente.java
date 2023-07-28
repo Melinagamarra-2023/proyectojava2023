@@ -9,12 +9,10 @@ public class MenuCliente {
 
     private final ClienteController clienteController;
     private final Scanner input;
-    private int option;
 
     public MenuCliente() {
         this.clienteController = new ClienteController();
         this.input = new Scanner(System.in);
-        this.option = 99;
     }
 
     public int seleccionarOpcion() {
@@ -29,8 +27,7 @@ public class MenuCliente {
                 5. Obtener lista de todos los clientes.
                 0. Salir.
                 """);
-        option = input.nextInt();
-        return option;
+        return input.nextInt();
     }
 
     public void crearNuevoCliente() {
@@ -164,11 +161,6 @@ public class MenuCliente {
                     ", Teléfono: " + cl.getTelefono() + " ");
         }
         System.out.println("\n");
-    }
-
-
-    public int getOption() {
-        return option;
     }
 
 }

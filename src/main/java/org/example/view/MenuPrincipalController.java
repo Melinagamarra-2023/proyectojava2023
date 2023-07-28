@@ -151,7 +151,6 @@ public class MenuPrincipalController {
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 6 -> menuPedido.siguienteEstado();
                 case 7 -> menuPedido.verEstados();
-                case 8 -> menuPedido.pedidosDeCliente();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;
@@ -184,7 +183,8 @@ public class MenuPrincipalController {
     private void generarInforme() {
         while (option != 0) {
             switch (menuInformes.seleccionarOpcion()) {
-                case 1 -> menuPedido.informeCliente();
+                case 1 -> menuPedido.informeClientes();
+                case 2 -> menuPedido.informeProveedores();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;

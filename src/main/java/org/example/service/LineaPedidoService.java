@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.model.LineaPedido;
+import org.example.model.Proveedor;
 import org.example.repository.LineaPedidoRepository;
 
 import java.util.ArrayList;
@@ -34,6 +35,16 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
         List<LineaPedido> respuesta = new ArrayList<>();
         for (LineaPedido lp : lineaPedidoRepository.findAll()) {
             if (lp.getPedido() && lp.getHabilitado()) {
+                respuesta.add(lp);
+            }
+        }
+        return respuesta;
+    }
+
+    public List<LineaPedido> buscarPorProveedor(String cuit) {
+        List<LineaPedido> respuesta = new ArrayList<>();
+        for (LineaPedido lp : lineaPedidoRepository.findAll()) {
+            if (lp.getPedido() && lp.getHabilitado() && lp.getProducto().getProveedor().getCuit().equals(cuit)) {
                 respuesta.add(lp);
             }
         }
