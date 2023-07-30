@@ -18,4 +18,5 @@ public class Remito {
     private Sucursal destino;
     private Empleado empleadoReceptor;
     private Transportista transportista;
+    private int calificaTransportista;
 }

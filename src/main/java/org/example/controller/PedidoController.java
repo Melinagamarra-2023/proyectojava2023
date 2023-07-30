@@ -65,8 +65,16 @@ public class PedidoController implements CRUD<Pedido> {
         return pedidoService.verRemitos();
     }
 
+    public Remito verRemitoDePedido(String id) {
+        return pedidoService.verRemitoDePedido(id);
+    }
+
     public List<Remito> verRemitosPorTransportista(String id) {
         return pedidoService.verRemitosPorTransportista(id);
+    }
+
+    public void calificarTransportista(String id, int star) {
+        pedidoService.calificarTransportista(id, star);
     }
 
     public Empleado setEmpleado(String idSucursal) {
@@ -99,6 +107,10 @@ public class PedidoController implements CRUD<Pedido> {
 
     public void calificarProveedor(LineaPedido lineaPedido, int star) {
         lineaPedidoService.calificarProveedor(lineaPedido, star);
+    }
+
+    public List<Sector> verSectores() {
+        return pedidoService.verSectores();
     }
 
     public void siguienteEstado(Pedido pedido) {
