@@ -22,7 +22,7 @@ public class RemitoRepository {
 
     public void create(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
         codigo++;
-        Remito remito = new Remito(String.valueOf(codigo), LocalDateTime.now(), pedido, origen, emisor, destino, receptor, transportista);
+        Remito remito = new Remito(String.valueOf(codigo), LocalDateTime.now(), pedido, origen, emisor, destino, receptor, transportista, 0);
         remitos.add(remito);
     }
 
@@ -42,6 +42,10 @@ public class RemitoRepository {
             }
         }
         return null;
+    }
+
+    public void calificarTransportista(String id, int star) {
+        this.findOne(id).setCalificaTransportista(star);
     }
 
     public List<Remito> findAll() {

@@ -91,6 +91,15 @@ public class PedidoService implements CRUD<Pedido> {
         return remitoRepository.findAll();
     }
 
+    public Remito verRemitoDePedido(String id) {
+        for (Remito remito : remitoRepository.findAll()) {
+            if (remito.getDetalle().getPedidoId().equals(id)) {
+                return remito;
+            }
+        }
+        return null;
+    }
+
     public List<Remito> verRemitosPorTransportista(String id) {
         List<Remito> resultado = new ArrayList<>();
         for (Remito remito : remitoRepository.findAll()) {
@@ -101,8 +110,16 @@ public class PedidoService implements CRUD<Pedido> {
         return resultado;
     }
 
+    public void calificarTransportista(String id, int star) {
+        remitoRepository.calificarTransportista(id, star);
+    }
+
     public Empleado setEmpleado(String idSucursal) {
         return remitoRepository.setEmpleado(idSucursal);
+    }
+
+    public List<Sector> verSectores() {
+        return sectorRepository.findAll();
     }
 
     public void siguienteEstado(Pedido pedido) {

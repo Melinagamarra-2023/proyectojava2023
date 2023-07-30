@@ -151,6 +151,7 @@ public class MenuPrincipalController {
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 6 -> menuPedido.siguienteEstado();
                 case 7 -> menuPedido.verEstados();
+                case 8 -> menuPedido.calificarTransportista();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;
@@ -185,6 +186,8 @@ public class MenuPrincipalController {
             switch (menuInformes.seleccionarOpcion()) {
                 case 1 -> menuPedido.informeClientes();
                 case 2 -> menuPedido.informeProveedores();
+                case 3 -> menuPedido.informeTransportistas();
+                case 4 -> menuPedido.informePedidos();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;

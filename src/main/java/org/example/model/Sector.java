@@ -11,5 +11,4 @@ public class Sector {
     private String nombre;
     private Sucursal sucursal;
     private String sucId;
-
 }
