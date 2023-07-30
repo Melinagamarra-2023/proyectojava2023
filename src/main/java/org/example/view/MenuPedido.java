@@ -217,10 +217,9 @@ public class MenuPedido {
     }
 
     public void informeClientes() {
-        input.nextLine();
         System.out.println("La aplicación posee " + clienteController.findAll().size() + " clientes registrados.");
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
-        String respuesta = input.nextLine();
+        String respuesta = input.next();
         if (respuesta.contains("s")) {
             System.out.print("Ingrese el cuit del Cliente: ");
             String cuit = input.nextLine();
@@ -269,10 +268,9 @@ public class MenuPedido {
     }
 
     public void informeProveedores() {
-        input.nextLine();
         System.out.println("La aplicación posee " + proveedorController.findAll().size() + " proveedores registrados.");
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
-        String respuesta = input.nextLine();
+        String respuesta = input.next();
         if (respuesta.contains("s")) {
             System.out.print("Ingrese el cuit del proveedor: ");
             String cuit = input.nextLine();
@@ -351,10 +349,9 @@ public class MenuPedido {
     }
 
     public void informeTransportistas() {
-        input.nextLine();
         System.out.println("La aplicación posee " + transportistaController.findAll().size() + " transportistas registrados.");
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
-        String respuesta = input.nextLine();
+        String respuesta = input.next();
         if (respuesta.contains("s")) {
             System.out.print("Ingrese el cuit del transportista: ");
             String cuit = input.nextLine();
@@ -392,7 +389,6 @@ public class MenuPedido {
     }
 
     public void informePedidos() {
-        input.nextLine();
         int sectorDevuelto = pedidoController.verSectores().size() - 1;
         String estadoDevuelto = pedidoController.verSectores().get(sectorDevuelto).getNombre();
         int devueltos = 0;
@@ -408,11 +404,11 @@ public class MenuPedido {
                 entregados++;
             }
         }
-        System.out.print("Se gestionaron " + pedidoController.findAll().size() + " pedidos a través de la aplicación:" +
-                "de los cuales \n" +
-                devueltos + " han sido devueltos." +
-                entregados + " han sido correctamente entregados." +
-                (pedidoController.findAll().size() - devueltos - entregados) + " continúan en proceso.");
+        System.out.print("Se gestionaron " + pedidoController.findAll().size() +
+                " pedidos a través de la aplicación de los cuales \n" +
+                devueltos + " han sido devueltos.\n" +
+                entregados + " han sido correctamente entregados.\n" +
+                (pedidoController.findAll().size() - devueltos - entregados) + " continúan en proceso.\n");
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
         String respuesta = input.nextLine();
         if (respuesta.contains("s")) {
@@ -437,7 +433,7 @@ public class MenuPedido {
                 " (" + pedido.getSucursalOrigen().getContinente() + ")" +
                 ", Sucursal Destino: " + pedido.getSucursalDestino().getSucId() +
                 " (" + pedido.getSucursalDestino().getContinente() + ").");
-        System.out.println("Fue armado por el empleado " + pedido.getEncargado().getNombre() +
+        System.out.println("Fue preparado por el empleado " + pedido.getEncargado().getNombre() +
                 " y despachado el " + remitoDePedido.getEmision() +
                 " a cargo del transportista " + remitoDePedido.getTransportista().getNombre() +
                 " y los empleados " + remitoDePedido.getEmpleadoEmisor().getNombre() + "(emisor), " +
