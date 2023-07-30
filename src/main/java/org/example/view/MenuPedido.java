@@ -218,6 +218,10 @@ public class MenuPedido {
 
     public void informeClientes() {
         System.out.println("La aplicación posee " + clienteController.findAll().size() + " clientes registrados.");
+        if (clienteController.findAll().isEmpty()) {
+            this.finInforme();
+            return;
+        }
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
         String respuesta = input.next();
         if (respuesta.contains("s")) {
@@ -241,6 +245,7 @@ public class MenuPedido {
         List<Pedido> pedidosDeCliente = pedidoController.buscarPedidosPorCliente(clienteController.findOne(cuit));
         System.out.print("Este cliente ha realizado " + pedidosDeCliente.size() + " pedidos,");
         if (pedidosDeCliente.isEmpty()) {
+            this.finInforme();
             return;
         }
         List<Producto> productosDeCliente = new ArrayList<>();
@@ -269,6 +274,10 @@ public class MenuPedido {
 
     public void informeProveedores() {
         System.out.println("La aplicación posee " + proveedorController.findAll().size() + " proveedores registrados.");
+        if (proveedorController.findAll().isEmpty()) {
+            this.finInforme();
+            return;
+        }
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
         String respuesta = input.next();
         if (respuesta.contains("s")) {
@@ -290,8 +299,9 @@ public class MenuPedido {
 
     private void obtenerPromediosDeProveedores(String cuit) {
         List<LineaPedido> pedidosDeProveedor = pedidoController.buscarPorProveedor(cuit);
-        System.out.print("Este proveedor ha recibido " + pedidosDeProveedor.size() + " pedidos,");
+        System.out.print("Este proveedor ha recibido " + pedidosDeProveedor.size() + " pedidos");
         if (pedidosDeProveedor.isEmpty()) {
+            this.finInforme();
             return;
         }
         int promedio = 0;
@@ -350,6 +360,10 @@ public class MenuPedido {
 
     public void informeTransportistas() {
         System.out.println("La aplicación posee " + transportistaController.findAll().size() + " transportistas registrados.");
+        if (transportistaController.findAll().isEmpty()) {
+            this.finInforme();
+            return;
+        }
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
         String respuesta = input.next();
         if (respuesta.contains("s")) {
@@ -373,6 +387,7 @@ public class MenuPedido {
         List<Remito> pedidosDeTransportistas = pedidoController.verRemitosPorTransportista(cuit);
         System.out.print("Este transportista ha entregado " + pedidosDeTransportistas.size() + " pedidos,");
         if (pedidosDeTransportistas.isEmpty()) {
+            this.finInforme();
             return;
         }
         int promedio = 0;
@@ -384,8 +399,9 @@ public class MenuPedido {
         if (promedio == 0) {
             System.out.println(" sin recibir calificaciones.");
         } else {
-            System.out.println(" con el siguiente promedio de calificación: " + (promedio / pedidosDeTransportistas.size() + "."));
+            System.out.println(" con el siguiente promedio de calificación: " + (promedio / pedidosDeTransportistas.size()));
         }
+        this.finInforme();
     }
 
     public void informePedidos() {
@@ -409,6 +425,10 @@ public class MenuPedido {
                 devueltos + " han sido devueltos.\n" +
                 entregados + " han sido correctamente entregados.\n" +
                 (pedidoController.findAll().size() - devueltos - entregados) + " continúan en proceso.\n");
+        if (pedidoController.findAll().isEmpty()) {
+            this.finInforme();
+            return;
+        }
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
         String respuesta = input.nextLine();
         if (respuesta.contains("s")) {
@@ -443,6 +463,11 @@ public class MenuPedido {
         for (LineaPedido lineaPedido : lineaPedidosDePedido) {
             System.out.println(lineaPedido.getCantidad() + " " + lineaPedido.getProducto().getNombre());
         }
+        this.finInforme();
+    }
+
+    private void finInforme() {
+        System.out.println("Fin del informe.");
     }
 
 }
