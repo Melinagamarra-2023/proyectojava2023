@@ -13,6 +13,7 @@ public class LineaPedido {
     private Integer cantidad;
     private Producto producto;
     private Boolean habilitado;
-    private Boolean pedido;
+    private Boolean agregado;
+    private Boolean pedidoEntregado;
     private int calificaProveedor;
 }

@@ -28,7 +28,6 @@ public class MenuTransportista {
                 4. Buscar transportista por CUIT.
                 5. Obtener una lista de todos los transportistas.
                 6. Buscar transportistas por tipo de transporte.
-                7. Informar ubicación de transportista.
                 0. Salir.
                 """);
         return input.nextInt();

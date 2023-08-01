@@ -54,10 +54,6 @@ public class MenuProveedor {
         buscarTodos();
     }
 
-    private boolean existeProveedor(String cuit) {
-        return proveedorController.findOne(cuit) != null;
-    }
-
     private void modificarDatosProveedor(Proveedor proveedor) {
         input.nextLine();
         System.out.print("Nombre: ");

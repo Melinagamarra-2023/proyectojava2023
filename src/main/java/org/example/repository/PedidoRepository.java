@@ -13,14 +13,12 @@ public class PedidoRepository implements CRUD<Pedido> {
     private final EmpleadoRepository empleadoRepository;
     private final ClienteRepository clienteRepository;
     private final List<Pedido> pedidos;
-    int codigo;
 
     public PedidoRepository() {
         this.sucursalRepository = new SucursalRepository();
         this.empleadoRepository = new EmpleadoRepository();
         this.clienteRepository = new ClienteRepository();
         this.pedidos = new ArrayList<>();
-        this.codigo = 0;
     }
 
 
@@ -41,8 +39,6 @@ public class PedidoRepository implements CRUD<Pedido> {
 
     @Override
     public void save(Pedido pedido) {
-        codigo++;
-        pedido.setPedidoId(String.valueOf(codigo));
         pedidos.add(pedido);
     }
 

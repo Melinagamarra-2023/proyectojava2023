@@ -53,7 +53,7 @@ public class MenuLineaPedido {
             option = input.nextInt();
             switch (option) {
                 case 1 -> menuProducto.buscarTodosLosProductos();
-                case 2 -> menuProducto.buscarPorNombre(); //CAMBIAR...
+                case 2 -> menuProducto.buscarPorNombre();
                 case 3 -> menuProducto.buscarPorCategoria();
                 case 4 -> generarLineaPedido();
                 default -> System.out.println("Ingrese una opción correcta.");
@@ -90,7 +90,7 @@ public class MenuLineaPedido {
         if (id.equals("0")) {
             return;
         }
-        LineaPedido lineaPedido = new LineaPedido(null, 0, proveedorController.findOne(id), true, true, 0);
+        LineaPedido lineaPedido = new LineaPedido(null, 0, proveedorController.findOne(id), true, false, false, 0);
         System.out.print("Determine la cantidad que desea de este producto: ");
         int cantidad = input.nextInt();
         lineaPedido.setCantidad(cantidad);
@@ -114,6 +114,9 @@ public class MenuLineaPedido {
         if (id.equals("0")) {
             return;
         }
+        if (verificarHabilitado(pedidoController.findOneLP(id))) {
+            return;
+        }
         LineaPedido lineaPedidoModificar = pedidoController.findOneLP(id);
         System.out.print("Determine la nueva cantidad para este producto: ");
         int cantidad = input.nextInt();
@@ -131,6 +134,9 @@ public class MenuLineaPedido {
         if (id.equals("0")) {
             return;
         }
+        if (verificarHabilitado(pedidoController.findOneLP(id))) {
+            return;
+        }
         pedidoController.deleteLP(id);
         System.out.println("La linea pedido " + id + "Ha sido eliminada.");
     }
@@ -144,6 +150,10 @@ public class MenuLineaPedido {
         if (id.equals("0")) {
             return;
         }
+        LineaPedido lineaPedido = pedidoController.findOneLP(id);
+        if (verificarHabilitado(lineaPedido) || verificarEntrega(lineaPedido)) {
+            return;
+        }
         System.out.println("Ingrese una calificación, del 1 al 5 para este proveedor: ");
         int star = input.nextInt();
         while (star < 0 || 5 < star) {
@@ -153,7 +163,23 @@ public class MenuLineaPedido {
         if (star == 0) {
             return;
         }
-        pedidoController.calificarProveedor(pedidoController.findOneLP(id), star);
+        pedidoController.calificarProveedor(id, star);
+    }
+
+    private Boolean verificarHabilitado(LineaPedido lineaPedido) {
+        if (!lineaPedido.getHabilitado()) {
+            System.out.println("Esta linea de pedido fue cancelada.");
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean verificarEntrega(LineaPedido lineaPedido) {
+        if (!lineaPedido.getPedidoEntregado()) {
+            System.out.println("Esta linea de pedido no fue entregada aún.");
+            return true;
+        }
+        return false;
     }
 
 }

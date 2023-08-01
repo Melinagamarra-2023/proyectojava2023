@@ -11,16 +11,20 @@ public class PedidoService implements CRUD<Pedido> {
 
     private final SectorRepository sectorRepository;
     private final PedidoRepository pedidoRepository;
+    private final LineaPedidoService lineaPedidoService;
     private final LineaPedidoRepository lineaPedidoRepository;
     private final SucursalRepository sucursalRepository;
+    private final EmpleadoRepository empleadoRepository;
     private final RemitoRepository remitoRepository;
 
 
     public PedidoService() {
         this.sectorRepository = new SectorRepository();
         this.pedidoRepository = new PedidoRepository();
+        this.lineaPedidoService = new LineaPedidoService();
         this.lineaPedidoRepository = new LineaPedidoRepository();
         this.sucursalRepository = new SucursalRepository();
+        this.empleadoRepository = new EmpleadoRepository();
         this.remitoRepository = new RemitoRepository();
     }
 
@@ -63,15 +67,12 @@ public class PedidoService implements CRUD<Pedido> {
 
     @Override
     public void delete(String id) {
-        if (pedidoRepository.findOne(id) != null) {
-            pedidoRepository.findOne(id);
-        }
+        Pedido pedido = pedidoRepository.findOne(id);
+        pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), 0.0, 0.0, pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + 9)));
     }
 
     public void agregarLineaPedido(Pedido pedido, String id) {
-        if (lineaPedidoRepository.findOne(id) != null) {
-            lineaPedidoRepository.agregado(lineaPedidoRepository.findOne(id));
-        }
+        lineaPedidoService.agregar(id);
         pedidoRepository.agregarLineaPedido(pedido, lineaPedidoRepository.findOne(id));
     }
 
@@ -85,10 +86,6 @@ public class PedidoService implements CRUD<Pedido> {
 
     public void createRemito(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
         remitoRepository.create(pedido, origen, emisor, destino, receptor, transportista);
-    }
-
-    public List<Remito> verRemitos() {
-        return remitoRepository.findAll();
     }
 
     public Remito verRemitoDePedido(String id) {
@@ -115,7 +112,12 @@ public class PedidoService implements CRUD<Pedido> {
     }
 
     public Empleado setEmpleado(String idSucursal) {
-        return remitoRepository.setEmpleado(idSucursal);
+        for (Empleado empleado : empleadoRepository.findAll()) {
+            if (empleado.getSucursal().equals(sucursalRepository.findOne(idSucursal))) {
+                return empleado;
+            }
+        }
+        return null;
     }
 
     public List<Sector> verSectores() {
@@ -128,6 +130,12 @@ public class PedidoService implements CRUD<Pedido> {
             pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), pedido.getSucursalOrigen().getLatitud(), pedido.getSucursalOrigen().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + siguiente)));
         } else {
             pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), pedido.getSucursalDestino().getLatitud(), pedido.getSucursalDestino().getLongitud(), pedido, sectorRepository.findOne(pedido.getSucursalDestino().getSucId() + siguiente)));
+        }
+    }
+
+    public void entregar(Pedido pedido) {
+        for (LineaPedido lineaPedido : pedido.getDetalle()) {
+            lineaPedidoService.entregar(lineaPedido.getCodigo());
         }
     }
 

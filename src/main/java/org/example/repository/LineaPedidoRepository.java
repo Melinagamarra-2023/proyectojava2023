@@ -57,16 +57,18 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
     public void upload() {
         for (Producto producto : productoRepository.findAll()) {
             codigo++;
-            lineaPedidos.add(new LineaPedido(String.valueOf(codigo), 2, producto, true, true, (codigo > 5 ? codigo : codigo - 4)));
+            lineaPedidos.add(new LineaPedido(String.valueOf(codigo), 2, producto, true, false, false, 0));
         }
     }
 
-    public void agregado(LineaPedido lineaPedido) {
-        lineaPedido.setPedido(false);
+    public void agregar(String id) {findOne(id).setAgregado(true);}
+
+    public void entregado(String id) {
+        findOne(id).setPedidoEntregado(true);
     }
 
-    public void calificarProveedor(LineaPedido lineaPedido, int star) {
-        lineaPedido.setCalificaProveedor(star);
+    public void calificarProveedor(String id, int star) {
+        this.findOne(id).setCalificaProveedor(star);
     }
 
 }

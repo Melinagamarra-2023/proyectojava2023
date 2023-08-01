@@ -45,10 +45,6 @@ public class PedidoController implements CRUD<Pedido> {
         pedidoService.delete(id);
     }
 
-    public void agregarLineaPedido(Pedido pedido, String id) {
-        pedidoService.agregarLineaPedido(pedido, id);
-    }
-
     public void setSucursalOrigen(Pedido pedido, String id) {
         pedidoService.setSectorOrigen(pedido, id);
     }
@@ -59,10 +55,6 @@ public class PedidoController implements CRUD<Pedido> {
 
     public void createRemito(Pedido pedido, Sucursal origen, Empleado emisor, Sucursal destino, Empleado receptor, Transportista transportista) {
         pedidoService.createRemito(pedido, origen, emisor, destino, receptor, transportista);
-    }
-
-    public List<Remito> verRemitos() {
-        return pedidoService.verRemitos();
     }
 
     public Remito verRemitoDePedido(String id) {
@@ -97,6 +89,14 @@ public class PedidoController implements CRUD<Pedido> {
         return lineaPedidoService.findAll();
     }
 
+    public void agregarLineaPedido(Pedido pedido, String id) {
+        pedidoService.agregarLineaPedido(pedido, id);
+    }
+
+    public void entregar(Pedido pedido) {
+        pedidoService.entregar(pedido);
+    }
+
     public List<LineaPedido> buscarPorProveedor(String cuit) {
         return lineaPedidoService.buscarPorProveedor(cuit);
     }
@@ -105,8 +105,8 @@ public class PedidoController implements CRUD<Pedido> {
         lineaPedidoService.delete(id);
     }
 
-    public void calificarProveedor(LineaPedido lineaPedido, int star) {
-        lineaPedidoService.calificarProveedor(lineaPedido, star);
+    public void calificarProveedor(String id, int star) {
+        lineaPedidoService.calificarProveedor(id, star);
     }
 
     public List<Sector> verSectores() {

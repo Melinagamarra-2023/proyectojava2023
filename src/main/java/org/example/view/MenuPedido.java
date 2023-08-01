@@ -18,6 +18,7 @@ public class MenuPedido {
     private final SucursalController sucursalController;
     private final TransportistaController transportistaController;
     private final Scanner input;
+    private int numeroPedido;
 
     public MenuPedido() {
         this.menuPrincipal = new MenuPrincipal();
@@ -29,6 +30,7 @@ public class MenuPedido {
         this.menuTransportista = new MenuTransportista();
         this.transportistaController = new TransportistaController();
         this.input = new Scanner(System.in);
+        this.numeroPedido = 0;
     }
 
     public int seleccionarOpcion() {
@@ -42,8 +44,9 @@ public class MenuPedido {
                 4. Buscar pedido por ID.
                 5. Obtener lista de todos los pedidos.
                 6. Cambiar estado de un pedido.
-                7. Ver estados de un pedido.
-                8. Calificar un transportista.
+                7. Informar la ubicación de un pedido.
+                8. Ver estados de un pedido.
+                9. Calificar un transportista.
                 0. Salir.
                 """);
         return input.nextInt();
@@ -66,6 +69,11 @@ public class MenuPedido {
     private void armarCarrito(Pedido nuevoPedido) {
         int option = 99;
         while (option != 0) {
+            for (LineaPedido lineaPedido : pedidoController.findAllLP()) {
+                System.out.println("ID: " + lineaPedido.getCodigo() +
+                        ", " + lineaPedido.getCantidad() + " " +
+                        lineaPedido.getProducto().getNombre() + ".");
+            }
             System.out.println("Ingrese el id de la linea de pedido a añadir:");
             String id = input.next();
             while (pedidoController.findOneLP(id) == null && !(id.equals("0"))) {
@@ -106,7 +114,6 @@ public class MenuPedido {
         if (idDestino.equals("0")) {
             return;
         }
-        pedidoController.create(nuevoPedido);
         pedidoController.setSucursalDestino(nuevoPedido, idDestino);
         this.seleccionarTransportista(nuevoPedido, idOrigen, idDestino);
     }
@@ -122,73 +129,105 @@ public class MenuPedido {
         if (idTransportista.equals("0")) {
             return;
         }
-        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(idTransportista));
+        numeroPedido++;
+        nuevoPedido.setPedidoId(String.valueOf(numeroPedido));
         pedidoController.create(nuevoPedido);
-        System.out.println("Pedido creado con éxito.");
+        pedidoController.createRemito(nuevoPedido, sucursalController.findOne(idOrigen), pedidoController.setEmpleado(idOrigen), sucursalController.findOne(idDestino), pedidoController.setEmpleado(idDestino), transportistaController.findOne(idTransportista));
+        System.out.println("Pedido creado con éxito con el número: " + numeroPedido + ".");
     }
 
     public void mostrarPedidoPorId() {
         System.out.println("----------------------");
-        System.out.println("Ingrese el id del pedido que desea buscar: ");
+        System.out.println("Ingrese el numero del pedido que desea buscar: ");
         String id = input.next();
-        Pedido pedidoBuscado = pedidoController.findOne(id);
-        if (pedidoBuscado != null && pedidoBuscado.getPedidoId().equals(id)) {
-            System.out.println("El pedido asociado al ID ingresado es del " +
-                    "Cliente: " + pedidoBuscado.getCliente().getNombre() +
-                    ", Sucursal Origen: " + pedidoBuscado.getSucursalOrigen().getSucId() +
-                    " (" + pedidoBuscado.getSucursalOrigen().getContinente() + ")" +
-                    ", Sucursal Destino: " + pedidoBuscado.getSucursalDestino().getSucId() +
-                    " (" + pedidoBuscado.getSucursalDestino().getContinente() + ").");
-
-
+        while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
+            id = menuPrincipal.verificarExistencia("id");
         }
-        System.out.println("no existe ningún pedido asociado al Id proporcionado");
+        if (id.equals("0")) {
+            return;
+        }
+        Pedido pedidoBuscado = pedidoController.findOne(id);
+        int ultimo = pedidoBuscado.getSeguimientoPedido().size() - 1;
+        String ultimoEstado = pedidoBuscado.getSeguimientoPedido().get(ultimo).getEstado().getNombre();
+        System.out.println("El pedido asociado al ID ingresado es del " +
+                "Cliente: " + pedidoBuscado.getCliente().getNombre() +
+                ", Sucursal Origen: " + pedidoBuscado.getSucursalOrigen().getSucId() +
+                " (" + pedidoBuscado.getSucursalOrigen().getContinente() + ")" +
+                ", Sucursal Destino: " + pedidoBuscado.getSucursalDestino().getSucId() +
+                " (" + pedidoBuscado.getSucursalDestino().getContinente() + ")" +
+                ", estado: " + ultimoEstado + ";");
     }
 
     public void mostrarTodosLosPedidos() {
         System.out.println("-----------------------------");
         System.out.println("Los pedidos registrados son: ");
         for (Pedido pe : pedidoController.findAll()) {
+            int ultimo = pe.getSeguimientoPedido().size() - 1;
+            String ultimoEstado = pe.getSeguimientoPedido().get(ultimo).getEstado().getNombre();
             System.out.println("Pedido N°" + pe.getPedidoId() +
                     " de Cliente: " + pe.getCliente().getApellido() + " " + pe.getCliente().getCuit() +
                     ", Sucursal Origen: " + pe.getSucursalOrigen().getSucId() +
                     " (" + pe.getSucursalOrigen().getContinente() + ")" +
                     ", Sucursal Destino: " + pe.getSucursalDestino().getSucId() +
-                    " (" + pe.getSucursalDestino().getContinente() + ");");
+                    " (" + pe.getSucursalDestino().getContinente() + ")" +
+                    ", estado: " + ultimoEstado + ";");
         }
 
     }
 
     public void cancelarPedido() {
         System.out.println("--------------------------");
-        System.out.println("Ingrese el ID del pedido que desea borrar");
+        System.out.println("Ingrese el número del pedido que desea borrar");
         String id = input.next();
-        Pedido pedidoEliminado = pedidoController.findOne(id);
-        if (pedidoEliminado != null) {
-            pedidoController.delete(id);
-            System.out.println("El pedido: \n"
-                    + " ID: " + pedidoEliminado.getPedidoId() +
-                    ", Cliente:  " + pedidoEliminado.getCliente().getNombre() +
-                    "ha sido eliminada con exito");
-        } else {
-            System.out.println("El Id ingresado proporcionado no esta asociado a ningun pedido");
+        while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
+            id = menuPrincipal.verificarExistencia("id");
         }
+        if (id.equals("0")) {
+            return;
+        }
+        Pedido pedidoEliminado = pedidoController.findOne(id);
+        if (this.verificarDevuelto(pedidoEliminado)) {
+            return;
+        }
+        int ultimoEstado = pedidoEliminado.getSeguimientoPedido().size() - 1;
+        Sucursal ultimaSucursal = pedidoEliminado.getSeguimientoPedido().get(ultimoEstado).getEstado().getSucursal();
+        if (ultimaSucursal.getSucId().equals(pedidoEliminado.getSucursalDestino().getSucId())) {
+            Sucursal sucursalOrigen = pedidoEliminado.getSucursalOrigen();
+            Transportista transportista = pedidoController.verRemitoDePedido(id).getTransportista();
+            pedidoController.createRemito(pedidoEliminado, ultimaSucursal, pedidoController.setEmpleado(ultimaSucursal.getSucId()), sucursalOrigen, pedidoController.setEmpleado(sucursalOrigen.getSucId()), transportista);
+        }
+        pedidoController.delete(id);
+        System.out.println("El pedido nro°" + pedidoEliminado.getPedidoId() +
+                " del cliente: " + pedidoEliminado.getCliente().getNombre() +
+                " ha sido cancelado con éxito");
     }
 
     public void siguienteEstado() {
         input.nextLine();
-        System.out.print("Ingrese el id del pedido: ");
+        System.out.print("Ingrese el número del pedido: ");
         String id = input.nextLine();
+        while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
+            id = menuPrincipal.verificarExistencia("id");
+        }
+        if (id.equals("0")) {
+            return;
+        }
+        if (this.verificarDevuelto(pedidoController.findOne(id)) || this.verificarEntregado(pedidoController.findOne(id))){
+            return;
+        }
         System.out.println("Desea cambiarlo de estado?");
         String resp = input.nextLine();
         if (resp.contains("s")) {
             pedidoController.siguienteEstado(pedidoController.findOne(id));
+            if (this.verificarEntregado(pedidoController.findOne(id))) {
+                pedidoController.entregar(pedidoController.findOne(id));
+            }
         }
     }
 
     public void verEstados() {
         input.nextLine();
-        System.out.print("Ingrese el id del pedido: ");
+        System.out.print("Ingrese el número del pedido: ");
         String id = input.nextLine();
         while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
             id = menuPrincipal.verificarExistencia("id");
@@ -319,22 +358,23 @@ public class MenuPedido {
 
     public void informarUbicacion() {
         input.nextLine();
-        System.out.print("Ingrese su id: ");
-        String cuit = input.nextLine();
-        while (transportistaController.findOne(cuit) == null && !(cuit.equals("0"))) {
-            cuit = menuPrincipal.verificarExistencia("cuit");
+        System.out.print("Ingrese el número del pedido: ");
+        String id = input.nextLine();
+        while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
+            id = menuPrincipal.verificarExistencia("id");
         }
-        if (cuit.equals("0")) {
+        if (id.equals("0")) {
+            return;
+        }
+        Pedido pedido = pedidoController.findOne(id);
+        if (verificarDevuelto(pedido) || verificarEntregado(pedido) || verificarTransito(pedido)) {
             return;
         }
         System.out.print("Ingrese su latitud: ");
         Double latitud = input.nextDouble();
         System.out.print("Ingrese su longitud: ");
         Double longitud = input.nextDouble();
-        for (Remito remito : pedidoController.verRemitosPorTransportista(cuit)) {
-            pedidoController.nuevoTransito(remito.getDetalle(), latitud, longitud);
-        }
-        System.out.println(pedidoController.verRemitosPorTransportista(cuit));
+        pedidoController.nuevoTransito(pedidoController.findOne(id), latitud, longitud);
     }
 
     public void calificarTransportista() {
@@ -344,6 +384,10 @@ public class MenuPedido {
             id = menuPrincipal.verificarExistencia("id");
         }
         if (id.equals("0")) {
+            return;
+        }
+        if (!verificarEntregado(pedidoController.findOne(id))){
+            System.out.println("Este pedido aún no ha sido entregado.");
             return;
         }
         System.out.println("Ingrese una calificación, del 1 al 5 para este transportista: ");
@@ -413,7 +457,6 @@ public class MenuPedido {
         int entregados = 0;
         for (Pedido pedido : pedidoController.findAll()) {
             int ultimoEstado = pedido.getSeguimientoPedido().size() - 1;
-
             if (pedido.getSeguimientoPedido().get(ultimoEstado).getEstado().getNombre().equals(estadoDevuelto)) {
                 devueltos++;
             } else if (pedido.getSeguimientoPedido().get(ultimoEstado).getEstado().getNombre().equals(estadoEntregado)) {
@@ -468,6 +511,39 @@ public class MenuPedido {
 
     private void finInforme() {
         System.out.println("Fin del informe.");
+    }
+
+    private Boolean verificarDevuelto(Pedido pedido) {
+        Sector devuelto = pedidoController.verSectores().get(8);
+        int ultimoEstado = pedido.getSeguimientoPedido().size() - 1;
+        Sector ultimoSector = pedido.getSeguimientoPedido().get(ultimoEstado).getEstado();
+        if (ultimoSector.getNombre().equals(devuelto.getNombre())) {
+            System.out.println("Este pedido está cancelado.");
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean verificarEntregado(Pedido pedido) {
+        Sector entregado = pedidoController.verSectores().get(7);
+        int ultimoEstado = pedido.getSeguimientoPedido().size() - 1;
+        Sector ultimoSector = pedido.getSeguimientoPedido().get(ultimoEstado).getEstado();
+        if (ultimoSector.getNombre().equals(entregado.getNombre())) {
+            System.out.println("Este pedido ya ha sido entregado.");
+            return true;
+        }
+        return false;
+    }
+
+    private Boolean verificarTransito(Pedido pedido) {
+        Sector transito = pedidoController.verSectores().get(5);
+        int ultimoEstado = pedido.getSeguimientoPedido().size() - 1;
+        Sector ultimoSector = pedido.getSeguimientoPedido().get(ultimoEstado).getEstado();
+        if (!ultimoSector.getNombre().equals(transito.getNombre())) {
+            System.out.println("Este pedido no se encuentra en tránsito.");
+            return true;
+        }
+        return false;
     }
 
 }

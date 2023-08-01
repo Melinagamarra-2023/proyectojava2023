@@ -130,7 +130,6 @@ public class MenuPrincipalController {
                 case 4 -> menuTransportista.buscarPorCuit();
                 case 5 -> menuTransportista.buscarTransportistas();
                 case 6 -> menuTransportista.buscarTransportistasPorTipo();
-                case 7 -> menuPedido.informarUbicacion();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;
@@ -150,8 +149,9 @@ public class MenuPrincipalController {
                 case 4 -> menuPedido.mostrarPedidoPorId();
                 case 5 -> menuPedido.mostrarTodosLosPedidos();
                 case 6 -> menuPedido.siguienteEstado();
-                case 7 -> menuPedido.verEstados();
-                case 8 -> menuPedido.calificarTransportista();
+                case 7 -> menuPedido.informarUbicacion();
+                case 8 -> menuPedido.verEstados();
+                case 9 -> menuPedido.calificarTransportista();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;

@@ -1,7 +1,6 @@
 package org.example.service;
 
 import org.example.model.LineaPedido;
-import org.example.model.Proveedor;
 import org.example.repository.LineaPedidoRepository;
 
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
     public List<LineaPedido> findAll() {
         List<LineaPedido> respuesta = new ArrayList<>();
         for (LineaPedido lp : lineaPedidoRepository.findAll()) {
-            if (lp.getPedido() && lp.getHabilitado()) {
+            if (lp.getHabilitado() && !lp.getAgregado()) {
                 respuesta.add(lp);
             }
         }
@@ -44,7 +43,7 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
     public List<LineaPedido> buscarPorProveedor(String cuit) {
         List<LineaPedido> respuesta = new ArrayList<>();
         for (LineaPedido lp : lineaPedidoRepository.findAll()) {
-            if (lp.getPedido() && lp.getHabilitado() && lp.getProducto().getProveedor().getCuit().equals(cuit)) {
+            if (lp.getPedidoEntregado() && lp.getHabilitado() && lp.getProducto().getProveedor().getCuit().equals(cuit)) {
                 respuesta.add(lp);
             }
         }
@@ -59,6 +58,14 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
         return null;
     }
 
+    public void agregar(String id) {
+        lineaPedidoRepository.agregar(id);
+    }
+
+    public void entregar(String id) {
+        lineaPedidoRepository.entregado(id);
+    }
+
     @Override
     public void delete(String id) {
         if (lineaPedidoRepository.findOne(id) != null) {
@@ -66,10 +73,8 @@ public class LineaPedidoService implements CRUD<LineaPedido> {
         }
     }
 
-    public void calificarProveedor(LineaPedido lineaPedido, int star) {
-        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) != null) {
-            lineaPedidoRepository.calificarProveedor(lineaPedido, star);
-        }
+    public void calificarProveedor(String id, int star) {
+        lineaPedidoRepository.calificarProveedor(id, star);
     }
 
 }

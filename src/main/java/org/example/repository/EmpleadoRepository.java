@@ -31,16 +31,16 @@ public class EmpleadoRepository {
     }
 
     private void upload() {
+        int codigo= 0;
         for (Sucursal sc : sucursalRepository.findAll()) {
-            int codigo= 0;
             codigo++;
-            empleados.add(new Empleado("nombre1" + codigo, sc, sc.getSucId() + codigo));
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
             codigo++;
-            empleados.add(new Empleado("nombre2" + codigo, sc, sc.getSucId() + codigo));
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
             codigo++;
-            empleados.add(new Empleado("nombre3" + codigo, sc, sc.getSucId() + codigo));
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
             codigo++;
-            empleados.add(new Empleado("nombre4" + codigo, sc, sc.getSucId() + codigo));
+            empleados.add(new Empleado("nombre" + codigo, sc, sc.getSucId() + codigo));
         }
     }
   
