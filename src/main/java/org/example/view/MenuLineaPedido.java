@@ -31,8 +31,7 @@ public class MenuLineaPedido {
                 2. Modificar linea pedido.
                 3. Eliminar linea pedido.
                 4. Mostrar lineas de pedido creadas.
-                5. Generar Pedido.
-                6. Calificar un proveedor.
+                5. Calificar un proveedor.
                 0. Cancelar.
                 """);
         return input.nextInt();

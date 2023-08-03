@@ -55,19 +55,19 @@ public class MenuPedido {
     public void generarPedido() {
         Pedido nuevoPedido = new Pedido("0", null, null, new ArrayList<>(), new ArrayList<>(), null, null);
         System.out.println("Ingrese el cuit del cliente:");
-        String id = input.next();
-        while (clienteController.findOne(id) == null && !(id.equals("0"))) {
-            id = menuPrincipal.verificarExistencia("cuit");
+        String cuit = input.next();
+        while (clienteController.findOne(cuit) == null && !(cuit.equals("0"))) {
+            cuit = menuPrincipal.verificarExistencia("cuit");
         }
-        if (id.equals("0")) {
+        if (cuit.equals("0")) {
             return;
         }
-        nuevoPedido.setCliente(clienteController.findOne(id));
+        nuevoPedido.setCliente(clienteController.findOne(cuit));
         this.armarCarrito(nuevoPedido);
     }
 
     private void armarCarrito(Pedido nuevoPedido) {
-        int option = 99;
+        int option = 1;
         while (option != 0) {
             for (LineaPedido lineaPedido : pedidoController.findAllLP()) {
                 System.out.println("ID: " + lineaPedido.getCodigo() +
@@ -265,7 +265,7 @@ public class MenuPedido {
         String respuesta = input.next();
         if (respuesta.contains("s")) {
             System.out.print("Ingrese el cuit del Cliente: ");
-            String cuit = input.nextLine();
+            String cuit = input.next();
             while (clienteController.findOne(cuit) == null && !(cuit.equals("0"))) {
                 cuit = menuPrincipal.verificarExistencia("cuit");
             }
@@ -469,14 +469,15 @@ public class MenuPedido {
                 entregados + " han sido correctamente entregados.\n" +
                 (pedidoController.findAll().size() - devueltos - entregados) + " continúan en proceso.\n");
         if (pedidoController.findAll().isEmpty()) {
-            this.finInforme();
+            System.out.println("No existe ningun pedido, volvera al Menu de Informes ");
             return;
         }
+
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
-        String respuesta = input.nextLine();
+        String respuesta = input.next();
         if (respuesta.contains("s")) {
             System.out.print("Ingrese el id del pedido: ");
-            String id = input.nextLine();
+            String id = input.next();
             while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
                 id = menuPrincipal.verificarExistencia("id");
             }
