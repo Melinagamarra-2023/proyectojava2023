@@ -113,7 +113,7 @@ public class PedidoService implements CRUD<Pedido> {
 
     public Empleado setEmpleado(String idSucursal) {
         for (Empleado empleado : empleadoRepository.findAll()) {
-            if (empleado.getSucursal().equals(sucursalRepository.findOne(idSucursal))) {
+            if (empleado.getSucursal().getSucId().equals(sucursalRepository.findOne(idSucursal).getSucId())) {
                 return empleado;
             }
         }
