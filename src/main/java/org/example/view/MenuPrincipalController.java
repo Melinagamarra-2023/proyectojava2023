@@ -9,7 +9,6 @@ public class MenuPrincipalController {
     private final MenuTransportista menuTransportista;
     private final MenuProveedor menuProveedor;
     private final MenuProducto menuProducto;
-    private final MenuLineaPedido menuLineaPedido;
     private final MenuPedido menuPedido;
     private final MenuInformes menuInformes;
     private int option;
@@ -21,7 +20,6 @@ public class MenuPrincipalController {
         this.menuTransportista = new MenuTransportista();
         this.menuProveedor = new MenuProveedor();
         this.menuProducto = new MenuProducto();
-        this.menuLineaPedido = new MenuLineaPedido();
         this.menuPedido = new MenuPedido();
         this.menuInformes = new MenuInformes();
         this.option = 99;
