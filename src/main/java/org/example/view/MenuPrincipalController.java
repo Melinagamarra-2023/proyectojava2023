@@ -143,34 +143,15 @@ public class MenuPrincipalController {
     private void gestionarPedidos() {
         while (option != 0) {
             switch (menuPedido.seleccionarOpcion()) {
-                case 1 -> gestionarLineaPedido();
-                case 2 -> menuPedido.generarPedido();
-                case 3 -> menuPedido.cancelarPedido();
-                case 4 -> menuPedido.mostrarPedidoPorId();
-                case 5 -> menuPedido.mostrarTodosLosPedidos();
-                case 6 -> menuPedido.siguienteEstado();
-                case 7 -> menuPedido.informarUbicacion();
-                case 8 -> menuPedido.verEstados();
-                case 9 -> menuPedido.calificarTransportista();
-                case 0 -> {
-                    menuPrincipal.regresar();
-                    option = 0;
-                }
-                default -> menuPrincipal.invalido();
-            }
-        }
-        option = 99;
-    }
-
-    private void gestionarLineaPedido() {
-        while (option != 0) {
-            switch (menuLineaPedido.seleccionarOpcion()) {
-                case 1 -> menuLineaPedido.seleccionarProductos();
-                case 2 -> menuLineaPedido.modificarLineaPedido();
-                case 3 -> menuLineaPedido.eliminarLineaPedido();
-                case 4 -> menuLineaPedido.buscarLineasPedido();
-                case 6 -> menuLineaPedido.calificarProveedor();
-                case 7 -> menuPedido.mostrarTodosLosPedidos();
+                case 1 -> menuPedido.generarPedido();
+                case 2 -> menuPedido.cancelarPedido();
+                case 3 -> menuPedido.mostrarPedidoPorId();
+                case 4 -> menuPedido.mostrarTodosLosPedidos();
+                case 5 -> menuPedido.siguienteEstado();
+                case 6 -> menuPedido.informarUbicacion();
+                case 7 -> menuPedido.verEstados();
+                case 8 -> menuPedido.calificarTransportista();
+                case 9 -> menuPedido.calificarProveedor();
                 case 0 -> {
                     menuPrincipal.regresar();
                     option = 0;

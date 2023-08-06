@@ -109,7 +109,7 @@ public class MenuTransportista {
     }
 
     public void buscarTransportistas() {
-        for (Transportista transportista : transportistaController.findAll()){
+        for (Transportista transportista : transportistaController.findAll()) {
             this.mostrarDatos(transportista);
             System.out.print(".\n");
         }
@@ -126,14 +126,14 @@ public class MenuTransportista {
 
     public void buscarTransportistasPorTipo() {
         int opc;
-            System.out.println("""
-                    Seleccione el tipo de transporte:
-                    1. Terrestre.
-                    2. Marítimo.
-                    3. Aéreo.
-                    """);
-            opc = input.nextInt();
-        while (opc != 1 && opc != 2 && opc != 3) {
+        System.out.print("""
+                Seleccione el tipo de transporte:
+                1. Terrestre.
+                2. Marítimo.
+                3. Aéreo.
+                """);
+        opc = input.nextInt();
+        while (opc < 1 || 3 < opc) {
             menuPrincipal.invalido();
             opc = input.nextInt();
         }

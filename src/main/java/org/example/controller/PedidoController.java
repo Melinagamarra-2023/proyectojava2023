@@ -1,7 +1,6 @@
 package org.example.controller;
 
 import org.example.model.*;
-import org.example.service.LineaPedidoService;
 import org.example.service.PedidoService;
 
 import java.util.List;
@@ -9,11 +8,9 @@ import java.util.List;
 public class PedidoController implements CRUD<Pedido> {
 
     private final PedidoService pedidoService;
-    private final LineaPedidoService lineaPedidoService;
 
     public PedidoController() {
         this.pedidoService = new PedidoService();
-        this.lineaPedidoService = new LineaPedidoService();
     }
 
     @Override
@@ -74,23 +71,23 @@ public class PedidoController implements CRUD<Pedido> {
     }
 
     public LineaPedido findOneLP(String id) {
-        return lineaPedidoService.findOne(id);
+        return pedidoService.findOneLP(id);
     }
 
     public LineaPedido updateLP(LineaPedido lineaPedido) { //solucionar warning
-        return lineaPedidoService.update(lineaPedido);
+        return pedidoService.updateLP(lineaPedido);
     }
 
     public void createLP(LineaPedido lineaPedido) {
-        lineaPedidoService.create(lineaPedido);
+        pedidoService.createLP(lineaPedido);
     }
 
     public List<LineaPedido> findAllLP() {
-        return lineaPedidoService.findAll();
+        return pedidoService.findAllLP();
     }
 
-    public void agregarLineaPedido(Pedido pedido, String id) {
-        pedidoService.agregarLineaPedido(pedido, id);
+    public void agregarLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
+        pedidoService.agregarLineaPedido(pedido, lineaPedido);
     }
 
     public void entregar(Pedido pedido) {
@@ -98,15 +95,15 @@ public class PedidoController implements CRUD<Pedido> {
     }
 
     public List<LineaPedido> buscarPorProveedor(String cuit) {
-        return lineaPedidoService.buscarPorProveedor(cuit);
+        return pedidoService.buscarPorProveedorLP(cuit);
     }
 
     public void deleteLP(String id) {
-        lineaPedidoService.delete(id);
+        pedidoService.delete(id);
     }
 
     public void calificarProveedor(String id, int star) {
-        lineaPedidoService.calificarProveedor(id, star);
+        pedidoService.calificarProveedor(id, star);
     }
 
     public List<Sector> verSectores() {

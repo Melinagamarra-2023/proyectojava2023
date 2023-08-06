@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class MenuPedido {
 
     private final MenuPrincipal menuPrincipal;
+    private final MenuProducto menuProducto;
     private final MenuSucursal menuSucursal;
     private final MenuTransportista menuTransportista;
     private final ClienteController clienteController;
@@ -19,18 +20,21 @@ public class MenuPedido {
     private final TransportistaController transportistaController;
     private final Scanner input;
     private int numeroPedido;
+    private int numeroLineaPedido;
 
     public MenuPedido() {
         this.menuPrincipal = new MenuPrincipal();
+        this.menuSucursal = new MenuSucursal();
+        this.menuTransportista = new MenuTransportista();
+        this.menuProducto = new MenuProducto();
         this.clienteController = new ClienteController();
         this.proveedorController = new ProveedorController();
         this.pedidoController = new PedidoController();
         this.sucursalController = new SucursalController();
-        this.menuSucursal = new MenuSucursal();
-        this.menuTransportista = new MenuTransportista();
         this.transportistaController = new TransportistaController();
         this.input = new Scanner(System.in);
         this.numeroPedido = 0;
+        this.numeroLineaPedido = 0;
     }
 
     public int seleccionarOpcion() {
@@ -38,22 +42,22 @@ public class MenuPedido {
                                 
                 ----- MENÚ PEDIDOS -----
                 Seleccione la opción:
-                1. Gestionar linea pedido.
-                2. Generar un pedido
-                3. Cancelar un pedido.
-                4. Buscar pedido por ID.
-                5. Obtener lista de todos los pedidos.
-                6. Cambiar estado de un pedido.
-                7. Informar la ubicación de un pedido.
-                8. Ver estados de un pedido.
-                9. Calificar un transportista.
+                1. Generar un pedido.
+                2. Cancelar un pedido.
+                3. Buscar pedido por ID.
+                4. Obtener lista de todos los pedidos.
+                5. Cambiar estado de un pedido.
+                6. Informar la ubicación de un pedido.
+                7. Ver estados de un pedido.
+                8. Calificar a un proveedor.
+                9. Calificar a un transportista.
                 0. Salir.
                 """);
         return input.nextInt();
     }
 
     public void generarPedido() {
-        Pedido nuevoPedido = new Pedido("0", null, null, new ArrayList<>(), new ArrayList<>(), null, null);
+        Pedido nuevoPedido = new Pedido(null, null, null, new ArrayList<>(), new ArrayList<>(), null, null);
         System.out.println("Ingrese el cuit del cliente:");
         String id = input.next();
         while (clienteController.findOne(id) == null && !(id.equals("0"))) {
@@ -68,28 +72,37 @@ public class MenuPedido {
 
     private void armarCarrito(Pedido nuevoPedido) {
         int option = 99;
+        System.out.println("Añada los productos que desea para su pedido.");
+        List<LineaPedido> lineaPedidosNuevas = new ArrayList<>();
         while (option != 0) {
-            for (LineaPedido lineaPedido : pedidoController.findAllLP()) {
-                System.out.println("ID: " + lineaPedido.getCodigo() +
-                        ", " + lineaPedido.getCantidad() + " " +
-                        lineaPedido.getProducto().getNombre() + ".");
+            option = this.seleccionarOpcionLP(nuevoPedido, lineaPedidosNuevas);
+            if (option == 0) {
+                System.out.println("No se ha añadido ningún producto.");
+            } else {
+                int ultimaLP = lineaPedidosNuevas.size() - 1;
+                String ultimoProducto = lineaPedidosNuevas.get(ultimaLP).getProducto().getNombre();
+                System.out.println("Artículo " + ultimoProducto + " agregado correctamente al pedido.");
             }
-            System.out.println("Ingrese el id de la linea de pedido a añadir:");
-            String id = input.next();
-            while (pedidoController.findOneLP(id) == null && !(id.equals("0"))) {
-                id = menuPrincipal.verificarExistencia("id");
+            System.out.println("Este pedido posee:");
+            for (LineaPedido lineaPedido : lineaPedidosNuevas) {
+                System.out.println("Número " + lineaPedido.getCodigo() + ": " +
+                        lineaPedido.getCantidad() + " " + lineaPedido.getProducto().getNombre());
             }
-            if (id.equals("0")) {
-                return;
-            }
-            pedidoController.agregarLineaPedido(nuevoPedido, id);
-            System.out.println("Artículo " + pedidoController.findOneLP(id).getProducto().getNombre() + " agregado correctamente al pedido.");
+            option = 99;
             System.out.println("¿Desea añadir una línea de pedido nueva? (s/n)");
             String resp = input.next();
             if (resp.contains("n")) {
                 option = 0;
             }
+            if (lineaPedidosNuevas.isEmpty()) {
+                System.out.println("El pedido no puede estar vacío.");
+                option = 99;
+            }
         }
+        for (LineaPedido lineaPedido : lineaPedidosNuevas) {
+            pedidoController.createLP(lineaPedido);
+        }
+        nuevoPedido.getDetalle().addAll(lineaPedidosNuevas);
         this.seleccionarSucursales(nuevoPedido);
     }
 
@@ -212,7 +225,7 @@ public class MenuPedido {
         if (id.equals("0")) {
             return;
         }
-        if (this.verificarDevuelto(pedidoController.findOne(id)) || this.verificarEntregado(pedidoController.findOne(id))){
+        if (this.verificarDevuelto(pedidoController.findOne(id)) || this.verificarEntregado(pedidoController.findOne(id))) {
             return;
         }
         System.out.println("Desea cambiarlo de estado?");
@@ -386,7 +399,7 @@ public class MenuPedido {
         if (id.equals("0")) {
             return;
         }
-        if (!verificarEntregado(pedidoController.findOne(id))){
+        if (!verificarEntregado(pedidoController.findOne(id))) {
             System.out.println("Este pedido aún no ha sido entregado.");
             return;
         }
@@ -473,10 +486,10 @@ public class MenuPedido {
             return;
         }
         System.out.println("¿Desea obtener un informe detallado de uno de ellos? (s/n)");
-        String respuesta = input.nextLine();
+        String respuesta = input.next();
         if (respuesta.contains("s")) {
             System.out.print("Ingrese el id del pedido: ");
-            String id = input.nextLine();
+            String id = input.next();
             while (pedidoController.findOne(id) == null && !(id.equals("0"))) {
                 id = menuPrincipal.verificarExistencia("id");
             }
@@ -541,6 +554,159 @@ public class MenuPedido {
         Sector ultimoSector = pedido.getSeguimientoPedido().get(ultimoEstado).getEstado();
         if (!ultimoSector.getNombre().equals(transito.getNombre())) {
             System.out.println("Este pedido no se encuentra en tránsito.");
+            return true;
+        }
+        return false;
+    }
+
+    //
+    //----- LINEAS DE PEDIDO -----
+    //
+
+    public int seleccionarOpcionLP(Pedido pedido, List<LineaPedido> lineaPedidos) {
+        int option = 99;
+        while (option != 0) {
+            System.out.println("""
+                                    
+                    Seleccione la opción:
+                    1. Añadir linea pedido.
+                    2. Modificar linea pedido.
+                    3. Eliminar linea pedido.
+                    0. Cancelar
+                    """);
+            option = input.nextInt();
+            switch (option) {
+                case 1 -> {
+                    return seleccionarProductoLP(pedido, lineaPedidos);
+                }
+                case 2 -> modificarLineaPedido(lineaPedidos);
+                case 3 -> eliminarLineaPedido(lineaPedidos);
+                case 0 -> System.out.println("Operación Cancelada");
+                default -> System.out.println("Ingrese una opción correcta.");
+            }
+        }
+        return option;
+    }
+
+    private int seleccionarProductoLP(Pedido pedido, List<LineaPedido> lineaPedidos) {
+        int option = 99;
+        while (option != 0) {
+            System.out.println("""
+                                    
+                    Seleccione el producto para añadir al pedido:
+                    1. Mostrar todos los productos.
+                    2. Buscar productos por nombre.
+                    3. Buscar productos por categoría.
+                    4. Añadir producto.
+                    0. Cancelar.
+                    """);
+            option = input.nextInt();
+            switch (option) {
+                case 1 -> menuProducto.buscarTodosLosProductos();
+                case 2 -> menuProducto.buscarPorNombre();
+                case 3 -> menuProducto.buscarPorCategoria();
+                case 4 -> {
+                    return generarLineaPedido(pedido, lineaPedidos);
+                }
+                case 0 -> System.out.println("Operación Cancelada");
+                default -> System.out.println("Ingrese una opción correcta.");
+            }
+        }
+        return option;
+    }
+
+    private int generarLineaPedido(Pedido pedido, List<LineaPedido> lineaPedidos) {
+        System.out.print("Ingrese el id del producto que desea añadir: ");
+        String id = input.next();
+        while (proveedorController.findOne(id) == null && !(id.equals("0"))) {
+            id = menuPrincipal.verificarExistencia("id");
+        }
+        if (id.equals("0")) {
+            return 0;
+        }
+        numeroLineaPedido++;
+        LineaPedido nuevaLineaPedido = new LineaPedido(pedido, String.valueOf(numeroLineaPedido), 0, proveedorController.findOne(id), true, false, 0);
+        System.out.print("Determine la cantidad que desea de este producto: ");
+        int cantidad = input.nextInt();
+        nuevaLineaPedido.setCantidad(cantidad);
+        lineaPedidos.add(nuevaLineaPedido);
+        return 99;
+    }
+
+    private void modificarLineaPedido(List<LineaPedido> lineaPedidos) {
+        boolean existe = false;
+        System.out.print("Ingrese el id de la linea pedido a modificar: ");
+        String id = input.next();
+        while (!existe) {
+            for (LineaPedido lineaPedido : lineaPedidos) {
+                if (lineaPedido.getCodigo().equals(id)) {
+                    System.out.print("Determine la nueva cantidad de este producto: ");
+                    int cantidad = input.nextInt();
+                    lineaPedido.setCantidad(cantidad);
+                    System.out.println("Linea pedido N°" + lineaPedido.getCodigo() + " modificada con éxito.");
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                id = menuPrincipal.verificarExistencia("ID");
+                if (id.equals("0")) {
+                    return;
+                }
+            }
+        }
+    }
+
+    private void eliminarLineaPedido(List<LineaPedido> lineaPedidos) {
+        boolean existe = false;
+        System.out.print("Ingrese el id de la linea pedido a eliminar: ");
+        String id = input.next();
+        while (!existe) {
+            for (LineaPedido lineaPedido : lineaPedidos) {
+                if (lineaPedido.getCodigo().equals(id)) {
+                    existe = true;
+                    lineaPedidos.remove(lineaPedido);
+                    System.out.println("La linea pedido " + lineaPedido.getCodigo() + " ha sido eliminada.");
+                    break;
+                }
+            }
+            if (!existe) {
+                id = menuPrincipal.verificarExistencia("ID");
+                if (id.equals("0")) {
+                    return;
+                }
+            }
+        }
+    }
+
+    public void calificarProveedor() {
+        System.out.print("Ingrese el id de la linea pedido: ");
+        String id = input.next();
+        while (pedidoController.findOneLP(id) == null && !(id.equals("0"))) {
+            id = menuPrincipal.verificarExistencia("id");
+        }
+        if (id.equals("0")) {
+            return;
+        }
+        LineaPedido lineaPedido = pedidoController.findOneLP(id);
+        if (verificarEntregadoLP(lineaPedido)) {
+            return;
+        }
+        System.out.println("Ingrese una calificación, del 1 al 5 para este proveedor: ");
+        int star = input.nextInt();
+        while (star < 0 || 5 < star) {
+            System.out.print("Ingrese una calificación válida (0 para cancelar): ");
+            star = input.nextInt();
+        }
+        if (star == 0) {
+            return;
+        }
+        pedidoController.calificarProveedor(id, star);
+    }
+
+    private Boolean verificarEntregadoLP(LineaPedido lineaPedido) {
+        if (!lineaPedido.getPedidoEntregado()) {
+            System.out.println("Esta linea de pedido no fue entregada aún.");
             return true;
         }
         return false;

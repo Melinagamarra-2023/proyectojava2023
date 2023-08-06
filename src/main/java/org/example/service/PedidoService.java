@@ -11,7 +11,6 @@ public class PedidoService implements CRUD<Pedido> {
 
     private final SectorRepository sectorRepository;
     private final PedidoRepository pedidoRepository;
-    private final LineaPedidoService lineaPedidoService;
     private final LineaPedidoRepository lineaPedidoRepository;
     private final SucursalRepository sucursalRepository;
     private final EmpleadoRepository empleadoRepository;
@@ -21,7 +20,6 @@ public class PedidoService implements CRUD<Pedido> {
     public PedidoService() {
         this.sectorRepository = new SectorRepository();
         this.pedidoRepository = new PedidoRepository();
-        this.lineaPedidoService = new LineaPedidoService();
         this.lineaPedidoRepository = new LineaPedidoRepository();
         this.sucursalRepository = new SucursalRepository();
         this.empleadoRepository = new EmpleadoRepository();
@@ -69,11 +67,13 @@ public class PedidoService implements CRUD<Pedido> {
     public void delete(String id) {
         Pedido pedido = pedidoRepository.findOne(id);
         pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), 0.0, 0.0, pedido, sectorRepository.findOne(pedido.getSucursalOrigen().getSucId() + 9)));
+        for (LineaPedido lineaPedido : pedido.getDetalle()) {
+            lineaPedidoRepository.delete(lineaPedido.getCodigo());
+        }
     }
 
-    public void agregarLineaPedido(Pedido pedido, String id) {
-        lineaPedidoService.agregar(id);
-        pedidoRepository.agregarLineaPedido(pedido, lineaPedidoRepository.findOne(id));
+    public void agregarLineaPedido(Pedido pedido, LineaPedido lineaPedido) {
+        pedidoRepository.agregarLineaPedido(pedido, lineaPedido);
     }
 
     public void setSectorOrigen(Pedido pedido, String id) {
@@ -113,7 +113,7 @@ public class PedidoService implements CRUD<Pedido> {
 
     public Empleado setEmpleado(String idSucursal) {
         for (Empleado empleado : empleadoRepository.findAll()) {
-            if (empleado.getSucursal().equals(sucursalRepository.findOne(idSucursal))) {
+            if (empleado.getSucursal().getSucId().equals(sucursalRepository.findOne(idSucursal).getSucId())) {
                 return empleado;
             }
         }
@@ -135,12 +135,56 @@ public class PedidoService implements CRUD<Pedido> {
 
     public void entregar(Pedido pedido) {
         for (LineaPedido lineaPedido : pedido.getDetalle()) {
-            lineaPedidoService.entregar(lineaPedido.getCodigo());
+            lineaPedidoRepository.entregado(lineaPedido.getCodigo());
         }
     }
 
     public void nuevoTransito(Pedido pedido, Double latitud, Double longitud) {
         pedido.getSeguimientoPedido().add(new SeguimientoPedido(LocalDateTime.now(), latitud, longitud, pedido, sectorRepository.findOne(pedido.getSucursalDestino().getSucId() + 6)));
+    }
+
+    public void createLP(LineaPedido lineaPedido) {
+        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) == null) {
+            lineaPedidoRepository.save(lineaPedido);
+        }
+    }
+
+    public LineaPedido findOneLP(String id) {
+        if (lineaPedidoRepository.findOne(id) != null) {
+            return lineaPedidoRepository.findOne(id);
+        }
+        return null;
+    }
+
+    public List<LineaPedido> findAllLP() {
+        List<LineaPedido> respuesta = new ArrayList<>();
+        for (LineaPedido lp : lineaPedidoRepository.findAll()) {
+            if (lp.getHabilitado()) {
+                respuesta.add(lp);
+            }
+        }
+        return respuesta;
+    }
+
+    public List<LineaPedido> buscarPorProveedorLP(String cuit) {
+        List<LineaPedido> respuesta = new ArrayList<>();
+        for (LineaPedido lp : lineaPedidoRepository.findAll()) {
+            if (lp.getPedidoEntregado() && lp.getHabilitado() && lp.getProducto().getProveedor().getCuit().equals(cuit)) {
+                respuesta.add(lp);
+            }
+        }
+        return respuesta;
+    }
+
+    public LineaPedido updateLP(LineaPedido lineaPedido) {
+        if (lineaPedidoRepository.findOne(lineaPedido.getCodigo()) != null) {
+            return lineaPedidoRepository.update(lineaPedido);
+        }
+        return null;
+    }
+
+    public void calificarProveedor(String id, int star) {
+        lineaPedidoRepository.calificarProveedor(id, star);
     }
 
 }

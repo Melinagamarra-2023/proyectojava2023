@@ -107,7 +107,7 @@ public class MenuProducto {
     }
 
     private void mostrarInformacionProducto(Producto producto) {
-        System.out.println("Producto: " + producto.getNombre() +
+        System.out.print("Producto: " + producto.getNombre() +
                 ", ID: " + producto.getId() +
                 ", Nombre: " + producto.getNombre() +
                 ", Descripcion: " + producto.getDescripcion() +

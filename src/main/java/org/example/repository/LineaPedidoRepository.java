@@ -8,20 +8,14 @@ import java.util.List;
 
 public class LineaPedidoRepository implements CRUD<LineaPedido> {
 
-    private final ProductoRepository productoRepository;
     private final List<LineaPedido> lineaPedidos;
-    private int codigo = 0;
 
     public LineaPedidoRepository() {
-        this.productoRepository = new ProductoRepository();
         this.lineaPedidos = new ArrayList<>();
-        this.upload();
     }
 
     @Override
-    public void save(LineaPedido lineaPedido) {
-        codigo++;
-        lineaPedido.setCodigo(String.valueOf(codigo));
+    public void save(LineaPedido lineaPedido) {;
         lineaPedidos.add(lineaPedido);
     }
 
@@ -42,10 +36,8 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
 
     @Override
     public LineaPedido update(LineaPedido lineaPedido) {
-        if (findOne(lineaPedido.getCodigo()) != null) {
-            findOne(lineaPedido.getCodigo()).setCantidad(lineaPedido.getCantidad());
-        }
-        return null;
+        findOne(lineaPedido.getCodigo()).setCantidad(lineaPedido.getCantidad());
+        return lineaPedido;
     }
 
     @Override
@@ -55,13 +47,8 @@ public class LineaPedidoRepository implements CRUD<LineaPedido> {
 
     @Override
     public void upload() {
-        for (Producto producto : productoRepository.findAll()) {
-            codigo++;
-            lineaPedidos.add(new LineaPedido(String.valueOf(codigo), 2, producto, true, false, false, 0));
-        }
+        lineaPedidos.add(new LineaPedido(null, null, null, null, true, false,0));
     }
-
-    public void agregar(String id) {findOne(id).setAgregado(true);}
 
     public void entregado(String id) {
         findOne(id).setPedidoEntregado(true);
